@@ -96,7 +96,7 @@ h3 {
 h1,
 h2 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.08;
   letter-spacing: -0.015em;
 }
@@ -322,7 +322,12 @@ svg {
   padding: var(--space-4);
 }
 
+.section--tint .panel,
 .section--warm .panel {
+  background: #fff;
+}
+
+.section--warm .tabs {
   background: #fff;
 }
 
