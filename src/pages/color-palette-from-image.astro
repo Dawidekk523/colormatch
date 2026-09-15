@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { Analyzer } from '../components/Analyzer';
+import { MAX_FILE_BYTES } from '../lib/image-input';
+
+const maxMegabytes = Math.round(MAX_FILE_BYTES / (1024 * 1024));
+
+const faq = [
+  {
+    question: 'Which file types can I use?',
+    answer:
+      `JPG, PNG and WEBP all work, up to ${maxMegabytes} MB. Screenshots of a photo work too, although they lose a little detail.`,
+  },
+  {
+    question: 'My iPhone photo will not open. What now?',
+    answer:
+      'Newer iPhones save pictures as HEIC, a format browsers cannot read directly. Open Settings, then Camera, then Formats, and pick Most Compatible so future pictures are saved as JPG. For a picture you already have, email or message it to yourself and save the copy that arrives — it usually arrives as a JPG.',
+  },
+  {
+    question: 'Where does the picture go while it is being read?',
+    answer:
+      'Nowhere. The page opens the file from your own disk and measures the pixels in memory, on your machine. There is no upload step, so there is no copy sitting on a server and nothing for you to delete later.',
+  },
+  {
+    question: 'Can I use a group photo or an old print?',
+    answer:
+      'A group photo rarely works, because the colours measured come from the middle of the frame. Crop yourself out first. A scan of an old print can work, but film and paper both shift colour over the years, so treat the answer loosely.',
+  },
+  {
+    question: 'Why did two pictures of me give different seasons?',
+    answer:
+      'Lighting is the usual reason. A picture taken under a warm bulb pushes the reading towards the warm seasons and one taken in shade pushes it the other way. If two pictures disagree, the daylight one is the more trustworthy of the two.',
+  },
+  {
+    question: 'Should I edit or filter the picture first?',
+    answer:
+      'No. Beauty filters, auto-enhance and heavy retouching all rewrite skin tone, which is the one thing worth measuring. An unedited picture straight from the camera roll gives a truer reading than a flattering one.',
+  },
+];
+---
+
+<BaseLayout
+  title="Color Palette From a Photo — Free and Private | colormatch"
+  description="Get a color palette from an image in seconds. Upload a clear daylight photo of your face and see your season, your best shades and your neutrals. The photo is read on your device."
+  path="/color-palette-from-image/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>Get your colour palette from a photo</h1>
+      <p class="lede">
+        Pick a picture of your face and the page measures the skin tones in it, then matches them to one
+        of the four seasons. The file is opened on your own machine — nothing travels across the internet.
+      </p>
+      <Analyzer client:load />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>What makes a picture worth reading</h2>
+        <p>
+          The reading is a measurement of pixels, so whatever the camera recorded is what gets measured.
+          These four things matter far more than how good the picture is of you.
+        </p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Daylight, indirect</h3>
+          <p>
+            Face a window on a cloudy day, or stand in open shade outdoors. Avoid lamps, candlelight and
+            the bluish glow of a screen — each one paints its own colour across your face.
+          </p>
+        </li>
+        <li>
+          <h3>Bare face, hair back</h3>
+          <p>
+            Foundation and bronzer are designed to change the tones being measured. A clean face with
+            your hair tied or tucked behind you gives the reading a clear run at your skin.
+          </p>
+        </li>
+        <li>
+          <h3>Face filling the frame</h3>
+          <p>
+            Stand close enough that your face takes up most of the picture. A full-length shot gives the
+            reading mostly wall and jumper to work with.
+          </p>
+        </li>
+        <li>
+          <h3>A plain background</h3>
+          <p>
+            A white or pale grey wall reflects almost nothing back. A red sofa or a green garden bounces
+            its own colour onto your cheeks and quietly shifts the answer.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-2">
+      <div class="stack">
+        <h2>Why iPhone pictures sometimes refuse to open</h2>
+        <p>
+          Since iOS 11 most iPhones save pictures in HEIC, a compact format that browsers were never
+          taught to decode. When you pick one here, there is simply nothing to read and you get a message
+          saying the file type does not work.
+        </p>
+        <p>
+          The permanent fix takes fifteen seconds: Settings, then Camera, then Formats, then Most
+          Compatible. Every picture after that is saved as a JPG. For a picture you already have, send it
+          to yourself in a message or email and keep the copy that lands in your inbox — messaging apps
+          convert it on the way.
+        </p>
+        <p>
+          Android phones sometimes save in HEIF for the same reason, with the same fix hidden under the
+          camera app's picture-format setting.
+        </p>
+      </div>
+      <div class="panel stack">
+        <h3>What leaves your device</h3>
+        <ul class="prose">
+          <li>The picture file: never</li>
+          <li>A thumbnail or preview: never</li>
+          <li>Your face, name or email: never asked for</li>
+          <li>The season the reading landed on: counted anonymously</li>
+        </ul>
+        <p class="note">
+          Counting seasons anonymously tells us which palettes people land on. It carries no picture and
+          nothing that points back to you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--warm">
+    <div class="shell narrow stack">
+      <h2>How far to trust the reading</h2>
+      <p>
+        A camera is not an instrument. Phone cameras correct white balance automatically, brighten faces
+        without being asked, and smooth skin in ways you never see happen. Two pictures taken minutes
+        apart can therefore land on neighbouring seasons.
+      </p>
+      <p>
+        Treat the palette as a shortlist to try in a mirror rather than a finding about you. It is a
+        styling suggestion, not a professional consultation and not any sort of health assessment. If a
+        shade is on the list but you dislike it on yourself, your eyes win.
+      </p>
+      <p>
+        For a second opinion, answer the <a href="/color-analysis-quiz/">seven-question quiz</a>, which
+        reads signals a camera cannot see at all. The
+        <a href="/find-my-color-palette/">step-by-step guide</a> explains how to reconcile the two, and
+        the <a href="/color-seasons/">season reference</a> lists every shade in all four palettes.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <Faq title="About using a photo" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { UpgradeButton } from '../components/UpgradeButton';
+
+const faq = [
+  {
+    question: 'Will the free colour report stay free?',
+    answer:
+      'Yes. Your season, your palette, your neutrals and the colours to be careful with are free, and there is no sign-up to see them.',
+  },
+  {
+    question: 'What would the paid plan add?',
+    answer:
+      'A printable palette card to take shopping, a wardrobe checklist, and a copy sent to your email address. None of it changes the colour result itself.',
+  },
+  {
+    question: 'Is the paid plan available today?',
+    answer:
+      'Not yet. The button on this page tells you honestly whether checkout is open, and it will start working the moment the plan goes live.',
+  },
+];
+---
+
+<BaseLayout
+  title="Plans and Pricing | colormatch"
+  description="The colormatch colour report is free: your season, your palette and the colours to avoid. See what a future paid plan would add."
+  path="/pricing/"
+  faq={faq}
+>
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h1>Plans</h1>
+        <p class="lede">
+          Finding your colours costs nothing and always will. A paid plan is being prepared for people who
+          want something to take with them when they shop.
+        </p>
+      </div>
+
+      <div class="upgrade">
+        <div class="plan">
+          <h2>Free</h2>
+          <p class="plan__price">$0</p>
+          <ul>
+            <li>Your colour season from a photo or the quiz</li>
+            <li>Your possible undertone</li>
+            <li>Ten colours to wear, with names and colour codes</li>
+            <li>Four everyday neutrals</li>
+            <li>Five colours to be careful with</li>
+            <li>No account, no email address, nothing uploaded</li>
+          </ul>
+          <a class="btn btn--secondary btn--block" href="/">Get your colours</a>
+        </div>
+
+        <div class="plan plan--tint">
+          <h2>Palette card</h2>
+          <p class="plan__price">Coming soon</p>
+          <ul>
+            <li>Everything in the free plan</li>
+            <li>A printable card with your palette, sized for a handbag</li>
+            <li>A wardrobe checklist for your season</li>
+            <li>A copy emailed to you</li>
+            <li>One payment, no subscription</li>
+          </ul>
+          <UpgradeButton client:load />
+        </div>
+      </div>
+
+      <section class="stack narrow">
+        <h2>Questions about the plans</h2>
+        <div class="faq">
+          {
+            faq.map((item) => (
+              <details>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>

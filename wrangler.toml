@@ -1,0 +1,16 @@
+name = "colormatch"
+compatibility_date = "2026-09-01"
+pages_build_output_dir = "dist"
+
+# Anonymous, non-personal storage only: aggregated analysis counts and per-day
+# rate-limit buckets. Replace database_id with the id printed by
+# `wrangler d1 create color_palette_db`.
+[[d1_databases]]
+binding = "DB"
+database_name = "color_palette_db"
+database_id = "e96614b6-79cd-4091-81dd-b80a0ab752bc"
+
+[vars]
+# Non-secret defaults. Secrets (POLAR_WEBHOOK_SECRET, RESEND_API_KEY) are set
+# with `wrangler pages secret put <NAME>` and never stored in this file.
+ANALYSIS_DAILY_LIMIT = "50"

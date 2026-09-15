@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { ColourCompare } from '../components/ColourCompare';
+import { SeasonExplorer } from '../components/SeasonExplorer';
+
+const faq = [
+  {
+    question: 'Where should I begin if I have never done this before?',
+    answer:
+      'Begin with the quiz, because it costs you nothing but a minute and it teaches you what to look for. Once you know the vocabulary — warm against cool, light against deep, clear against soft — everything else on this site reads more easily.',
+  },
+  {
+    question: 'How long does the whole process take?',
+    answer:
+      'Getting a season takes a couple of minutes. Trusting it takes a week or two of holding the shades against your face in a mirror and noticing which ones people comment on.',
+  },
+  {
+    question: 'Can I work out my palette without any tool at all?',
+    answer:
+      'Yes, and it is worth doing. Sit by a window with a white sheet and a cream one, hold each under your chin in turn, and watch the skin around your eyes rather than the fabric. Whichever sheet makes shadows fade is pointing at your half of the wheel.',
+  },
+  {
+    question: 'The quiz and the photo gave me different seasons. Which is right?',
+    answer:
+      'Probably both, in the sense that you sit between them. Look at what the two seasons share — they will agree about warm against cool, or about light against deep — and shop from that shared ground while you test the rest.',
+  },
+  {
+    question: 'Does my palette change as I get older?',
+    answer:
+      'The undertone in your skin stays put, so your half of the wheel rarely moves. What changes is depth and contrast: as hair silvers, the gap between hair and skin narrows, and gentler, cooler versions of your shades often suit you better than they once did.',
+  },
+  {
+    question: 'Do I have to throw away clothes that are not in my palette?',
+    answer:
+      'No. The shades that matter are the ones touching your face. A skirt, a coat lining or a pair of trousers sits far enough away that it changes nothing, so keep them and put a flattering scarf or collar between the offending colour and your chin.',
+  },
+];
+---
+
+<BaseLayout
+  title="How to Find My Color Palette — A Step-by-Step Guide | colormatch"
+  description="A practical guide to finding your color palette: test your undertone in daylight, judge depth and contrast, then confirm with a free quiz or a photo. Written in plain language."
+  path="/find-my-color-palette/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>How to find your colour palette</h1>
+      <p class="lede">
+        Three things decide which shades flatter you: the undertone of your skin, how deep your
+        colouring is, and how much contrast there is between your hair and your face. Work through them
+        in that order and the answer tends to fall out on its own.
+      </p>
+      <div class="cluster">
+        <a class="btn btn--primary" href="/color-analysis-quiz/">Answer seven questions</a>
+        <a class="btn btn--secondary" href="/color-palette-from-image/">Read it from a photo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Work through it in three passes</h2>
+        <p>
+          Each pass narrows the field by half. Do them by a window, with a clean face, and give yourself
+          a minute per test rather than deciding in a glance.
+        </p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Undertone: warm or cool</h3>
+          <p>
+            Turn your wrist over in daylight. Greenish veins lean warm, bluish veins lean cool. Check it
+            against gold and silver on the back of your hand, then against a white sheet and a cream one
+            under your chin. Two tests out of three agreeing is enough to settle it.
+          </p>
+        </li>
+        <li>
+          <h3>Depth: light or deep</h3>
+          <p>
+            Take a photograph of yourself and turn it black and white. If the picture reads mostly pale,
+            your colouring is light. If it reads mostly dark, it is deep. This trick removes hue from the
+            decision entirely, which is exactly what makes it reliable.
+          </p>
+        </li>
+        <li>
+          <h3>Contrast: clear or soft</h3>
+          <p>
+            Look at that same grey picture again and compare your hair with your cheek. A wide gap means
+            crisp, definite shades suit you. A narrow gap means dusty, blended ones do.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Watch what a shade does to a face</h2>
+        <p>
+          Before you test anything on yourself, it helps to see the effect clearly on someone else. Drag
+          the handle across the drawing — or use the arrow keys — and keep your eyes on the skin under
+          the chin rather than on the top.
+        </p>
+      </div>
+      <div class="grid-2">
+        <ColourCompare client:visible />
+        <div class="stack">
+          <h3>What to look for in your own mirror</h3>
+          <p>
+            A shade that works lifts the shadows under your eyes, softens any redness across the nose and
+            makes the whites of your eyes look brighter. Your face comes forward and the garment recedes.
+          </p>
+          <p>
+            A shade that fights you does the opposite. Grey creeps in under the chin, lines look deeper
+            than they did a moment ago, and the first thing anyone notices is the top rather than you.
+            Nobody needs training to see this — it just helps to know where to look.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--warm">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Match your three answers to a season</h2>
+        <p>
+          Warm and light lands on Spring. Cool and soft lands on Summer. Warm and deep lands on Autumn.
+          Cool and clear lands on Winter. Pick a season below to see it worn, and try individual shades
+          on the drawing.
+        </p>
+      </div>
+      <SeasonExplorer client:visible />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-2">
+      <div class="stack">
+        <h2>Turn a season into a wardrobe</h2>
+        <p>
+          Start with the neutrals, since those become your coats, trousers and bags and you will buy them
+          rarely. Then add two or three of the wear shades near your face — a scarf, a shirt collar, a
+          knit — and live with them for a fortnight before buying anything else.
+        </p>
+        <p>
+          Photograph the palette on your phone and open it in the shop. Held against a rail under
+          fluorescent light, a screen is a far better judge than your memory of a colour name.
+        </p>
+        <p>
+          None of this is a rule you owe anybody. It is a shortcut for narrowing a rail of forty tops to
+          five worth trying on, and it is a guide rather than a professional or medical judgement.
+        </p>
+      </div>
+      <div class="panel stack">
+        <h3>Signs you landed on the right season</h3>
+        <ul class="prose">
+          <li>People ask whether you have been away</li>
+          <li>You need less concealer than you used to</li>
+          <li>Old favourites suddenly look tired on the hanger</li>
+          <li>Getting dressed takes less time, because more things go together</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell">
+      <Faq title="Questions about finding your palette" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { Quiz } from '../components/Quiz';
+import { QUIZ_QUESTIONS } from '../lib/quiz';
+
+const questionCount = QUIZ_QUESTIONS.length;
+
+const faq = [
+  {
+    question: `How long does the ${questionCount}-question quiz take?`,
+    answer:
+      'Most people finish in about ninety seconds. One question fills the screen at a time, so there is nothing to scroll past and nothing to read twice.',
+  },
+  {
+    question: 'What if none of the answers fits me exactly?',
+    answer:
+      'Most questions offer a middle answer for when you genuinely cannot tell, and choosing it is not a wasted answer — it tells the quiz that this signal is weak for you, so the other questions carry more of the weight. The questions about hair and eyes ask you to commit to the closest of four descriptions; pick the one you would use to describe yourself to a stranger.',
+  },
+  {
+    question: 'Do I need a mirror or anything else to hand?',
+    answer:
+      'A mirror helps for the question about hair and skin, and a bright white top next to a cream one helps for another. Nothing else is needed. If you cannot set those up, answer from memory and take the undecided option wherever one is offered.',
+  },
+  {
+    question: 'My hair has gone grey. Which colour should I say?',
+    answer:
+      'There is an answer for exactly that. Say grey or white if you have stopped colouring it and want a palette that suits you now. Say the shade you used to have if you still colour it back to that shade.',
+  },
+  {
+    question: 'Can I change an answer before I see the result?',
+    answer:
+      'Yes. A Go back button returns you to the previous question with your choice still selected, and nothing is worked out until the final question is answered.',
+  },
+  {
+    question: 'Are my answers saved on a server?',
+    answer:
+      'No. The questions are scored inside the page you are looking at. Your result is held only for the current browsing session on your own device, so closing the tab clears it.',
+  },
+];
+---
+
+<BaseLayout
+  title="Color Analysis Quiz — 7 Questions, Free Result | colormatch"
+  description="A free color analysis quiz. Answer seven plain questions about your veins, jewelry, hair and eyes to get your season, your palette and the colors to skip. No sign-up."
+  path="/color-analysis-quiz/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>Take the colour analysis quiz</h1>
+      <p class="lede">
+        {questionCount} plain questions about things you can check at home — no camera, no uploads, no
+        sign-up. At the end you get a season, a palette with names and codes, and a short list of shades
+        worth skipping.
+      </p>
+      <Quiz client:load />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Set yourself up before you start</h2>
+        <p>
+          The quiz is only as good as what you can see while you answer it. Three minutes of preparation
+          changes the result more than any amount of deliberating over the questions.
+        </p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Stand near a window</h3>
+          <p>
+            Daylight is the only light that shows your skin as it really is. Warm bulbs add gold to
+            everyone and cool office tubes drain it away. Overcast daylight is ideal; direct midday sun
+            is a little harsh.
+          </p>
+        </li>
+        <li>
+          <h3>Take your make-up off</h3>
+          <p>
+            Foundation is picked to even out a face, which is precisely the information the quiz wants to
+            read. Bare skin, wiped clean, gives a truer answer — and so does pushing your hair back off
+            your forehead.
+          </p>
+        </li>
+        <li>
+          <h3>Answer for your natural hair</h3>
+          <p>
+            If you dye your hair, picture the shade you grew. Dye sits on top of your colouring rather
+            than changing it, and the quiz is trying to read what sits underneath.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-2">
+      <div class="stack">
+        <h2>What the questions actually ask</h2>
+        <p>
+          Three of them test warmth: the veins inside your wrist, whether gold or silver sits better on
+          your hand, and whether bright white or cream is kinder held under your chin. These are the
+          questions that decide between the warm seasons and the cool ones, so they carry the most weight.
+        </p>
+        <p>
+          Two ask how deep your colouring is — your natural hair shade and what the sun does to you. The
+          last two ask about your eyes and about the gap in lightness between your hair and your face.
+          Those decide whether your palette should be crisp and clear or gentle and dusty.
+        </p>
+        <p>
+          Read the result as a starting point for shopping, not a verdict about you. It is a suggestion
+          from seven answers, not a professional consultation or any kind of health assessment.
+        </p>
+      </div>
+      <div class="panel stack">
+        <h3>Common answers that skew the result</h3>
+        <ul class="prose">
+          <li>Answering under a lamp instead of daylight</li>
+          <li>Judging jewellery you happen to own rather than what suits your skin</li>
+          <li>Describing dyed or freshly highlighted hair</li>
+          <li>Reaching for the undecided answer every time one is offered</li>
+          <li>Answering while wearing a strongly coloured top</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--warm">
+    <div class="shell narrow stack">
+      <h2>After the quiz</h2>
+      <p>
+        Your result names a season and shows the shades that go with it. Take one of the neutrals with
+        you next time you shop and hold it beside something you already own — that is a faster test than
+        reading about the theory.
+      </p>
+      <p>
+        If the result surprises you, run the <a href="/color-palette-from-image/">photo route</a> as well
+        and see whether it lands in the same place. Two routes agreeing is a good sign; two routes
+        disagreeing usually means you sit on the border between neighbouring seasons, which is common and
+        completely workable. The <a href="/color-seasons/">full reference of all four seasons</a> shows
+        you what each one covers, and the
+        <a href="/find-my-color-palette/">step-by-step guide</a> walks through what to do with the answer.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <Faq title="About the quiz" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

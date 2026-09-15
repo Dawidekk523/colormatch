@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { Analyzer } from '../components/Analyzer';
+import { SeasonExplorer } from '../components/SeasonExplorer';
+import { ColourCompare } from '../components/ColourCompare';
+
+const faq = [
+  {
+    question: 'Is my photo uploaded anywhere?',
+    answer:
+      'No. Your photo is read inside your own browser and never leaves your device. Nothing is stored and there is nothing to delete afterwards.',
+  },
+  {
+    question: 'Do I need to create an account?',
+    answer: 'No. There is no sign-up, no password and no email address needed to see your colours.',
+  },
+  {
+    question: 'How accurate is the result?',
+    answer:
+      'It is a helpful starting point, not a measurement. Camera settings, indoor lighting and make-up all change the colours in a photo, so treat the answer as a suggestion and trust your own eyes in a mirror.',
+  },
+  {
+    question: 'What if I do not want to use a photo?',
+    answer:
+      'Use the quiz instead. Seven short questions about your veins, your jewellery, your hair and your eyes get you to the same kind of result.',
+  },
+  {
+    question: 'Does this cost anything?',
+    answer: 'The season, the palette and the colours to avoid are free and always will be.',
+  },
+];
+---
+
+<BaseLayout
+  title="Free Color Analysis From a Photo or a Quiz | colormatch"
+  description="Find your color season in about a minute. Upload a photo or answer seven short questions and get your palette, your best colors and the colors to avoid. Free, no sign-up, photo never uploaded."
+  path="/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>Find the colours that suit you</h1>
+      <p class="lede">
+        Upload a photo or answer seven short questions. You get your colour season, your palette with names
+        and codes, and the colours that are worth avoiding. Free, and your photo stays on your device.
+      </p>
+      <Analyzer client:load />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>See the difference a colour makes</h2>
+        <p>
+          The same person, the same light, two different tops. Drag the handle — or use the left and right
+          arrow keys — to swap between them.
+        </p>
+      </div>
+      <div class="grid-2">
+        <ColourCompare season="summer" client:visible />
+        <div class="stack">
+          <h3>Why it changes so much</h3>
+          <p>
+            A colour close to your face bounces light back onto your skin. A colour that matches your
+            natural warmth evens out your skin and lifts your eyes. A colour that fights it adds shadow
+            under the chin and around the eyes.
+          </p>
+          <p>
+            This is why the same jumper can look wonderful on a friend and tired on you. Nothing is wrong
+            with the jumper.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>The four colour seasons, side by side</h2>
+        <p>
+          Pick a season to see it on a drawing, then tap any colour in the palette to try it on. This is a
+          sample result — yours will look the same, with your own season at the top.
+        </p>
+      </div>
+      <SeasonExplorer client:visible />
+    </div>
+  </section>
+
+  <section class="section section--warm">
+    <div class="shell stack-lg">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Choose a photo or start the quiz</h3>
+          <p>
+            A clear photo of your face in daylight works best. No photo handy? The quiz asks about things
+            you can check at home.
+          </p>
+        </li>
+        <li>
+          <h3>Your browser reads the colours</h3>
+          <p>
+            The photo is opened on your device and the skin tones in the middle of the picture are measured.
+            Nothing is sent anywhere.
+          </p>
+        </li>
+        <li>
+          <h3>You get a palette you can use</h3>
+          <p>
+            Colours to wear, everyday neutrals, and colours to be careful with — each one with a name and a
+            colour code you can take shopping.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-2">
+      <div class="stack">
+        <h2>Two ways in, one result</h2>
+        <p>
+          Photos are quick but depend on your camera and your lighting. The quiz is slower but uses things
+          you can see with your own eyes, like the veins on your wrist. Many people try both and compare.
+        </p>
+        <div class="cluster">
+          <a class="btn btn--primary" href="/color-analysis-quiz/">Take the quiz</a>
+          <a class="btn btn--secondary" href="/color-palette-from-image/">Use a photo</a>
+        </div>
+      </div>
+      <div class="panel stack">
+        <h3>What you get, free</h3>
+        <ul class="prose">
+          <li>Your season: Spring, Summer, Autumn or Winter</li>
+          <li>A possible undertone: warm, cool or neutral</li>
+          <li>Ten colours to wear, with names and colour codes</li>
+          <li>Four everyday neutrals that go with them</li>
+          <li>Five colours to be careful with, and why</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell">
+      <Faq title="Questions people ask" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

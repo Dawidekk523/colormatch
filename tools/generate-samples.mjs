@@ -1,0 +1,31 @@
+import { writeFileSync } from 'node:fs';
+
+const people = [
+  { file: 'light-warm', bg: '#eef2f6', skin: '#f0d2a8', hair: '#6b4423', shirt: '#2f9e9e', label: 'Light warm skin, brown hair' },
+  { file: 'light-cool', bg: '#f3eef6', skin: '#efc9bb', hair: '#c9b18a', shirt: '#8fb3d1', label: 'Light cool skin, fair hair' },
+  { file: 'deep-warm', bg: '#f6f1e9', skin: '#7a4a28', hair: '#20150f', shirt: '#c8971f', label: 'Deep warm skin, black hair' },
+  { file: 'deep-cool', bg: '#eef1f6', skin: '#6b4442', hair: '#1a1620', shirt: '#1f4fa3', label: 'Deep cool skin, black hair' },
+];
+
+// A flat illustration laid out like a selfie: the face fills the middle of the
+// frame so the same centre-weighted sampling the app uses finds it.
+const svg = ({ bg, skin, hair, shirt, label }) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="${label}">
+  <title>${label}</title>
+  <rect width="400" height="400" fill="${bg}"/>
+  <path d="M60 400c0-62 63-104 140-104s140 42 140 104z" fill="${shirt}"/>
+  <rect x="170" y="236" width="60" height="60" rx="26" fill="${skin}"/>
+  <path d="M200 44c-64 0-104 44-104 108 0 66 46 128 104 128s104-62 104-128c0-64-40-108-104-108z" fill="${hair}"/>
+  <ellipse cx="200" cy="188" rx="86" ry="104" fill="${skin}"/>
+  <path d="M200 52c-58 0-94 34-98 82 26-26 56-38 98-38s72 12 98 38c-4-48-40-82-98-82z" fill="${hair}"/>
+  <ellipse cx="170" cy="176" rx="9" ry="11" fill="#2b2b2b"/>
+  <ellipse cx="230" cy="176" rx="9" ry="11" fill="#2b2b2b"/>
+  <path d="M152 152c11-7 23-7 34-2" stroke="${hair}" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M214 150c11-5 23-5 34 2" stroke="${hair}" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M182 232c11 8 25 8 36 0" stroke="#8a4a46" stroke-width="7" stroke-linecap="round" fill="none"/>
+</svg>
+`;
+
+for (const person of people) {
+  writeFileSync(new URL(`../public/samples/${person.file}.svg`, import.meta.url), svg(person));
+}
+console.log('wrote', people.length, 'sample portraits');

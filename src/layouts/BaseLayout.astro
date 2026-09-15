@@ -1,0 +1,114 @@
+---
+import '../styles/global.css';
+import '../styles/app.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path with a trailing slash, e.g. "/color-seasons/". */
+  path: string;
+  faq?: { question: string; answer: string }[];
+}
+
+const { title, description, path, faq } = Astro.props;
+const canonical = new URL(path, Astro.site).href;
+
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/color-analysis-quiz/', label: 'Quiz' },
+  { href: '/color-palette-from-image/', label: 'From a photo' },
+  { href: '/color-seasons/', label: 'The four seasons' },
+  { href: '/find-my-color-palette/', label: 'How to find yours' },
+];
+
+const faqSchema = faq
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#1a53c4" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {faqSchema ? <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} /> : null}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to the main content</a>
+
+    <header class="masthead">
+      <div class="shell masthead__inner">
+        <a class="wordmark" href="/">
+          <span class="wordmark__mark" aria-hidden="true"></span>
+          colormatch
+        </a>
+        <nav aria-label="Main">
+          <ul class="nav">
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={item.href === path ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer__grid">
+        <div>
+          <h2>colormatch</h2>
+          <p class="note">
+            A free colour guide for choosing clothes you feel good in. Everything runs in your browser and
+            your photo is never uploaded.
+          </p>
+        </div>
+        <div>
+          <h2>Find your colours</h2>
+          <ul>
+            <li><a href="/color-analysis-quiz/">Take the quiz</a></li>
+            <li><a href="/color-palette-from-image/">Use a photo</a></li>
+            <li><a href="/find-my-color-palette/">How to find your palette</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Learn</h2>
+          <ul>
+            <li><a href="/color-seasons/">The four colour seasons</a></li>
+            <li><a href="/pricing/">Plans</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="shell note" style="margin-top: var(--space-4)">
+        This site gives style suggestions only. It is not a professional consultation and not a health or
+        medical assessment.
+      </p>
+    </footer>
+  </body>
+</html>

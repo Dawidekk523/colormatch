@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { contrastRatio, hexToRgb } from '../lib/color';
+import { SEASONS, SEASON_ORDER, UNDERTONE_LABEL } from '../lib/seasons-data';
+
+/** Pale chips need an outline or they disappear against the page. */
+const isPale = (hex: string) => contrastRatio(hexToRgb(hex), hexToRgb('#ffffff')) < 1.6;
+
+const seasons = SEASON_ORDER.map((id) => SEASONS[id]);
+
+const faq = [
+  {
+    question: 'Why four seasons and not twelve?',
+    answer:
+      'Twelve-season systems split each of these into sub-groups, which is useful for a stylist working in person. For choosing a jumper on a Saturday, four is plenty, and the shades in the sub-groups all sit inside the four palettes listed here anyway.',
+  },
+  {
+    question: 'What do warm and cool actually mean?',
+    answer:
+      'Warm shades carry yellow or gold inside them; cool shades carry blue or pink. Almost every colour exists in both versions — there is a warm red and a cool red, a warm green and a cool green — which is why two reds on the same rail can suit two different people.',
+  },
+  {
+    question: 'Can I belong to two seasons at once?',
+    answer:
+      'Plenty of people sit on a border. Spring and Autumn share warmth, Summer and Winter share coolness, Spring and Summer are both light, Autumn and Winter are both deep. If two palettes appeal to you, wear the shades they have in common and treat the rest as optional.',
+  },
+  {
+    question: 'Does skin tone decide my season?',
+    answer:
+      'No. Depth of skin and undertone are separate things, and every season here occurs across the full range of skin tones. What matters is the direction your skin leans, together with your hair and eyes, not how light or dark you are.',
+  },
+  {
+    question: 'What are the hex codes for?',
+    answer:
+      'They are the exact colour recipes used on this page, so you can paste one into a paint chart, a knitting-yarn search or a shop filter and get the same shade rather than an approximation of it.',
+  },
+  {
+    question: 'Are the colours to avoid forbidden?',
+    answer:
+      'Not at all — they are simply the shades that tend to work hardest against a given colouring when worn right under the chin. The same shade in a skirt, a bag or a coat below the waist causes no trouble whatsoever.',
+  },
+];
+---
+
+<BaseLayout
+  title="The Four Seasonal Color Palettes Explained | colormatch"
+  description="A full reference for the four seasonal color palettes. Every shade named, with hex codes, undertones, neutrals, colors to avoid and practical tips for each season."
+  path="/color-seasons/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>The four seasonal colour palettes</h1>
+      <p class="lede">
+        Seasonal colour analysis sorts people by three qualities: whether their colouring leans golden or
+        blue, whether it is light or deep, and whether it is crisp or dusty. Below is every shade in all
+        four palettes, named, with the codes to take shopping.
+      </p>
+      <p>
+        Nothing here needs a tool. If you already know your season, read its entry and skip the rest. If
+        you do not, the <a href="/find-my-color-palette/">step-by-step guide</a> works out which of the
+        four fits you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      {
+        seasons.map((season) => (
+          <article class="season-card stack-lg">
+            <div class="season-card__head stack" style={`border-color: ${season.accent}`}>
+              <h2>{season.name}</h2>
+              <p class="lede">{season.tagline}</p>
+              <p>{season.description}</p>
+              <p class="badge">Undertone: {UNDERTONE_LABEL[season.undertone]}</p>
+            </div>
+
+            <section class="swatch-block">
+              <h3>{season.name} colours to wear</h3>
+              <p>The shades that earn their place next to your face — tops, scarves, collars and frames.</p>
+              <ul class="swatch-grid">
+                {season.wear.map((swatch) => (
+                  <li class="swatch">
+                    <span
+                      class={isPale(swatch.hex) ? 'swatch__chip swatch__chip--outlined' : 'swatch__chip'}
+                      style={`background: ${swatch.hex}`}
+                      aria-hidden="true"
+                    />
+                    <span class="swatch__name">{swatch.name}</span>
+                    <span class="swatch__hex">{swatch.hex.toUpperCase()}</span>
+                    <span class="visually-hidden">Good colour for you</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="swatch-block">
+              <h3>{season.name} neutrals</h3>
+              <p>The quiet shades to build around: coats, trousers, bags and anything you buy once.</p>
+              <ul class="swatch-grid">
+                {season.neutrals.map((swatch) => (
+                  <li class="swatch">
+                    <span
+                      class={isPale(swatch.hex) ? 'swatch__chip swatch__chip--outlined' : 'swatch__chip'}
+                      style={`background: ${swatch.hex}`}
+                      aria-hidden="true"
+                    />
+                    <span class="swatch__name">{swatch.name}</span>
+                    <span class="swatch__hex">{swatch.hex.toUpperCase()}</span>
+                    <span class="visually-hidden">Good colour for you</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="swatch-block">
+              <h3>Shades {season.name} finds difficult</h3>
+              <p>{season.avoidReason}</p>
+              <ul class="swatch-grid">
+                {season.avoid.map((swatch) => (
+                  <li class="swatch">
+                    <span
+                      class={isPale(swatch.hex) ? 'swatch__chip swatch__chip--outlined' : 'swatch__chip'}
+                      style={`background: ${swatch.hex}`}
+                      aria-hidden="true"
+                    />
+                    <span class="swatch__name">{swatch.name}</span>
+                    <span class="swatch__hex">{swatch.hex.toUpperCase()}</span>
+                    <span class="visually-hidden">Colour to use carefully</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="stack">
+              <h3>Wearing {season.name} day to day</h3>
+              <ul class="tips">
+                {season.tips.map((tip) => (
+                  <li>{tip}</li>
+                ))}
+              </ul>
+            </section>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell grid-2">
+      <div class="stack">
+        <h2>Reading a palette properly</h2>
+        <p>
+          A palette is not a uniform. Nobody wears ten colours at once, and the lists above are a
+          shortlist rather than a shopping order. Most people end up living in two neutrals and three of
+          the wear shades, and that is the palette working as intended.
+        </p>
+        <p>
+          The further a garment sits from your chin, the less any of this matters. Shoes and handbags are
+          free. The rule earns its keep in the six inches under your face, where light bounces off fabric
+          and straight back onto your skin.
+        </p>
+        <p>
+          Everything here is a styling suggestion. It is not a professional consultation, not a
+          measurement and not any kind of health assessment — if a shade makes you feel like yourself,
+          that outranks any list.
+        </p>
+      </div>
+      <div class="panel stack">
+        <h3>Find out which one is yours</h3>
+        <p>
+          Two free routes, both finished in a couple of minutes, both landing on one of the four palettes
+          above.
+        </p>
+        <div class="cluster">
+          <a class="btn btn--primary" href="/color-analysis-quiz/">Take the quiz</a>
+          <a class="btn btn--secondary" href="/color-palette-from-image/">Use a photo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <Faq title="Questions about the seasons" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

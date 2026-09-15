@@ -1,0 +1,10 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "src", "tests", "*.config.ts", "*.config.mjs"],
+  "exclude": ["dist", "functions", ".wrangler", "tests/worker"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "types": ["vitest/globals"]
+  }
+}
