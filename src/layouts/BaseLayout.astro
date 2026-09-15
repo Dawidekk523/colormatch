@@ -47,8 +47,11 @@ const faqSchema = faq
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#1a53c4" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
     {faqSchema ? <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} /> : null}
   </head>
   <body>
@@ -57,7 +60,7 @@ const faqSchema = faq
     <header class="masthead">
       <div class="shell masthead__inner">
         <a class="wordmark" href="/">
-          <span class="wordmark__mark" aria-hidden="true"></span>
+          <img class="wordmark__mark" src="/favicon-96x96.png" alt="" width="96" height="96" />
           colormatch
         </a>
         <button

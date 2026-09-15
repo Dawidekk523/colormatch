@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-15 — Real logo and favicons
+
+Put the colormatch mark — a colour wheel around a garment on a hanger — in the
+masthead and across every icon slot (favicon, Apple touch icon, web manifest),
+replacing the placeholder square. The browser tab and the home-screen icon are
+the first and last thing a returning visitor sees, and a generic square there
+undercuts a product whose whole claim is an eye for colour. The theme colour
+moves from blue to white to match the page.
+
 ## 2026-09-15 — Editorial visual pass and mobile menu
 
 Reworked the interface to look like a fashion page rather than a generic tool:

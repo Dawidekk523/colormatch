@@ -28,21 +28,9 @@
 }
 
 .wordmark__mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: var(--ink);
-  position: relative;
-}
-
-.wordmark__mark::after {
-  content: '';
-  position: absolute;
-  inset: auto auto -5px -5px;
-  width: 18px;
-  height: 18px;
-  border-radius: 6px;
-  background: var(--brand);
+  width: 38px;
+  height: 38px;
+  flex: none;
 }
 
 .nav {
