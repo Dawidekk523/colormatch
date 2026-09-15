@@ -60,7 +60,18 @@ const faqSchema = faq
           <span class="wordmark__mark" aria-hidden="true"></span>
           colormatch
         </a>
-        <nav aria-label="Main">
+        <button
+          class="nav-toggle"
+          type="button"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          hidden
+        >
+          <span class="nav-toggle__bars" aria-hidden="true"></span>
+          <span class="nav-toggle__label">Menu</span>
+        </button>
+        <nav aria-label="Main" id="site-nav" class="site-nav">
           <ul class="nav">
             {
               nav.map((item) => (
@@ -110,5 +121,37 @@ const faqSchema = faq
         medical assessment.
       </p>
     </footer>
+
+    <script is:inline>
+      // The menu only collapses once this runs, so a page without JavaScript
+      // keeps every link visible instead of hiding them behind a dead button.
+      (() => {
+        const toggle = document.getElementById('nav-toggle');
+        const header = document.querySelector('.masthead');
+        if (!toggle || !header) return;
+
+        const wide = window.matchMedia('(min-width: 56rem)');
+        const setOpen = (open) => {
+          toggle.setAttribute('aria-expanded', String(open));
+          header.dataset.nav = open ? 'open' : 'closed';
+        };
+
+        toggle.hidden = false;
+        setOpen(false);
+
+        toggle.addEventListener('click', () => {
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key !== 'Escape') return;
+          if (toggle.getAttribute('aria-expanded') !== 'true') return;
+          setOpen(false);
+          toggle.focus();
+        });
+
+        wide.addEventListener('change', () => setOpen(false));
+      })();
+    </script>
   </body>
 </html>

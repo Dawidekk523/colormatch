@@ -72,7 +72,7 @@ export function Quiz() {
 
   if (shown) {
     return (
-      <div className="quiz" ref={resultRef} tabIndex={-1} aria-label="Your colour result">
+      <div className="quiz quiz--result" ref={resultRef} tabIndex={-1} aria-label="Your colour result">
         <ResultView
           season={shown.season}
           undertone={shown.undertone}

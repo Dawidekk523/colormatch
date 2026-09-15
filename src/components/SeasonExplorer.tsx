@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react';
 import { SEASONS, SEASON_ORDER, UNDERTONE_LABEL, type SeasonId } from '../lib/seasons-data';
-import { Portrait, SEASON_ARCHETYPE } from './Portrait';
+import { Drape, SEASON_ARCHETYPE } from './Drape';
 
 interface Props {
   initial?: SeasonId;
@@ -78,16 +78,17 @@ export function SeasonExplorer({ initial = 'spring', heading }: Props) {
         className="explorer__panel"
       >
         <div className="explorer__figure">
-          <Portrait
-            className="portrait"
+          <Drape
+            className="drape"
             skin={archetype.skin}
             hair={archetype.hair}
             background={archetype.background}
             shirt={worn}
-            label={`${archetype.label}, wearing ${wornName}`}
+            label={`${archetype.label}, worn with ${wornName}`}
           />
           <p className="explorer__caption">
-            Wearing <strong>{wornName}</strong> ({worn.toUpperCase()})
+            <span className="explorer__caption-chip" style={{ background: worn }} aria-hidden="true" />
+            Worn with <strong>{wornName}</strong> <span className="explorer__caption-hex">{worn.toUpperCase()}</span>
           </p>
         </div>
 
@@ -97,7 +98,7 @@ export function SeasonExplorer({ initial = 'spring', heading }: Props) {
           <p className="badge">{UNDERTONE_LABEL[season.undertone]}</p>
 
           <p className="explorer__prompt" id={`${baseId}-pick`}>
-            Tap a colour to put it on the drawing:
+            Tap a colour to try it:
           </p>
           <ul className="picker" aria-labelledby={`${baseId}-pick`}>
             {season.wear.map((swatch) => (

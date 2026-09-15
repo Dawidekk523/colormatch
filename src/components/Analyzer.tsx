@@ -130,7 +130,7 @@ export function Analyzer() {
 
   if (shown) {
     return (
-      <div className="analyzer" ref={resultRef} tabIndex={-1} aria-label="Your colour result">
+      <div className="analyzer analyzer--result" ref={resultRef} tabIndex={-1} aria-label="Your colour result">
         {preview ? (
           <p className="analyzer__preview-line">
             <img className="analyzer__preview" src={preview} alt="" width={96} height={96} />
@@ -184,7 +184,7 @@ export function Analyzer() {
 
       <div className="samples">
         <p className="samples__title" id="samples-title">
-          No photo to hand? Try one of these drawings:
+          No photo to hand? Try one of these colour studies:
         </p>
         <ul className="samples__row" aria-labelledby="samples-title">
           {SAMPLES.map((sample) => (

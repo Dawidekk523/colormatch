@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-09-15 — Editorial visual pass and mobile menu
+
+Reworked the interface to look like a fashion page rather than a generic tool:
+serif display headings against the existing large, high-contrast body text, one
+spacing and radius scale, flat surfaces and far more white space. The thesis is
+that a colour-analysis product is bought on taste — a visitor who does not trust
+the page's eye for colour will not trust its verdict about theirs — while the
+70+ readability decisions stay untouched.
+
+The cartoon face drawing is gone. Seasons and the before/after slider now show a
+colour study — hair tone, skin, garment — which reads as a considered swatch
+instead of clip art and gives the analyser more skin to measure. The five nav
+links collapse into a hamburger menu on phones so the header stops wrapping over
+two lines above the fold.
+
 ## 2026-09-15 — First MVP of colormatch
 
 Built the initial product: a free colour-analysis tool at getcolormatch.com that
