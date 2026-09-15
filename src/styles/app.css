@@ -602,11 +602,29 @@
 }
 
 .drape {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
+  overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--surface);
+}
+
+.drape__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drape__cloth {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
 }
 
 .explorer__caption {
@@ -714,11 +732,18 @@
   inset: 0;
   width: 100%;
   height: 100%;
+  border-radius: 0;
+}
+
+.compare__layer--top {
+  position: absolute;
+  inset: 0;
 }
 
 .compare__svg {
   width: 100%;
   height: 100%;
+  border-radius: 0;
 }
 
 .compare__divider {

@@ -7,7 +7,7 @@ interface Props {
 }
 
 /**
- * Side-by-side comparison on one colour study: drag the handle, or use the arrow
+ * Side-by-side comparison on one photograph: drag the handle, or use the arrow
  * keys, to swap between a colour that suits the season and one that fights it.
  * The two colours are also named in words underneath, so the slider is never
  * the only way to understand the point.
@@ -25,20 +25,19 @@ export function ColourCompare({ season = 'summer' }: Props) {
       <div className="compare__stage">
         <Drape
           className="compare__layer"
-          skin={archetype.skin}
-          hair={archetype.hair}
-          background="#ffffff"
+          photo={archetype.photo}
+          clothTop={archetype.clothTop}
           shirt={poor.hex}
-          label={`${archetype.label}, worn with ${poor.name}`}
+          label={`${archetype.description}, draped in ${poor.name}`}
         />
         <div className="compare__layer compare__layer--top" style={{ clipPath: `inset(0 0 0 ${position}%)` }}>
           <Drape
             className="compare__svg"
-            skin={archetype.skin}
-            hair={archetype.hair}
-            background="#ffffff"
+            photo={archetype.photo}
+            clothTop={archetype.clothTop}
             shirt={good.hex}
-            label={`${archetype.label}, worn with ${good.name}`}
+            label={`${archetype.description}, draped in ${good.name}`}
+            decorative
           />
         </div>
         <div className="compare__divider" style={{ left: `${position}%` }} aria-hidden="true">

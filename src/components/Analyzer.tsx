@@ -16,10 +16,10 @@ import { ResultView } from './ResultView';
 type Status = 'idle' | 'working';
 
 const SAMPLES = [
-  { src: '/samples/light-warm.svg', label: 'Light skin, warm tone' },
-  { src: '/samples/light-cool.svg', label: 'Light skin, cool tone' },
-  { src: '/samples/deep-warm.svg', label: 'Deep skin, warm tone' },
-  { src: '/samples/deep-cool.svg', label: 'Deep skin, cool tone' },
+  { src: '/samples/light-warm.jpg', label: 'Light skin, warm tone' },
+  { src: '/samples/light-cool.jpg', label: 'Light skin, cool tone' },
+  { src: '/samples/golden-warm.jpg', label: 'Golden skin, warm tone' },
+  { src: '/samples/deep-cool.jpg', label: 'Deep skin, cool tone' },
 ];
 
 /** Records the outcome only. It never blocks the result and never sends the photo. */
@@ -184,7 +184,7 @@ export function Analyzer() {
 
       <div className="samples">
         <p className="samples__title" id="samples-title">
-          No photo to hand? Try one of these colour studies:
+          No photo to hand? Try one of these photos:
         </p>
         <ul className="samples__row" aria-labelledby="samples-title">
           {SAMPLES.map((sample) => (
@@ -195,7 +195,7 @@ export function Analyzer() {
                 disabled={status === 'working'}
                 onClick={() => run(sample.src, sample.label)}
               >
-                <img src={sample.src} alt="" width={120} height={120} loading="lazy" />
+                <img src={sample.src} alt="" width={640} height={640} loading="lazy" decoding="async" />
                 <span>{sample.label}</span>
               </button>
             </li>

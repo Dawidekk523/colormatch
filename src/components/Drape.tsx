@@ -1,68 +1,83 @@
 interface Props {
-  skin: string;
-  hair: string;
+  /** Path to the portrait in public/photos. */
+  photo: string;
+  /** Where the clothing starts in the photo, 0–1 from the top. */
+  clothTop: number;
+  /** The colour draped over the clothing. */
   shirt: string;
-  background: string;
-  /** Read out instead of the drawing itself. */
+  /** Describes the person and the colour they are draped in. */
   label: string;
   className?: string;
+  eager?: boolean;
+  /** For a second copy of the same photo, which adds nothing when read aloud. */
+  decorative?: boolean;
 }
 
 /**
- * A colour study, not a portrait: a band of hair tone above a field of skin
- * tone, with the garment colour worn under a neckline. It is deliberately
- * abstract — a face drawn flat looks like a cartoon, and the point here is the
- * colour meeting the skin. The same geometry is baked into the sample files in
- * public/samples, so what the analyser reads matches what people see.
+ * A photograph with a colour laid over the clothing, the way a stylist holds a
+ * length of fabric under someone's chin. The scooped top edge keeps the neck
+ * and jaw visible, because that is where a colour either lifts the skin or
+ * drains it — covering the face would hide the only thing worth looking at.
  */
-export function Drape({ skin, hair, shirt, background, label, className }: Props) {
+export function Drape({
+  photo,
+  clothTop,
+  shirt,
+  label,
+  className,
+  eager = false,
+  decorative = false,
+}: Props) {
   return (
-    <svg
-      viewBox="0 0 400 400"
-      className={className}
-      role="img"
-      aria-label={label}
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <rect width="400" height="400" fill={background} />
-      <rect y="0" width="400" height="88" fill={hair} />
-      <rect y="88" width="400" height="192" fill={skin} />
-      <rect y="280" width="400" height="120" fill={shirt} />
-      <path d="M150 280h100l-50 62z" fill={skin} />
-    </svg>
+    <span className={className ? `drape ${className}` : 'drape'}>
+      <img
+        className="drape__photo"
+        src={photo}
+        alt={decorative ? '' : label}
+        width={640}
+        height={800}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+      <svg
+        className="drape__cloth"
+        style={{ top: `${clothTop * 100}%` }}
+        viewBox="0 0 100 60"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path d="M0 0C24 17 76 17 100 0v60H0z" fill={shirt} />
+      </svg>
+    </span>
   );
 }
 
 export interface Archetype {
-  skin: string;
-  hair: string;
-  background: string;
-  label: string;
+  photo: string;
+  clothTop: number;
+  /** Describes the colouring, never the person. */
+  description: string;
 }
 
 export const SEASON_ARCHETYPE: Record<string, Archetype> = {
   spring: {
-    skin: '#f0d2a8',
-    hair: '#8a5a2b',
-    background: '#f7f4ef',
-    label: 'Colour study: light warm skin with light brown hair',
+    photo: '/photos/spring.jpg',
+    clothTop: 0.74,
+    description: 'Person with light warm skin and dark hair',
   },
   summer: {
-    skin: '#efc9bb',
-    hair: '#a9967a',
-    background: '#f1f2f4',
-    label: 'Colour study: light cool skin with ash blonde hair',
+    photo: '/photos/summer.jpg',
+    clothTop: 0.5,
+    description: 'Person with light cool skin and blonde hair',
   },
   autumn: {
-    skin: '#a5683c',
-    hair: '#3a2416',
-    background: '#f7f4ef',
-    label: 'Colour study: deep warm skin with dark brown hair',
+    photo: '/photos/autumn.jpg',
+    clothTop: 0.68,
+    description: 'Person with deep warm skin and black hair',
   },
   winter: {
-    skin: '#6b4442',
-    hair: '#17141c',
-    background: '#f1f2f4',
-    label: 'Colour study: deep cool skin with black hair',
+    photo: '/photos/winter.jpg',
+    clothTop: 0.6,
+    description: 'Person with cool skin and black hair',
   },
 };

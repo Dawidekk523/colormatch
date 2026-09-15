@@ -130,3 +130,12 @@ call a real payment provider.
   plain language and points at the quiz.
 - The result is a styling suggestion. It is not a professional consultation and
   not any kind of health or medical assessment, and the interface says so.
+
+## Photography
+
+The sample inputs (`public/samples`) and the season portraits (`public/photos`)
+are Unsplash photographs, fetched and cropped by `node tools/prepare-photos.mjs`,
+with the source and photographer of every file recorded in
+`PHOTO-CREDITS.md`. The samples are square face crops because clicking one
+runs the real analyser; `tests/samples.test.ts` decodes them and asserts the season
+each one reads as, so a swapped photo cannot quietly change what the tiles promise.

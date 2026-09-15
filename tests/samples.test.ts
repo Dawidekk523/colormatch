@@ -1,56 +1,66 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import jpeg from 'jpeg-js';
 import { describe, expect, it } from 'vitest';
-import { hexToRgb } from '../src/lib/color';
 import { analyseSkinReading } from '../src/lib/season';
 import { readSkin, SAMPLE_SIZE } from '../src/lib/skin';
 
 /**
- * The sample drawings are real inputs: clicking one runs the same analyser a
- * photo runs through. Rasterising the bands here keeps the artwork and the
- * reading honest with each other, so a redesign of the drawing cannot quietly
- * change which season a sample lands on.
+ * The sample photos are real inputs: clicking one runs the same analyser a
+ * visitor's own photo runs through. Decoding them here, and box-averaging down
+ * to the size the browser canvas uses, keeps the pictures and the tiles that
+ * describe them honest with each other — swapping in a photo that reads as a
+ * different season fails the suite instead of shipping a wrong example.
  */
-const BAND = /<rect(?:\s+y="(\d+)")?\s+width="400"\s+height="(\d+)"\s+fill="(#[0-9a-f]{6})"\/>/g;
+function downsample(file: string): Uint8ClampedArray {
+  const raw = jpeg.decode(readFileSync(resolve(process.cwd(), `public/samples/${file}.jpg`)), {
+    useTArray: true,
+    formatAsRGBA: true,
+  });
+  const out = new Uint8ClampedArray(SAMPLE_SIZE * SAMPLE_SIZE * 4);
+  const boxWidth = raw.width / SAMPLE_SIZE;
+  const boxHeight = raw.height / SAMPLE_SIZE;
 
-function rasterise(file: string): Uint8ClampedArray {
-  const svg = readFileSync(resolve(process.cwd(), `public/samples/${file}.svg`), 'utf8');
-  const bands = [...svg.matchAll(BAND)].map((m) => ({
-    top: Number(m[1] ?? 0),
-    height: Number(m[2]),
-    rgb: hexToRgb(m[3]!),
-  }));
-  expect(bands.length).toBeGreaterThanOrEqual(4);
-
-  const data = new Uint8ClampedArray(SAMPLE_SIZE * SAMPLE_SIZE * 4);
   for (let y = 0; y < SAMPLE_SIZE; y += 1) {
-    const sourceY = (y / SAMPLE_SIZE) * 400;
-    const band = bands.findLast((b) => sourceY >= b.top && sourceY < b.top + b.height) ?? bands[0]!;
     for (let x = 0; x < SAMPLE_SIZE; x += 1) {
-      const i = (y * SAMPLE_SIZE + x) * 4;
-      data[i] = band.rgb.r;
-      data[i + 1] = band.rgb.g;
-      data[i + 2] = band.rgb.b;
-      data[i + 3] = 255;
+      let r = 0;
+      let g = 0;
+      let b = 0;
+      let seen = 0;
+      for (let sy = Math.floor(y * boxHeight); sy < Math.ceil((y + 1) * boxHeight); sy += 1) {
+        for (let sx = Math.floor(x * boxWidth); sx < Math.ceil((x + 1) * boxWidth); sx += 1) {
+          const i = (Math.min(sy, raw.height - 1) * raw.width + Math.min(sx, raw.width - 1)) * 4;
+          r += raw.data[i]!;
+          g += raw.data[i + 1]!;
+          b += raw.data[i + 2]!;
+          seen += 1;
+        }
+      }
+      const o = (y * SAMPLE_SIZE + x) * 4;
+      out[o] = r / seen;
+      out[o + 1] = g / seen;
+      out[o + 2] = b / seen;
+      out[o + 3] = 255;
     }
   }
-  return data;
+  return out;
 }
 
-const CASES: { file: string; season: string }[] = [
+const CASES = [
   { file: 'light-warm', season: 'spring' },
   { file: 'light-cool', season: 'summer' },
-  { file: 'deep-warm', season: 'autumn' },
+  { file: 'golden-warm', season: 'autumn' },
   { file: 'deep-cool', season: 'winter' },
-];
+] as const;
 
-describe('sample drawings', () => {
+describe('sample photos', () => {
   for (const { file, season } of CASES) {
     it(`${file} reads as ${season}`, () => {
-      const reading = readSkin(rasterise(file), SAMPLE_SIZE, SAMPLE_SIZE);
-      expect(reading.coverage).toBeGreaterThan(0.2);
-      const result = analyseSkinReading(reading);
-      expect(result?.season).toBe(season);
+      const reading = readSkin(downsample(file), SAMPLE_SIZE, SAMPLE_SIZE);
+      // Well clear of MIN_SKIN_COVERAGE: a sample that barely qualifies would
+      // be a poor example of the photo the site asks for.
+      expect(reading.coverage).toBeGreaterThan(0.4);
+      expect(analyseSkinReading(reading)?.season).toBe(season);
     });
   }
 });

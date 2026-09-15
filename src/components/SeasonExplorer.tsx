@@ -79,12 +79,10 @@ export function SeasonExplorer({ initial = 'spring', heading }: Props) {
       >
         <div className="explorer__figure">
           <Drape
-            className="drape"
-            skin={archetype.skin}
-            hair={archetype.hair}
-            background={archetype.background}
+            photo={archetype.photo}
+            clothTop={archetype.clothTop}
             shirt={worn}
-            label={`${archetype.label}, worn with ${wornName}`}
+            label={`${archetype.description}, draped in ${wornName}`}
           />
           <p className="explorer__caption">
             <span className="explorer__caption-chip" style={{ background: worn }} aria-hidden="true" />
@@ -98,7 +96,7 @@ export function SeasonExplorer({ initial = 'spring', heading }: Props) {
           <p className="badge">{UNDERTONE_LABEL[season.undertone]}</p>
 
           <p className="explorer__prompt" id={`${baseId}-pick`}>
-            Tap a colour to try it:
+            Tap a colour to drape it:
           </p>
           <ul className="picker" aria-labelledby={`${baseId}-pick`}>
             {season.wear.map((swatch) => (

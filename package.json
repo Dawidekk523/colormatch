@@ -30,6 +30,7 @@
     "astro": "^7.3.2",
     "eslint": "^10.10.0",
     "eslint-plugin-react-hooks": "^7.1.1",
+    "jpeg-js": "^0.4.4",
     "jsdom": "^30.0.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
