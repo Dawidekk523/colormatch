@@ -29,13 +29,13 @@
   /* Phone first. A 19px body with a 21px button is comfortable on a laptop and
      shouting on a 390px screen — six words a line, and a price that wraps. The
      scale steps up at 48rem, where the column is wide enough to carry it. */
-  --step--1: 0.9375rem;
-  --step-0: 1.0625rem;
-  --step-1: 1.1875rem;
-  --step-2: 1.375rem;
-  --step-3: 1.75rem;
-  --step-4: 2.125rem;
-  --step-5: 2.5rem;
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.25rem;
+  --step-3: 1.5rem;
+  --step-4: 1.875rem;
+  --step-5: 2.25rem;
 
   --space-1: 0.5rem;
   --space-2: 0.875rem;
@@ -84,7 +84,7 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -124,6 +124,14 @@ h3 {
 }
 
 @media (min-width: 48rem) {
+  body {
+    line-height: 1.6;
+  }
+
+  .btn {
+    min-height: 60px;
+  }
+
   :root {
     --step--1: 1rem;
     --step-0: 1.1875rem;
@@ -233,7 +241,7 @@ svg {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 60px;
+  min-height: 50px;
   padding: var(--space-2) var(--space-4);
   border: 2px solid transparent;
   border-radius: var(--radius-pill);

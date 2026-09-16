@@ -3,9 +3,10 @@
 ## 2026-09-16 — A type scale for the phone it is read on
 
 The whole type scale now starts smaller and steps up at 48rem instead of being
-one desktop size everywhere: 17px body and a 34px heading on a phone, the old
-19px and 56px from a tablet up. Buttons that sit in a row on a wide screen
-become a full-width stack below 30rem, so a label never wraps inside a pill.
+one desktop size everywhere: 16px body and a 30px heading on a phone, the old
+19px and 56px from a tablet up, with tighter leading and shorter buttons to
+match. Buttons that sit in a row on a wide screen become a full-width stack
+below 30rem, so a label never wraps inside a pill.
 
 The thesis is that most of this site is read on a phone, where the old scale
 gave five or six words to a line and pushed the palette below the fold. Nothing
