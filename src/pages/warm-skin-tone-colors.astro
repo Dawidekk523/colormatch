@@ -8,6 +8,12 @@ const page = UNDERTONE_PAGES.warm;
 const group = UNDERTONE_GROUPS.warm;
 ---
 
-<BaseLayout title={page.title} description={page.description} path={`/${group.slug}/`} faq={page.faq}>
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  path={`/${group.slug}/`}
+  faq={page.faq}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Skin tone', path: '/skin-tone-colors/' }]}
+>
   <UndertoneSection id="warm" />
 </BaseLayout>

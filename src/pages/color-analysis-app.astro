@@ -35,12 +35,27 @@ const faq = [
       'It is built to. The reading measures undertone and contrast rather than lightness, and all four seasons occur at every skin depth. The sample photographs on the site deliberately cover a wide range, because a tool that only works on pale skin is not finished.',
   },
 ];
+
+const appSchema = [
+  {
+    '@type': 'SoftwareApplication',
+    name: 'colormatch',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Any browser',
+    url: 'https://getcolormatch.com/',
+    description:
+      'Reads a photograph in the browser and returns a colour season, an undertone and a palette with colour codes. The photo is never uploaded.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
 ---
 
 <BaseLayout
   title="A Free Colour Analysis App That Runs in Your Browser | colormatch"
   description="A free color analysis app with no download and no sign-up. Upload a photo or answer seven questions and get your color season, undertone and palette with hex codes. The photo never leaves your device."
   path="/color-analysis-app/"
+  schema={appSchema}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
   faq={faq}
 >
   <section class="hero hero--split">

@@ -40,7 +40,18 @@ const props = Astro.props;
       const children = SUBTYPES_BY_PARENT[page.season].filter((subtype) => SUBTYPE_PAGES[subtype.id]);
 
       return (
-        <BaseLayout title={page.title} description={page.description} path={`/${page.slug}/`} faq={page.faq}>
+        <BaseLayout
+          title={page.title}
+          description={page.description}
+          path={`/${page.slug}/`}
+          faq={page.faq}
+          image={`/og/${page.season}.png`}
+          crumb={season.name}
+          breadcrumbs={[
+            { name: 'Home', path: '/' },
+            { name: 'The four seasons', path: '/color-seasons/' },
+          ]}
+        >
           <section class="hero">
             <div class="shell hero__inner stack">
               <h1>{page.heading}</h1>
@@ -177,7 +188,19 @@ const props = Astro.props;
       );
 
       return (
-        <BaseLayout title={page.title} description={page.description} path={`/${subtype.slug}/`} faq={page.faq}>
+        <BaseLayout
+          title={page.title}
+          description={page.description}
+          path={`/${subtype.slug}/`}
+          faq={page.faq}
+          image={`/og/${subtype.id}.png`}
+          crumb={subtype.name}
+          breadcrumbs={[
+            { name: 'Home', path: '/' },
+            { name: 'The four seasons', path: '/color-seasons/' },
+            { name: SEASONS[subtype.parent].name, path: `/${SEASON_PAGES[subtype.parent].slug}/` },
+          ]}
+        >
           <section class="hero">
             <div class="shell hero__inner stack">
               <h1>The {subtype.name.toLowerCase()} colour palette</h1>

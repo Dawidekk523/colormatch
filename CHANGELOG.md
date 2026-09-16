@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-16 — Link previews, breadcrumbs and a 404 that leads somewhere
+
+Every page now carries a share card: a generated 1200x630 image built from the
+same palette data as the page itself, one per season and per subtype, plus a
+brand card for everything else. Palette pages gained breadcrumbs, the search
+result markup grew from FAQ-only to the organisation, the site, the page,
+breadcrumbs, the free tool and the paid report, and a missing address now lands
+on a page that offers the four palettes and both ways into the tool.
+
+The thesis is that the site was invisible everywhere a link travels: shared to a
+group chat or a feed, it showed a blank rectangle, and in search it gave Google
+nothing to build a result out of beyond the title. None of this changes a page's
+content; it changes what the rest of the internet sees of it.
+
 ## 2026-09-16 — The reading shows its working
 
 Both the photo and the quiz now hand over the result through a short sequence

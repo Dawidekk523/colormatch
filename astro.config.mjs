@@ -13,7 +13,9 @@ export default defineConfig({
     react(),
     // A bought result is private and reachable only with its token, so it has
     // no business in the sitemap.
-    sitemap({ filter: (page) => !page.includes('/result/') }),
+    // `lastmod` is the build: the whole site is generated from one source tree,
+    // so every page is as fresh as the deploy that made it.
+    sitemap({ filter: (page) => !page.includes('/result/'), lastmod: new Date() }),
   ],
   devToolbar: { enabled: false },
 });

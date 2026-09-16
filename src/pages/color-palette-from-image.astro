@@ -34,12 +34,27 @@ const faq = [
       'No. Beauty filters, auto-enhance and heavy retouching all rewrite skin tone, which is the one thing worth measuring. An unedited picture straight from the camera roll gives a truer reading than a flattering one.',
   },
 ];
+
+const appSchema = [
+  {
+    '@type': 'SoftwareApplication',
+    name: 'colormatch',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Any browser',
+    url: 'https://getcolormatch.com/',
+    description:
+      'Reads a photograph in the browser and returns a colour season, an undertone and a palette with colour codes. The photo is never uploaded.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
 ---
 
 <BaseLayout
   title="Color Palette From a Photo — Free and Private | colormatch"
   description="Get a color palette from an image in seconds. Upload a clear daylight photo of your face and see your season, your best shades and your neutrals. The photo is read on your device."
   path="/color-palette-from-image/"
+  schema={appSchema}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
   faq={faq}
 >
   <section class="hero">

@@ -12,6 +12,7 @@
     "lint": "eslint src functions tests",
     "test": "vitest run",
     "test:watch": "vitest",
+    "og:build": "vite-node tools/build-og.mjs",
     "functions:build": "wrangler pages functions build --outdir .wrangler/fn-build",
     "db:migrate:local": "wrangler d1 migrations apply color_palette_db --local",
     "db:migrate:remote": "wrangler d1 migrations apply color_palette_db --remote"
@@ -22,6 +23,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@cloudflare/workers-types": "^5.20260915.1",
     "@eslint/js": "^10.0.1",
+    "@napi-rs/canvas": "^1.0.9",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/react": "^19.3.0",
@@ -36,6 +38,7 @@
     "react-dom": "^19.3.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.70.0",
+    "vite-node": "^6.0.0",
     "vitest": "^5.0.1",
     "wrangler": "^4.132.0"
   },

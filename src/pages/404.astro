@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SEASON_PAGE_LIST } from '../lib/season-pages';
+
+/**
+ * A missing page is usually a mistyped palette name or a link that outlived a
+ * rename, so this one hands over the four palettes and both ways into the tool
+ * rather than apologising and stopping.
+ */
+const seasons = SEASON_PAGE_LIST;
+---
+
+<BaseLayout
+  title="Page not found | colormatch"
+  description="That page does not exist. Find your colour season from a photo or the quiz, or open one of the four palettes."
+  path="/404/"
+  noindex
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>That page is not here</h1>
+      <p class="lede">
+        The address may have changed, or it may have a typo in it. Everything below still works.
+      </p>
+      <div class="cluster">
+        <a class="btn btn--primary" href="/">Find your colours</a>
+        <a class="btn btn--quiet" href="/color-analysis-quiz/">Take the quiz</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>The four palettes</h2>
+        <p>Every shade with its name and colour code, and the ones worth skipping.</p>
+      </div>
+      <ul class="tips">
+        {seasons.map((page) => (
+          <li><a href={`/${page.slug}/`}>{page.heading}</a></li>
+        ))}
+        <li><a href="/color-seasons/">All four, side by side</a></li>
+        <li><a href="/skin-tone-colors/">Skin tone and undertone</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

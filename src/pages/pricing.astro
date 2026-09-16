@@ -8,6 +8,23 @@ import { UpgradeButton } from '../components/UpgradeButton';
 // change does not need a code change.
 const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
 
+const productSchema = [
+  {
+    '@type': 'Product',
+    name: 'colormatch full colour report',
+    description:
+      'The whole reading: three measured axes with numbers, your subtype out of the twelve with its own palette, a match score for all four seasons, every colour measured, shopping rules, and the palette as a picture to share or print.',
+    brand: { '@type': 'Brand', name: 'colormatch' },
+    offers: {
+      '@type': 'Offer',
+      price: cardPrice.replace(/[^0-9.]/g, ''),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: 'https://getcolormatch.com/pricing/',
+    },
+  },
+];
+
 const faq = [
   {
     question: 'Will the free colour report stay free?',
@@ -36,6 +53,8 @@ const faq = [
   title="Plans and Pricing | colormatch"
   description="Your season, your palette and the colours to avoid are free. The full colormatch report adds your measurements, your subtype out of the twelve, every colour measured and a picture to share."
   path="/pricing/"
+  schema={productSchema}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
   faq={faq}
 >
   <section class="section">

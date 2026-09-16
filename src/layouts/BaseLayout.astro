@@ -2,6 +2,11 @@
 import '../styles/global.css';
 import '../styles/app.css';
 
+interface Crumb {
+  name: string;
+  path: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -10,10 +15,20 @@ interface Props {
   faq?: { question: string; answer: string }[];
   /** For pages that exist for one visitor only, like a bought result. */
   noindex?: boolean;
+  /** Share card, under /og/. Falls back to the brand one. */
+  image?: string;
+  /** Everything above this page, excluding the page itself. */
+  breadcrumbs?: Crumb[];
+  /** What this page is called in a breadcrumb, when the title is too long. */
+  crumb?: string;
+  /** Extra JSON-LD for what this page in particular is. */
+  schema?: Record<string, unknown>[];
 }
 
-const { title, description, path, faq, noindex } = Astro.props;
+const { title, description, path, faq, noindex, image, breadcrumbs, crumb, schema = [] } = Astro.props;
+const here = crumb ?? title.split(' | ')[0]!;
 const canonical = new URL(path, Astro.site).href;
+const shareImage = new URL(image ?? '/og/default.png', Astro.site).href;
 
 const nav = [
   { href: '/', label: 'Home' },
@@ -23,17 +38,65 @@ const nav = [
   { href: '/find-my-color-palette/', label: 'How to find yours' },
 ];
 
-const faqSchema = faq
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faq.map((item) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: { '@type': 'Answer', text: item.answer },
-      })),
-    }
-  : null;
+const origin = new URL('/', Astro.site).href;
+
+/**
+ * One graph per page rather than a pile of separate blocks: the organisation
+ * and the site are the same two things everywhere, and anything the page adds
+ * hangs off them by reference.
+ */
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': 'Organization',
+    '@id': `${origin}#organisation`,
+    name: 'colormatch',
+    url: origin,
+    logo: new URL('/web-app-manifest-512x512.png', Astro.site).href,
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${origin}#website`,
+    name: 'colormatch',
+    url: origin,
+    publisher: { '@id': `${origin}#organisation` },
+    inLanguage: 'en',
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${canonical}#page`,
+    url: canonical,
+    name: title,
+    description,
+    isPartOf: { '@id': `${origin}#website` },
+    primaryImageOfPage: shareImage,
+  },
+  ...schema,
+];
+
+if (breadcrumbs?.length) {
+  graph.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: [...breadcrumbs, { name: here, path }].map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: new URL(item.path, Astro.site).href,
+    })),
+  });
+}
+
+if (faq) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  });
+}
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 ---
 
 <!doctype html>
@@ -46,16 +109,23 @@ const faqSchema = faq
     <link rel="canonical" href={canonical} />
     {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="colormatch" />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={shareImage} />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
-    {faqSchema ? <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} /> : null}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to the main content</a>
@@ -94,6 +164,22 @@ const faqSchema = faq
     </header>
 
     <main id="main">
+      {
+        breadcrumbs?.length ? (
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <div class="shell">
+              <ol>
+                {breadcrumbs.map((crumb) => (
+                  <li>
+                    <a href={crumb.path}>{crumb.name}</a>
+                  </li>
+                ))}
+                <li aria-current="page">{here}</li>
+              </ol>
+            </div>
+          </nav>
+        ) : null
+      }
       <slot />
     </main>
 
