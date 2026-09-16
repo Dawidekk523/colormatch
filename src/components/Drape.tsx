@@ -41,7 +41,7 @@ export function Drape({
       />
       <svg
         className="drape__cloth"
-        style={{ top: `${clothTop * 100}%` }}
+        style={{ top: `${clothTop * 100}%`, height: `calc(100% - ${clothTop * 100}%)` }}
         viewBox="0 0 100 60"
         preserveAspectRatio="none"
         aria-hidden="true"

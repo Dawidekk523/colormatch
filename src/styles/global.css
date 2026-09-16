@@ -315,6 +315,18 @@ svg {
   color: #fff;
 }
 
+/* Four season names do not fit on one line on a phone, and a wrapped pill bar
+   reads as a mistake. Below that width the bar becomes a 2x2 grid with a
+   rounded-rectangle edge instead. */
+@media (max-width: 40rem) {
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    border-radius: var(--radius-lg);
+  }
+}
+
 /* Surfaces --------------------------------------------------------------- */
 .panel {
   background: var(--surface);

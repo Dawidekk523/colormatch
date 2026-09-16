@@ -561,7 +561,10 @@
 }
 
 .quiz__progress {
+  /* Paragraphs are capped at the reading measure and centred; the progress line
+     is a label for the panel, so it keeps the panel's own edges. */
   margin: 0;
+  max-width: none;
   font-size: var(--step--1);
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -689,12 +692,13 @@
 }
 
 .drape__cloth {
+  /* The height comes from the element, not from the viewBox: an absolutely
+     positioned SVG with `height: auto` takes its intrinsic ratio and ignores
+     `bottom`, which left a strip of the photograph showing under the cloth. */
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
   width: 100%;
-  height: auto;
 }
 
 .explorer__caption {
