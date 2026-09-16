@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-09-16 — Two buried pages reachable, and the site tuned for crawling
+
+The interview and photoshoot pages were in the sitemap but linked from nowhere;
+they are now in the footer. Every page asks for large image previews and full
+snippets in search, the sitemap points at each palette's own share card, links
+prefetch on hover, and static assets are cached for a year at the edge.
+
+The thesis is that a page nothing links to is a page that barely exists, and
+the rest is the cheap half of Core Web Vitals: the second page a visitor opens
+should be instant.
+
 ## 2026-09-16 — Link previews, breadcrumbs and a 404 that leads somewhere
 
 Every page now carries a share card: a generated 1200x630 image built from the

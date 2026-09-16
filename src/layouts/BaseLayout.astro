@@ -69,6 +69,7 @@ const graph: Record<string, unknown>[] = [
     description,
     isPartOf: { '@id': `${origin}#website` },
     primaryImageOfPage: shareImage,
+    dateModified: new Date().toISOString(),
   },
   ...schema,
 ];
@@ -107,7 +108,15 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        /* Large image previews and untruncated snippets are opt-in, and every
+           page here has a share card worth showing. */
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+      )
+    }
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="colormatch" />
     <meta property="og:locale" content="en_GB" />
@@ -226,6 +235,8 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
             <li><a href="/what-colors-look-good-on-me/">What colours suit me?</a></li>
             <li><a href="/color-analysis-app/">The app</a></li>
             <li><a href="/best-colors-to-wear-with-gray-hair/">Colours with grey hair</a></li>
+            <li><a href="/best-colors-to-wear-to-an-interview/">Colours for an interview</a></li>
+            <li><a href="/best-colors-to-wear-for-a-photoshoot/">Colours for a photoshoot</a></li>
             <li><a href="/pricing/">Plans</a></li>
           </ul>
         </div>
