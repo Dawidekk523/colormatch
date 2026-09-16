@@ -5,6 +5,7 @@ import {
   ColorsIcon,
   Download04Icon,
   Image02Icon,
+  SquareLock02Icon,
   PrinterIcon,
   RulerIcon,
   SearchVisualIcon,
@@ -30,6 +31,7 @@ export const ICONS = {
   download: Download04Icon as IconNode,
   print: PrinterIcon as IconNode,
   included: CheckmarkCircle02Icon as IconNode,
+  locked: SquareLock02Icon as IconNode,
 } satisfies Record<string, IconNode>;
 
 export type IconName = keyof typeof ICONS;

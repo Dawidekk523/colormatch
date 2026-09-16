@@ -1,4 +1,4 @@
-import { FREE_SECTION_COUNT, REPORT_EXTRAS, REPORT_SECTION_COUNT } from '../lib/report';
+import { FREE_SECTION_COUNT, REPORT_EXTRAS, REPORT_SECTION_COUNT, type FullReportData } from '../lib/report';
 import { Icon } from './Icon';
 
 const PRICE = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
@@ -11,17 +11,19 @@ const PRICE = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
 const FULL_REPORT_HREF = import.meta.env.DEV ? '/result/?preview=1' : '/pricing/';
 
 interface Props {
-  seasonName: string;
+  report: FullReportData;
 }
 
 /**
- * The free result is the first part of one report, not a different product.
- * This block says exactly where the free part stops and what the rest holds,
- * with the real counts — a reader who can check the claim is far likelier to
- * believe the rest of the page.
+ * The free result is the first part of one report, not a different product, so
+ * this block shows the rest of it rather than describing it: the real meters,
+ * the real season scores and the real palette, drawn from this visitor's own
+ * reading and then covered. The figures are replaced before they are drawn, so
+ * what is being sold never sits in the page waiting to be read.
  */
-export function ReportTeaser({ seasonName }: Props) {
+export function ReportTeaser({ report }: Props) {
   const remaining = REPORT_SECTION_COUNT - FREE_SECTION_COUNT;
+  const hidden = '••';
 
   return (
     <section className="teaser stack" aria-labelledby="teaser-heading">
@@ -32,14 +34,61 @@ export function ReportTeaser({ seasonName }: Props) {
             style={{ width: `${(FREE_SECTION_COUNT / REPORT_SECTION_COUNT) * 100}%` }}
           />
         </span>
-        You have read {FREE_SECTION_COUNT} of the {REPORT_SECTION_COUNT} parts of your {seasonName} report.
+        You have read {FREE_SECTION_COUNT} of the {REPORT_SECTION_COUNT} parts of your {report.seasonName} report.
       </p>
 
       <h2 id="teaser-heading">The other {remaining} parts</h2>
       <p>
-        Everything above stays free. The full report takes the same reading further: the numbers behind your
-        season, which of the twelve subtypes you are, and every colour measured so you can match it in a shop.
+        Everything above stays free. The rest is the reading behind it — how warm, how light and how clear
+        your colouring came out, which of the twelve subtypes that makes you, and every colour measured.
       </p>
+
+      <div className="locked">
+        <div className="locked__peek" aria-hidden="true">
+          {report.axes.map((axis) => (
+            <div key={axis.id} className="locked__meter">
+              <span className="locked__line">
+                <strong>{axis.label}</strong>
+                <span>
+                  {axis.value < 0 ? axis.leftLabel : axis.rightLabel} {hidden}
+                </span>
+              </span>
+              <span className="locked__track">
+                <span className="locked__marker" />
+              </span>
+            </div>
+          ))}
+
+          <ul className="locked__bars">
+            {report.matches.map((match, index) => (
+              <li key={match.season}>
+                <span>{match.name}</span>
+                <span className="locked__bar">
+                  <span style={{ width: `${72 - index * 16}%`, background: match.accent }} />
+                </span>
+                <span>{hidden}%</span>
+              </li>
+            ))}
+          </ul>
+
+          <ul className="locked__swatches">
+            {report.wear.slice(0, 4).map((swatch) => (
+              <li key={swatch.hex}>
+                <span className="locked__chip" style={{ background: swatch.hex }} />
+                <span>{swatch.name}</span>
+                <span>{hidden}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="locked__veil">
+          <span className="locked__badge">
+            <Icon name="locked" size={20} />
+            Your figures are in here
+          </span>
+        </p>
+      </div>
 
       <ul className="teaser__list">
         {REPORT_EXTRAS.map((extra) => (
@@ -51,15 +100,12 @@ export function ReportTeaser({ seasonName }: Props) {
         ))}
       </ul>
 
-      <div className="cluster">
-        <a className="btn btn--primary" href={FULL_REPORT_HREF}>
-          See the full report — {import.meta.env.DEV ? 'preview' : PRICE}
-        </a>
-        <a className="btn btn--quiet" href="/color-seasons/">
-          Compare all four seasons
-        </a>
-      </div>
-      <p className="note">One payment, no subscription and no account. The link in your email reopens it anywhere.</p>
+      <a className="btn btn--primary btn--block" href={FULL_REPORT_HREF}>
+        See the full report — {import.meta.env.DEV ? 'preview' : PRICE}
+      </a>
+      <p className="note">
+        One payment, no subscription and no account. The link in your email reopens it anywhere.
+      </p>
     </section>
   );
 }

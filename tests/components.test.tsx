@@ -17,8 +17,10 @@ describe('ResultView', () => {
     render(<ResultView season="autumn" undertone="warm" source="quiz" confidence={0.8} />);
     expect(screen.getByRole('heading', { name: 'Autumn' })).toBeTruthy();
     expect(screen.getByText(/Warm \(golden\)/)).toBeTruthy();
+    // A few names appear twice: once in the palette, once in the covered
+    // preview of the paid report underneath it.
     for (const swatch of SEASONS.autumn.wear) {
-      expect(screen.getByText(swatch.name)).toBeTruthy();
+      expect(screen.getAllByText(swatch.name).length).toBeGreaterThan(0);
       expect(screen.getByText(swatch.hex.toUpperCase())).toBeTruthy();
     }
     for (const swatch of SEASONS.autumn.avoid) {

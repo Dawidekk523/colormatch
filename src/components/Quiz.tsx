@@ -117,6 +117,7 @@ export function Quiz() {
           undertone={shown.undertone}
           source="quiz"
           confidence={shown.confidence}
+          metrics={shown.metrics}
           onRestart={restart}
           restartLabel="Take the quiz again"
         />

@@ -1,3 +1,4 @@
+import { buildReport, type ResultMetrics } from '../lib/report';
 import { SEASONS, UNDERTONE_LABEL, type SeasonId, type Undertone } from '../lib/seasons-data';
 import { ReportTeaser } from './ReportTeaser';
 import { Swatches } from './Swatches';
@@ -7,6 +8,8 @@ interface Props {
   undertone: Undertone;
   source: 'photo' | 'quiz';
   confidence: number;
+  /** The reading behind the result, when the browser still has it. */
+  metrics?: ResultMetrics;
   onRestart?: () => void;
   restartLabel?: string;
   headingLevel?: 2 | 3;
@@ -29,6 +32,7 @@ export function ResultView({
   restartLabel = 'Start over',
   headingLevel = 2,
   showTeaser = true,
+  metrics,
 }: Props) {
   const data = SEASONS[season];
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
@@ -95,13 +99,9 @@ export function ResultView({
         </ul>
       </section>
 
-      {showTeaser ? <ReportTeaser seasonName={data.name} /> : null}
-
-      <p className="note">
-        This is a guide for choosing clothes, not a measurement. Screens, lighting and make-up all change
-        how colour looks, and it is not any kind of health or medical assessment. If a colour makes you
-        feel good, wear it.
-      </p>
+      {showTeaser ? (
+        <ReportTeaser report={buildReport({ season, undertone, source, confidence, metrics })} />
+      ) : null}
 
       {onRestart ? (
         <div className="cluster">
@@ -110,6 +110,14 @@ export function ResultView({
           </a>
         </div>
       ) : null}
+
+      <p className="note">
+        This is a guide for choosing clothes, not a measurement. Screens, lighting and make-up all change
+        how colour looks, and it is not any kind of health or medical assessment. If a colour makes you
+        feel good, wear it.
+      </p>
+
+
     </div>
   );
 }

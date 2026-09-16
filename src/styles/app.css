@@ -1386,13 +1386,10 @@
   color: var(--ink);
 }
 
-/* The way out of a result has to be visible from anywhere in it: the result is
-   several screens long, and a button at the bottom of it may as well not exist.
-   It sits under the masthead, which is sticky at 76px. */
+/* The way out of a result belongs at the top of it, where anyone who wants a
+   second reading looks first. It used to follow the scroll as well, which on a
+   phone meant a bar permanently eating the screen. */
 .result-bar {
-  position: sticky;
-  top: 76px;
-  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1400,9 +1397,7 @@
   gap: var(--space-2);
   margin-bottom: var(--space-2);
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
-  /* Square along the top so it meets the masthead with no gap for the page to
-     show through, rounded below where it sits over the result. */
-  border-radius: 0 0 var(--radius) var(--radius);
+  border-radius: var(--radius);
   background: var(--surface-cool);
 }
 
@@ -1437,6 +1432,143 @@
 .quiz__question,
 .result {
   scroll-margin-top: 96px;
+}
+
+/* What the paid report holds, drawn from the visitor's own reading and then
+   covered: a description of a chart persuades nobody, and a blurred one with a
+   lock on it says what kind of thing is missing. */
+.locked {
+  position: relative;
+  margin-top: var(--space-3);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  padding: var(--space-4) var(--space-3);
+  overflow: hidden;
+}
+
+.section--tint .locked,
+.section--warm .locked {
+  background: var(--surface-cool);
+}
+
+.locked__peek {
+  display: grid;
+  gap: var(--space-3);
+  filter: blur(3px);
+  opacity: 0.65;
+  pointer-events: none;
+  user-select: none;
+  font-size: var(--step--1);
+}
+
+.locked__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--ink-soft);
+}
+
+.locked__track {
+  position: relative;
+  display: block;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-cool);
+}
+
+.section--tint .locked__track,
+.section--warm .locked__track {
+  background: #fff;
+}
+
+.locked__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.locked__bars,
+.locked__swatches {
+  display: grid;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.locked__bars li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) 2.5rem;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink-soft);
+}
+
+.locked__bar {
+  display: block;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-cool);
+  overflow: hidden;
+}
+
+.locked__bar span {
+  display: block;
+  height: 100%;
+}
+
+.locked__swatches li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 2.5rem;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink-soft);
+}
+
+.locked__chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+/* Sits over the middle of the covered block, where the eye lands. The label
+   carries its own solid ground, or it would be read through the blur. */
+.locked__veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  max-width: none;
+  background: rgb(255 255 255 / 0.4);
+}
+
+.locked__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  /* Ink on a pale, blurred field: the chip has to be the one thing in the
+     block that is unmistakably not blurred. */
+  background: var(--ink);
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.locked__badge .icon {
+  color: rgb(255 255 255 / 0.75);
 }
 
 /* Breadcrumbs ------------------------------------------------------------ */

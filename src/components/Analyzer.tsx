@@ -215,6 +215,7 @@ export function Analyzer() {
           undertone={shown.undertone}
           source="photo"
           confidence={shown.confidence}
+          metrics={shown.metrics}
           onRestart={reset}
           restartLabel="Try another photo"
         />

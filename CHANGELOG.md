@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-16 — The paid part is shown, not described
+
+The block at the end of a free result now draws the rest of the report from the
+visitor's own reading — the three meters, the four season scores, the palette
+rows — blurred, with a lock chip over it reading "Your figures are in here".
+The figures themselves are replaced before anything is drawn. The bar that ends
+a result stopped following the scroll, and the duplicate link to the four
+seasons is gone.
+
+The thesis is that a list of what you would get persuades nobody: the covered
+shape of a chart says more in a second than a bullet does in a sentence, and it
+is honest, because it is the reader's own result underneath.
+
 ## 2026-09-16 — A type scale for the phone it is read on
 
 The whole type scale now starts smaller and steps up at 48rem instead of being
