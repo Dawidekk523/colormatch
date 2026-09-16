@@ -1471,15 +1471,9 @@
    under it and a single full-width button. The desktop version is the same
    thing with the rail opened out into a grid. */
 .paywall {
-  background: var(--surface);
+  background: var(--surface-cool);
   border-radius: var(--radius-lg);
   padding: var(--space-4) var(--space-3);
-}
-
-.section--tint .paywall,
-.section--warm .paywall,
-.hero--split .paywall {
-  background: #fff;
 }
 
 .paywall__step {
@@ -1521,17 +1515,19 @@
   color: var(--ink-soft);
 }
 
-/* Cards run off the edge of the phone on purpose: a rail that stops short of
-   the screen edge does not read as something you can push. */
+/* The rail runs off the right edge, so there is visibly more to push at; the
+   first card keeps the panel's own padding, because a card glued to the left
+   edge reads as a layout fault rather than as a rail. */
 .peek {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 82%;
   gap: var(--space-2);
-  margin: 0 calc(var(--space-3) * -1) var(--space-3);
-  padding: 0 var(--space-3);
+  margin: 0 calc(var(--space-3) * -1) var(--space-3) 0;
+  padding-right: var(--space-3);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
   scrollbar-width: none;
 }
 
@@ -1547,13 +1543,7 @@
   gap: var(--space-2);
   padding: var(--space-3);
   border-radius: var(--radius);
-  background: var(--surface-cool);
-}
-
-.section--tint .peek__card,
-.section--warm .peek__card,
-.hero--split .peek__card {
-  background: var(--surface);
+  background: #fff;
 }
 
 /* Says what these figures are before anyone reads them as their own. */
@@ -1607,7 +1597,7 @@
   height: 8px;
   margin-top: 5px;
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--surface-cool);
 }
 
 .peek__marker {
@@ -1643,7 +1633,7 @@
   display: block;
   height: 10px;
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--surface-cool);
   overflow: hidden;
 }
 
@@ -1683,7 +1673,7 @@
   width: 100%;
   height: auto;
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface-cool);
 }
 
 .paywall__list {
@@ -1726,8 +1716,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-columns: auto;
     gap: var(--space-3);
-    margin-inline: 0;
-    padding-inline: 0;
+    margin-right: 0;
+    padding-right: 0;
     overflow: visible;
   }
 
