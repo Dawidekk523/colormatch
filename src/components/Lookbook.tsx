@@ -35,7 +35,9 @@ type State =
 export function Lookbook({ token }: Props) {
   const [state, setState] = useState<State>({ kind: 'checking' });
   const [agreed, setAgreed] = useState(false);
+  const [photo, setPhoto] = useState<File | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [done, setDone] = useState(0);
   const [problem, setProblem] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -64,13 +66,7 @@ export function Lookbook({ token }: Props) {
 
   const make = useCallback(
     async (lookId: string, file: File) => {
-      const trouble = checkFile(file);
-      if (trouble) {
-        setProblem(FILE_PROBLEM_MESSAGE[trouble]);
-        return;
-      }
       setBusy(lookId);
-      setProblem(null);
       try {
         const form = new FormData();
         form.append('token', token);
@@ -81,7 +77,7 @@ export function Lookbook({ token }: Props) {
         const body = (await response.json()) as { look?: Made; error?: string };
         if (!response.ok || !body.look) {
           setProblem(body.error ?? 'That picture could not be made. Please try again.');
-          return;
+          return false;
         }
         const made = body.look;
         setState((current) =>
@@ -89,13 +85,39 @@ export function Lookbook({ token }: Props) {
             ? { ...current, made: [...current.made.filter((item) => item.id !== made.id), made] }
             : current,
         );
+        return true;
       } catch {
         setProblem('That picture could not be made. Please try again.');
+        return false;
       } finally {
         setBusy(null);
       }
     },
     [token],
+  );
+
+  /**
+   * One photo, four pictures: they are generated one after another rather than
+   * at once, because each one is a minute of someone else's compute and a
+   * failure halfway through should stop the rest.
+   */
+  const makeAll = useCallback(
+    async (file: File, only?: string) => {
+      const trouble = checkFile(file);
+      if (trouble) {
+        setProblem(FILE_PROBLEM_MESSAGE[trouble]);
+        return;
+      }
+      setProblem(null);
+      setDone(0);
+      const wanted = state.kind === 'ready' ? state.catalogue.filter((l) => !only || l.id === only) : [];
+      for (const look of wanted) {
+        const ok = await make(look.id, file);
+        if (!ok) break;
+        setDone((count) => count + 1);
+      }
+    },
+    [make, state],
   );
 
   const forget = useCallback(async () => {
@@ -129,6 +151,30 @@ export function Lookbook({ token }: Props) {
         </span>
       </label>
 
+      <div className="cluster lookbook__actions">
+        <label className={agreed ? 'btn btn--secondary' : 'btn btn--secondary btn--off'}>
+          {photo ? 'Choose a different photo' : 'Choose a photo'}
+          <input
+            className="visually-hidden"
+            type="file"
+            accept={ACCEPT_ATTRIBUTE}
+            disabled={!agreed || busy !== null}
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              event.target.value = '';
+              if (!file) return;
+              setPhoto(file);
+              void makeAll(file);
+            }}
+          />
+        </label>
+        {photo && busy === null ? (
+          <button type="button" className="btn btn--quiet" onClick={() => void makeAll(photo)}>
+            Make all four again
+          </button>
+        ) : null}
+      </div>
+
       <ul className="lookbook__grid">
         {catalogue.map((look) => {
           const picture = made.find((item) => item.id === look.id);
@@ -148,20 +194,14 @@ export function Lookbook({ token }: Props) {
                 ) : null}
                 {look.label}
               </span>
-              <label className={agreed && !busy ? 'btn btn--quiet btn--small' : 'btn btn--quiet btn--small btn--off'}>
-                {working ? 'Making it…' : picture ? 'Try another photo' : 'Make this one'}
-                <input
-                  className="visually-hidden"
-                  type="file"
-                  accept={ACCEPT_ATTRIBUTE}
-                  disabled={!agreed || busy !== null}
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    event.target.value = '';
-                    if (file) void make(look.id, file);
-                  }}
-                />
-              </label>
+              <button
+                type="button"
+                className="btn btn--quiet btn--small"
+                disabled={!agreed || !photo || busy !== null}
+                onClick={() => photo && void makeAll(photo, look.id)}
+              >
+                {working ? 'Making it…' : picture ? 'Make it again' : 'Make this one'}
+              </button>
             </li>
           );
         })}
@@ -170,8 +210,8 @@ export function Lookbook({ token }: Props) {
       <p className="note" aria-live="polite">
         {problem ??
           (busy
-            ? 'Making your picture. This takes up to a minute.'
-            : 'A clear, front-facing photo works best — the same kind that reads well for the analysis.')}
+            ? `Making picture ${done + 1} of 4. Each one takes up to a minute.`
+            : 'Head and shoulders works best here, so the clothes are actually in shot.')}
       </p>
 
       {made.length > 0 ? (

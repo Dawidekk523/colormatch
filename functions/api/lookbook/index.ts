@@ -76,7 +76,7 @@ function promptFor(look: Look, swatch: Swatch): string {
   return [
     `Replace only the clothing in this photograph with ${look.garment} in ${swatch.name} (${swatch.hex.toUpperCase()}).`,
     'Keep the same person exactly as they are: the same face, skin tone, freckles, hair, hairline and expression, unretouched and unsmoothed.',
-    'Keep the framing, the pose and the lighting of the original photograph.',
+    'Keep the pose and the lighting of the original photograph, and the framing too — unless the clothing would barely be in shot, in which case pull back just far enough to show the shoulders and upper chest.',
     'The garment must be one flat colour with no pattern, no print and no logo.',
     'Plain, softly lit background. No text, no watermark, no border.',
   ].join(' ');
