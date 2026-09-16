@@ -156,14 +156,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const sent = await sendEmail(env, {
     from,
     to: email,
-    subject: `Your ${season} colour card`,
+    subject: `Your ${season} colour report`,
     text: [
-      `Thank you — your colour card is ready.`,
+      `Thank you — your full colour report is ready.`,
       ``,
       `Open it here, on any device:`,
       link,
       ``,
-      `Keep this email: the link is the only way back to your card. We never`,
+      `Keep this email: the link is the only way back to your report. We never`,
       `saw your photo — it was read in your own browser and never uploaded.`,
     ].join('\n'),
   });

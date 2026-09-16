@@ -1,0 +1,24 @@
+---
+import { htmlAttributes, ICONS, type IconName } from '../lib/icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 22, class: className } = Astro.props;
+const parts = ICONS[name].map(([tag, attrs]) => ({ tag, attrs: htmlAttributes(attrs) }));
+---
+
+<svg
+  class={className ? `icon ${className}` : 'icon'}
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {parts.map(({ tag, attrs }) => (tag === 'path' ? <path {...attrs} /> : <circle {...attrs} />))}
+</svg>

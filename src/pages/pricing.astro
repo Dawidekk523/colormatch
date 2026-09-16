@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { UpgradeButton } from '../components/UpgradeButton';
 
 // Matches the Polar product (ColorMatch Personal Color Analysis, $9.99).
@@ -14,9 +15,14 @@ const faq = [
       'Yes. Your season, your palette, your neutrals and the colours to be careful with are free, and there is no sign-up to see them.',
   },
   {
-    question: 'What would the paid plan add?',
+    question: 'What does the full report add?',
     answer:
-      'A printable palette card to take shopping, a wardrobe checklist, and a copy emailed to you. None of it changes the colour result itself — the season, the palette and the colours to avoid stay free.',
+      'The free result is the first five parts of a twelve-part report. The rest is the reading behind it: your three measurements with numbers, which of the twelve subtypes you are, how close the other three seasons came, every colour measured with its hex, RGB, lightness and intensity, the rules for metals, whites, denim, lip colour, prints and hair, a picture of the whole palette to save or share, and a printable card. The season itself is not paid for — that stays free.',
+  },
+  {
+    question: 'Can I share the report?',
+    answer:
+      'Yes. The report exports as a single picture, tall for a phone or wide for a screen, with your season, your measurements and every colour in the palette. It also prints on one page.',
   },
   {
     question: 'Do I need an account to open my card?',
@@ -28,7 +34,7 @@ const faq = [
 
 <BaseLayout
   title="Plans and Pricing | colormatch"
-  description="The colormatch colour report is free: your season, your palette and the colours to avoid. See what a future paid plan would add."
+  description="Your season, your palette and the colours to avoid are free. The full colormatch report adds your measurements, your subtype out of the twelve, every colour measured and a picture to share."
   path="/pricing/"
   faq={faq}
 >
@@ -37,8 +43,9 @@ const faq = [
       <div class="narrow stack">
         <h1>Plans</h1>
         <p class="lede">
-          Finding your colours costs nothing and always will. The paid card is for people who want something
-          to take with them when they shop.
+          Finding your colours costs nothing and always will. The full report is for people who want the
+          reading behind the season — the numbers, the subtype, every colour measured, and something to take
+          with them when they shop.
         </p>
       </div>
 
@@ -46,26 +53,29 @@ const faq = [
         <div class="plan">
           <h2>Free</h2>
           <p class="plan__price">$0</p>
-          <ul>
-            <li>Your colour season from a photo or the quiz</li>
-            <li>Your possible undertone</li>
-            <li>Ten colours to wear, with names and colour codes</li>
-            <li>Four everyday neutrals</li>
-            <li>Five colours to be careful with</li>
-            <li>No account, no email address, nothing uploaded</li>
+          <ul class="plan__list">
+            <li><Icon name="included" size={20} />Your colour season from a photo or the quiz</li>
+            <li><Icon name="included" size={20} />Your possible undertone</li>
+            <li><Icon name="included" size={20} />Ten colours to wear, with names and colour codes</li>
+            <li><Icon name="included" size={20} />Four everyday neutrals</li>
+            <li><Icon name="included" size={20} />Five colours to be careful with</li>
+            <li><Icon name="included" size={20} />No account, no email address, nothing uploaded</li>
           </ul>
           <a class="btn btn--secondary btn--block" href="/">Get your colours</a>
         </div>
 
         <div class="plan plan--tint">
-          <h2>Palette card</h2>
+          <h2>Full report</h2>
           <p class="plan__price">{cardPrice}</p>
-          <ul>
-            <li>Everything in the free plan</li>
-            <li>A printable card with your palette, sized for a handbag</li>
-            <li>A wardrobe checklist for your season</li>
-            <li>A copy emailed to you</li>
-            <li>One payment, no subscription</li>
+          <ul class="plan__list">
+            <li><Icon name="included" size={20} />Everything in the free plan</li>
+            <li><Icon name="measurements" size={20} />Your three measurements, scored, with what each one means</li>
+            <li><Icon name="subtype" size={20} />Your subtype out of the twelve, and the season it leans towards</li>
+            <li><Icon name="seasonFit" size={20} />A match score for all four seasons</li>
+            <li><Icon name="colours" size={20} />Every colour measured: hex, RGB, lightness and intensity</li>
+            <li><Icon name="wardrobe" size={20} />Metals, whites, denim, lip colour, prints and hair colour</li>
+            <li><Icon name="picture" size={20} />The palette as a picture to share, tall or wide, and a printable card</li>
+            <li><Icon name="included" size={20} />One payment, no subscription</li>
           </ul>
           <UpgradeButton client:load />
         </div>

@@ -1,0 +1,29 @@
+---
+import { SEASONS, SEASON_ORDER } from '../lib/seasons-data';
+
+/**
+ * The four palettes at a glance, in the hero. It is decoration only in the
+ * sense that it is not interactive — every square is a real colour from a real
+ * palette, so the picture on the page is the product rather than a stock image
+ * of it.
+ */
+const strips = SEASON_ORDER.map((id) => ({
+  name: SEASONS[id].name,
+  swatches: SEASONS[id].wear.slice(0, 6),
+}));
+---
+
+<ul class="strips">
+  {
+    strips.map((strip) => (
+      <li>
+        <span class="strips__row">
+          {strip.swatches.map((swatch) => (
+            <span class="strips__chip" style={`background: ${swatch.hex}`} title={swatch.name} />
+          ))}
+        </span>
+        <span class="strips__name">{strip.name}</span>
+      </li>
+    ))
+  }
+</ul>

@@ -1,3 +1,5 @@
+import type { ResultMetrics } from './report';
+import { readMetrics } from './result-storage';
 import { SEASONS, UNDERTONE_LABEL, type SeasonId, type Swatch, type Undertone } from './seasons-data';
 
 export interface CardPayload {
@@ -11,6 +13,8 @@ export interface CardPayload {
   avoid: Swatch[];
   avoidReason: string;
   checklist: string[];
+  /** The reading behind the result, so the bought report can show its numbers. */
+  metrics?: ResultMetrics;
 }
 
 /**
@@ -19,7 +23,7 @@ export interface CardPayload {
  * the palettes here are revised in between — so the whole payload is frozen at
  * the moment of purchase and stored with the result.
  */
-export function buildCard(season: SeasonId, undertone: Undertone): CardPayload {
+export function buildCard(season: SeasonId, undertone: Undertone, metrics?: ResultMetrics): CardPayload {
   const data = SEASONS[season];
   return {
     version: 1,
@@ -32,6 +36,7 @@ export function buildCard(season: SeasonId, undertone: Undertone): CardPayload {
     avoid: data.avoid,
     avoidReason: data.avoidReason,
     checklist: data.checklist,
+    metrics,
   };
 }
 
@@ -67,5 +72,6 @@ export function readCard(value: unknown): CardPayload | null {
     avoid: card.avoid,
     avoidReason: typeof card.avoidReason === 'string' ? card.avoidReason : '',
     checklist: card.checklist.slice(0, 20),
+    metrics: readMetrics(card.metrics),
   };
 }

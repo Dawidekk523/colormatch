@@ -64,7 +64,7 @@ export function UpgradeButton() {
       const parked = await fetch('/api/result', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...stored, card: buildCard(stored.season, stored.undertone) }),
+        body: JSON.stringify({ ...stored, card: buildCard(stored.season, stored.undertone, stored.metrics) }),
       });
       const parkedBody = (await parked.json()) as { token?: string };
       if (!parked.ok || typeof parkedBody.token !== 'string') throw new Error('not parked');
@@ -99,7 +99,7 @@ export function UpgradeButton() {
           Get your colours first
         </a>
         <p className="note">
-          The card is made from your own result, so the colour report comes first. It takes about a minute.
+          The report is made from your own result, so the free one comes first. It takes about a minute.
         </p>
       </div>
     );
@@ -109,10 +109,10 @@ export function UpgradeButton() {
     return (
       <div className="stack">
         <button type="button" className="btn btn--primary btn--block" onClick={() => void start()} disabled={starting}>
-          {starting ? 'Opening checkout…' : 'Get the palette card'}
+          {starting ? 'Opening checkout…' : 'Get the full report'}
         </button>
         <p className="note" aria-live="polite">
-          {problem ?? 'One payment. Your card arrives by email, and the link in it works on any device.'}
+          {problem ?? 'One payment. Your report arrives by email, and the link in it works on any device.'}
         </p>
       </div>
     );

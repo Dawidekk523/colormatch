@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
-import { ANALYSIS_FAILURE_MESSAGE, AnalysisError, analyzeImageSource } from '../lib/analyze-image';
+import {
+  ANALYSIS_FAILURE_MESSAGE,
+  AnalysisError,
+  analyzeImageFile,
+  analyzeImageSource,
+} from '../lib/analyze-image';
 import { ACCEPT_ATTRIBUTE, checkFile, FILE_PROBLEM_MESSAGE } from '../lib/image-input';
 import {
   clearResult,
@@ -9,11 +14,23 @@ import {
   saveResult,
   subscribeResult,
 } from '../lib/result-storage';
+import { metricsFromPhoto } from '../lib/report';
 import type { AnalysisResult } from '../lib/season';
 import type { SeasonId } from '../lib/seasons-data';
+import { AnalysisProgress } from './AnalysisProgress';
+import { PhotoTips } from './PhotoTips';
 import { ResultView } from './ResultView';
 
 type Status = 'idle' | 'working';
+
+/** Named for what the reading is doing while each one is on screen. */
+const STAGES = [
+  'Opening your photo on this device',
+  'Finding the skin, hair and eyes',
+  'Measuring undertone, depth and contrast',
+  'Comparing the reading with the four seasons',
+  'Building your palette',
+];
 
 const SAMPLES = [
   { src: '/samples/light-warm.jpg', label: 'Light skin, warm tone' },
@@ -49,28 +66,48 @@ export function Analyzer() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
-  const objectUrlRef = useRef<string | null>(null);
   // Guards a second click landing while the first run is still going.
   const busyRef = useRef(false);
-
-  const releasePreview = useCallback(() => {
-    if (objectUrlRef.current) {
-      URL.revokeObjectURL(objectUrlRef.current);
-      objectUrlRef.current = null;
-    }
-  }, []);
-
-  useEffect(() => releasePreview, [releasePreview]);
+  // The reading finishes long before the stages on screen do, so whichever
+  // arrives second releases the result.
+  const readyRef = useRef<AnalysisResult | null>(null);
+  const stagesDoneRef = useRef(false);
 
   const finish = useCallback((result: AnalysisResult) => {
+    readyRef.current = null;
+    stagesDoneRef.current = false;
     setStatus('idle');
     saveResult({
       season: result.season,
       undertone: result.undertone,
       confidence: result.confidence,
       source: 'photo',
+      metrics: metricsFromPhoto(result),
     });
     reportAnonymously(result.season, 'photo');
+  }, []);
+
+  /** Called by whichever finishes last: the reading, or the stages on screen. */
+  const release = useCallback(
+    (result: AnalysisResult | null) => {
+      if (result) readyRef.current = result;
+      else stagesDoneRef.current = true;
+      if (readyRef.current && stagesDoneRef.current) finish(readyRef.current);
+    },
+    [finish],
+  );
+
+  const stagesComplete = useCallback(() => release(null), [release]);
+
+  const fail = useCallback((err: unknown) => {
+    readyRef.current = null;
+    stagesDoneRef.current = false;
+    setStatus('idle');
+    setError(
+      err instanceof AnalysisError
+        ? ANALYSIS_FAILURE_MESSAGE[err.kind]
+        : 'Something went wrong while reading the photo. Please try again.',
+    );
   }, []);
 
   const run = useCallback(
@@ -82,19 +119,37 @@ export function Analyzer() {
       setPreview(src);
       setStatus('working');
       try {
-        finish(await analyzeImageSource(src));
+        release(await analyzeImageSource(src));
       } catch (err) {
-        setStatus('idle');
-        setError(
-          err instanceof AnalysisError
-            ? ANALYSIS_FAILURE_MESSAGE[err.kind]
-            : 'Something went wrong while reading the photo. Please try again.',
-        );
+        fail(err);
       } finally {
         busyRef.current = false;
       }
     },
-    [finish],
+    [fail, release],
+  );
+
+  const runFile = useCallback(
+    async (file: File) => {
+      if (busyRef.current) return;
+      busyRef.current = true;
+      setError(null);
+      setPreviewLabel('The photo you chose');
+      setStatus('working');
+      try {
+        // The photo is decoded straight to the sizes we need, so nothing larger
+        // than a thumbnail is ever held — any camera file is fair game.
+        const { result, preview: thumbnail } = await analyzeImageFile(file);
+        setPreview(thumbnail);
+        release(result);
+      } catch (err) {
+        setPreview(null);
+        fail(err);
+      } finally {
+        busyRef.current = false;
+      }
+    },
+    [fail, release],
   );
 
   const handleFile = useCallback(
@@ -105,16 +160,14 @@ export function Analyzer() {
         setStatus('idle');
         return;
       }
-      releasePreview();
-      const url = URL.createObjectURL(file!);
-      objectUrlRef.current = url;
-      void run(url, 'The photo you chose');
+      void runFile(file!);
     },
-    [releasePreview, run],
+    [runFile],
   );
 
   const reset = useCallback(() => {
-    releasePreview();
+    readyRef.current = null;
+    stagesDoneRef.current = false;
     clearResult();
     setPreview(null);
     setPreviewLabel('');
@@ -122,11 +175,31 @@ export function Analyzer() {
     setStatus('idle');
     if (inputRef.current) inputRef.current.value = '';
     inputRef.current?.focus();
-  }, [releasePreview]);
+  }, []);
 
   useEffect(() => {
-    if (shown) resultRef.current?.focus();
+    if (!shown) return;
+    // The page is a different height once the result replaces the upload panel,
+    // so the browser is left somewhere in the middle of it. Focus without the
+    // scroll it would otherwise do, then put the top of the result on screen.
+    const node = resultRef.current;
+    node?.focus({ preventScroll: true });
+    node?.scrollIntoView?.({ block: 'start' });
   }, [shown]);
+
+  if (status === 'working') {
+    return (
+      <div className="analyzer analyzer--working stack">
+        {preview ? (
+          <p className="analyzer__preview-line">
+            <img className="analyzer__preview" src={preview} alt="" width={96} height={96} />
+            <span>{previewLabel}</span>
+          </p>
+        ) : null}
+        <AnalysisProgress steps={STAGES} onComplete={stagesComplete} />
+      </div>
+    );
+  }
 
   if (shown) {
     return (
@@ -165,7 +238,7 @@ export function Analyzer() {
         }}
       >
         <label className="btn btn--primary btn--block dropzone__button" htmlFor="photo-input">
-          {status === 'working' ? 'Reading your photo…' : 'Upload a photo'}
+          Upload a photo
         </label>
         <input
           ref={inputRef}
@@ -173,13 +246,9 @@ export function Analyzer() {
           className="visually-hidden"
           type="file"
           accept={ACCEPT_ATTRIBUTE}
-          disabled={status === 'working'}
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
-        <p className="dropzone__hint">
-          Or drag a photo here. JPG, PNG or WEBP, up to 10 MB. Your photo stays on your device — it is
-          never uploaded.
-        </p>
+        <PhotoTips />
       </div>
 
       <div className="samples">
@@ -192,7 +261,6 @@ export function Analyzer() {
               <button
                 type="button"
                 className="samples__item"
-                disabled={status === 'working'}
                 onClick={() => run(sample.src, sample.label)}
               >
                 <img src={sample.src} alt="" width={640} height={640} loading="lazy" decoding="async" />
@@ -202,10 +270,6 @@ export function Analyzer() {
           ))}
         </ul>
       </div>
-
-      <p aria-live="polite" className="analyzer__status">
-        {status === 'working' ? 'Reading the colours in your photo. This takes a second.' : ''}
-      </p>
 
       {error ? (
         <p className="error" role="alert">

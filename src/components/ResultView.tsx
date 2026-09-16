@@ -1,4 +1,5 @@
 import { SEASONS, UNDERTONE_LABEL, type SeasonId, type Undertone } from '../lib/seasons-data';
+import { ReportTeaser } from './ReportTeaser';
 import { Swatches } from './Swatches';
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
   onRestart?: () => void;
   restartLabel?: string;
   headingLevel?: 2 | 3;
+  /** Off on the bought report, where the full thing is already on the page. */
+  showTeaser?: boolean;
 }
 
 function confidenceWords(confidence: number): string {
@@ -25,12 +28,25 @@ export function ResultView({
   onRestart,
   restartLabel = 'Start over',
   headingLevel = 2,
+  showTeaser = true,
 }: Props) {
   const data = SEASONS[season];
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
 
   return (
     <div className="result stack-lg" data-season={season}>
+      {onRestart ? (
+        <div className="result-bar">
+          <p className="result-bar__label">
+            <span className="result-bar__chip" style={{ background: data.accent }} aria-hidden="true" />
+            {data.name} — {source === 'photo' ? 'read from your photo' : 'from your quiz answers'}
+          </p>
+          <button type="button" className="btn btn--secondary btn--small" onClick={onRestart}>
+            {restartLabel}
+          </button>
+        </div>
+      ) : null}
+
       <div className="result__head" style={{ borderColor: data.accent }}>
         <p className="result__kicker">Your result</p>
         <Heading className="result__season">{data.name}</Heading>
@@ -79,6 +95,8 @@ export function ResultView({
         </ul>
       </section>
 
+      {showTeaser ? <ReportTeaser seasonName={data.name} /> : null}
+
       <p className="note">
         This is a guide for choosing clothes, not a measurement. Screens, lighting and make-up all change
         how colour looks, and it is not any kind of health or medical assessment. If a colour makes you
@@ -87,9 +105,6 @@ export function ResultView({
 
       {onRestart ? (
         <div className="cluster">
-          <button type="button" className="btn btn--secondary" onClick={onRestart}>
-            {restartLabel}
-          </button>
           <a className="btn btn--quiet" href="/color-seasons/">
             Compare all four seasons
           </a>

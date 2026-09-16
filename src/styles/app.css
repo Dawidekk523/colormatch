@@ -255,6 +255,66 @@
   gap: var(--space-5);
 }
 
+/* The two heroes that carry the tool fill the screen: the upload panel is the
+   whole offer, and anything below it is support. `svh` rather than `vh` so a
+   phone's address bar cannot push the button out of sight. The moment a result
+   is on the page the rule lifts — a report should start at its top, not
+   centred in a screen-high box. */
+/* The hero sits on the warm surface and the upload panel goes white on top of
+   it, rather than the other way round: it gives the page a room to open in,
+   and the one thing to do is the brightest thing on the screen. */
+.hero--split {
+  background: var(--surface);
+}
+
+.hero--split .dropzone {
+  background: #fff;
+}
+
+/* One line of colour, read left to right through the four seasons: it shows
+   the whole product in the space a stock photograph would have wasted. */
+.strips {
+  display: flex;
+  gap: var(--space-3);
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  max-width: 34rem;
+}
+
+.strips li {
+  flex: 1 1 0;
+  min-width: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.strips__row {
+  display: flex;
+  gap: 3px;
+}
+
+.strips__chip {
+  flex: 1 1 0;
+  height: 2.25rem;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+
+.strips__name {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.hero--split:not(:has(.analyzer--result)) {
+  display: grid;
+  align-content: center;
+  min-height: calc(100svh - 76px);
+  /* Even padding, or the extra top padding would offset content that is
+     supposed to sit in the middle of the screen. */
+  padding-block: var(--space-5);
+}
+
 @media (min-width: 62rem) {
   .hero--split {
     text-align: left;
@@ -270,6 +330,16 @@
   .hero--split .hero__words p {
     margin-inline: 0;
   }
+
+  /* Once a result is on screen the sales copy has done its job, so the column
+     folds away and the report gets the whole page. */
+  .hero--split .hero__inner:has(.analyzer--result) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.hero__inner:has(.analyzer--result) .hero__words {
+  display: none;
 }
 
 /* Only earns its place in the two-column hero, where the words column has room
@@ -293,16 +363,22 @@
   margin-bottom: var(--space-2);
 }
 
-.hero p {
+/* Only the hero's own copy is centred. Interactive widgets are mounted inside
+   the hero on several pages, and a blanket `.hero p` pushed every paragraph of
+   a result into the middle of its own panel. */
+.hero__inner > p,
+.hero__words > p {
   margin-inline: auto;
 }
 
-.hero .lede {
+.hero__inner > .lede,
+.hero__words > .lede {
   max-width: 34rem;
   margin-inline: auto;
 }
 
-.hero .cluster {
+.hero__inner > .cluster,
+.hero__words > .cluster {
   justify-content: center;
 }
 
@@ -336,15 +412,6 @@
 
 .dropzone__button {
   margin-bottom: var(--space-3);
-}
-
-.dropzone__hint {
-  margin: 0;
-  font-size: var(--step--1);
-  line-height: 1.5;
-  color: var(--ink-soft);
-  max-width: 28rem;
-  margin-inline: auto;
 }
 
 .analyzer__status {
@@ -735,9 +802,11 @@
   color: var(--ink-soft);
 }
 
+/* Pills sized to their own label rather than to a grid cell: a colour name
+   broken over two lines makes a row of them look uneven and accidental. */
 .picker {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   list-style: none;
   margin: var(--space-2) 0 0;
@@ -748,8 +817,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  width: 100%;
   min-height: 52px;
+  white-space: nowrap;
   padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
   border: 0;
   border-radius: var(--radius-pill);
@@ -1060,6 +1129,15 @@
   position: relative;
 }
 
+/* The icon is the marker on these lists, so the square would be a second one. */
+.plan .plan__list li {
+  padding-left: 0;
+}
+
+.plan .plan__list li::before {
+  content: none;
+}
+
 .plan li + li {
   margin-top: var(--space-2);
 }
@@ -1170,15 +1248,703 @@
 /* The card is meant to be carried into a shop, so printing it has to produce
    the card and nothing else — no navigation, no buttons, no footer, and not the
    on-screen report that says the same thing again. */
+/* A plan reads as a list of what you get, so the marker is the icon itself. */
+.plan__list {
+  list-style: none;
+  padding: 0;
+}
+
+.plan__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-2);
+}
+
+.plan__list .icon {
+  margin-top: 5px;
+  color: var(--positive);
+}
+
+.subtype-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: var(--space-3);
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+}
+
+.subtype-swatches li {
+  display: grid;
+  align-content: start;
+  gap: 0.2rem;
+  font-size: var(--step--1);
+}
+
+.subtype-swatches__chip {
+  height: 72px;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+  margin-bottom: var(--space-1);
+}
+
+.subtype-swatches__name {
+  font-weight: 600;
+}
+
+.subtype-swatches__hex,
+.subtype-swatches__from {
+  color: var(--ink-soft);
+}
+
+/* Photo tips dialog ------------------------------------------------------ */
+.sheet {
+  width: min(100% - 2rem, 40rem);
+  /* The dialog is anchored to the upload panel, which is centred; reference
+     copy inside it still has to read as ordinary left-aligned text. */
+  text-align: left;
+  max-height: 85vh;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--ink);
+  overflow: auto;
+}
+
+.sheet::backdrop {
+  background: rgb(21 22 26 / 0.45);
+}
+
+.sheet__body {
+  padding: var(--space-4);
+}
+
+.tip-list {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+}
+
+@media (min-width: 40rem) {
+  .tip-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4) var(--space-3);
+  }
+}
+
+.tip-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.tip-list__shot {
+  position: relative;
+  display: block;
+  width: 84px;
+  height: 84px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.tip-list__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The one counter-example has to say so on the picture itself, because it is
+   the same face as the tip above it. */
+.tip-list__flag {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2px 6px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tip-list__words {
+  display: grid;
+  gap: 0.25rem;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.tip-list__words strong {
+  color: var(--ink);
+}
+
+/* The way out of a result has to be visible from anywhere in it: the result is
+   several screens long, and a button at the bottom of it may as well not exist.
+   It sits under the masthead, which is sticky at 76px. */
+.result-bar {
+  position: sticky;
+  top: 76px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  /* Square along the top so it meets the masthead with no gap for the page to
+     show through, rounded below where it sits over the result. */
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface-cool);
+}
+
+.hero--split .result-bar,
+.section--tint .result-bar,
+.section--warm .result-bar {
+  background: #fff;
+}
+
+.result-bar__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  max-width: none;
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+.result-bar__chip {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex: none;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+/* Whatever is scrolled to clears the sticky masthead and the result bar under
+   it, so a result never opens with its first line hidden behind them. */
+.analyzer--result,
+.quiz--result,
+.quiz__question,
+.result {
+  scroll-margin-top: 96px;
+}
+
+/* Analysis stages -------------------------------------------------------- */
+.progress {
+  width: min(100%, 26rem);
+  margin-inline: auto;
+  text-align: left;
+}
+
+.progress__now {
+  margin: 0 0 var(--space-2);
+  max-width: none;
+  font-weight: 600;
+}
+
+.progress__bar {
+  display: block;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  transition: width 420ms ease;
+}
+
+.progress__steps {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+}
+
+.progress__step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  opacity: 0.55;
+  transition: opacity 240ms ease;
+}
+
+.progress__step--done {
+  opacity: 1;
+  color: var(--ink);
+}
+
+.progress__step--done .icon {
+  color: var(--positive);
+}
+
+/* The dot of the step being worked on breathes; the rest sit still, so the
+   movement points at the one line worth reading. */
+.progress__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--line-strong);
+}
+
+.progress__step:not(.progress__step--done):first-of-type .progress__dot,
+.progress__step--done + .progress__step .progress__dot {
+  box-shadow: inset 0 0 0 2px var(--ink);
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(0.72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__fill,
+  .progress__step {
+    transition: none;
+  }
+
+  .progress__dot {
+    animation: none;
+  }
+}
+
+/* Icons ------------------------------------------------------------------ */
+.icon {
+  display: block;
+  flex: none;
+}
+
+/* A button's icon rides with its label rather than hanging off the end. */
+.btn .icon {
+  display: inline-block;
+  vertical-align: -0.25em;
+  margin-right: 0.5rem;
+}
+
+/* Full report ------------------------------------------------------------ */
+/* The bought report is one long page rather than a set of cards: the reading
+   is a single argument, and boxing every part of it would put a border beside
+   a border on every screen. White space does the separating. */
+.report {
+  /* Lines up with the page heading rather than centring inside the shell,
+     so the report reads as the page instead of a panel dropped into it. */
+  width: min(100%, 52rem);
+}
+
+.report__head {
+  padding-left: var(--space-3);
+  border-left: 4px solid var(--brand);
+}
+
+.report__season {
+  font-size: var(--step-4);
+  margin-block: 0 var(--space-2);
+}
+
+.report__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+}
+
+@media (min-width: 40rem) {
+  .report__facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+.report__facts dt {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.report__facts dd {
+  margin: var(--space-1) 0 0;
+  font-weight: 500;
+}
+
+/* Figures for measurements read better lined up under one another. */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.meters {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.meter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.meter__label {
+  margin: 0;
+  font-size: var(--step-1);
+}
+
+.meter__value {
+  margin: 0;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.meter__value span {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.meter__track {
+  position: relative;
+  height: 10px;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--surface-cool);
+}
+
+.meter__middle {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 50%;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+.meter__marker {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.meter__ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.meter__verdict {
+  margin: var(--space-2) 0 0;
+  max-width: 34rem;
+}
+
+.chart {
+  margin: var(--space-3) 0 0;
+}
+
+.chart svg {
+  display: block;
+  width: min(100%, 34rem);
+  height: auto;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+
+.chart__caption {
+  margin-top: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  max-width: 36rem;
+}
+
+.bars {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bars__row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) 3rem;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.bars__row--on {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.bars__track {
+  display: block;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-cool);
+  overflow: hidden;
+}
+
+.bars__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.bars__value {
+  text-align: right;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-3);
+  font-size: var(--step--1);
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-2) var(--space-2) var(--space-2) 0;
+  text-align: left;
+  /* A row rule inside a table is structure, not a section divider. */
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table thead th {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.data-table tbody th {
+  font-weight: 600;
+}
+
+.data-table__swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.data-table__chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  flex: none;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+.data-table td.num {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+@media (max-width: 34rem) {
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 var(--space-2);
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .data-table tbody th,
+  .data-table td {
+    border: 0;
+    padding: 0;
+  }
+
+  .data-table__swatch {
+    gap: var(--space-2);
+  }
+
+  .data-table tbody th {
+    grid-column: 1 / -1;
+    margin-bottom: var(--space-1);
+  }
+
+  .data-table td.num:nth-of-type(2) {
+    text-align: right;
+  }
+
+  .data-table td.num:nth-of-type(3),
+  .data-table td.num:nth-of-type(4) {
+    display: none;
+  }
+}
+
+.rules {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+}
+
+@media (min-width: 44rem) {
+  .rules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+.rules dt {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.rules dd {
+  margin: var(--space-1) 0 0;
+  max-width: 28rem;
+}
+
+.share__preview {
+  margin-top: var(--space-3);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}
+
+.share__preview canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.share__preview--portrait canvas {
+  width: min(100%, 22rem);
+  margin-inline: auto;
+}
+
+/* Upsell on the free result ---------------------------------------------- */
+.teaser {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.section--tint .teaser,
+.section--warm .teaser {
+  background: #fff;
+}
+
+.teaser__progress {
+  margin: 0;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.teaser__bar {
+  display: block;
+  height: 6px;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.teaser__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.teaser h2 {
+  margin: var(--space-2) 0 0;
+  font-size: var(--step-2);
+}
+
+.teaser__list {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+}
+
+@media (min-width: 44rem) {
+  .teaser__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+  }
+}
+
+.teaser__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.35rem var(--space-2);
+}
+
+.teaser__list .icon {
+  grid-row: span 2;
+  margin-top: 2px;
+  color: var(--ink-soft);
+}
+
+.teaser__list strong {
+  align-self: center;
+}
+
+.teaser__list span {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
 @media print {
   .masthead,
   .footer,
   .skip-link,
   .btn,
+  .teaser,
+  .share,
   .paid-result .note,
   .paid-result .lede,
   .paid-result .result {
     display: none !important;
+  }
+
+  .report section,
+  .data-table tr,
+  .meter,
+  .chart {
+    break-inside: avoid;
   }
 
   .section {

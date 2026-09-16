@@ -7,7 +7,9 @@ import {
   subscribeResult,
 } from '../lib/result-storage';
 import { buildCard, readCard, type CardPayload } from '../lib/card';
-import { SEASONS } from '../lib/seasons-data';
+import { buildReport } from '../lib/report';
+import { SEASONS, type SeasonId } from '../lib/seasons-data';
+import { FullReport } from './FullReport';
 import { PaletteCard } from './PaletteCard';
 import { ResultView } from './ResultView';
 
@@ -26,11 +28,35 @@ const isToken = (value: string | null): value is string => Boolean(value && /^[0
  * A result computed in this very browser is shown immediately, so the page is
  * never blank while the payment is still being confirmed.
  */
+const PREVIEW_SEASONS: SeasonId[] = ['spring', 'summer', 'autumn', 'winter'];
+
+/**
+ * `?preview=summer` draws the bought report from sample figures without a
+ * payment. It exists so the page can be looked at while it is being built and
+ * changed; it unlocks nothing private, because a report is computed in the
+ * browser from a reading that browser already has.
+ */
+function previewSeason(local: SeasonId | null): SeasonId | null {
+  if (typeof window === 'undefined') return null;
+  const value = new URLSearchParams(window.location.search).get('preview');
+  if (!value) return null;
+  // Without a named season the preview follows whatever this browser last
+  // worked out, so a photo can be tested end to end in one go.
+  if (value === '1' || value === 'true' || value === 'me') return local ?? 'summer';
+  return PREVIEW_SEASONS.includes(value as SeasonId) ? (value as SeasonId) : null;
+}
+
 export function PaidResult() {
   const [remote, setRemote] = useState<Remote>({ kind: 'idle' });
+  const [preview, setPreview] = useState<SeasonId | null>(null);
 
   const snapshot = useSyncExternalStore(subscribeResult, getResultSnapshot, getServerResultSnapshot);
   const local = useMemo(() => readResult(snapshot), [snapshot]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPreview(previewSeason(local?.season ?? null));
+  }, [local]);
 
   const load = useCallback(async (token: string, signal: AbortSignal) => {
     try {
@@ -75,12 +101,31 @@ export function PaidResult() {
   const result = remote.kind === 'found' ? remote.result : local;
   const paid = remote.kind === 'found' && remote.paid;
 
+  if (preview) {
+    const source = local && local.season === preview ? local : null;
+    const report = buildReport({
+      season: preview,
+      undertone: source?.undertone ?? SEASONS[preview].undertone,
+      source: source?.source ?? 'quiz',
+      confidence: source?.confidence ?? 0.72,
+      metrics: source?.metrics,
+    });
+    return (
+      <div className="stack-lg paid-result">
+        <p className="note">
+          Preview of the full report{source ? ', built from the result in this browser' : ', built from sample figures'}. Nothing has been paid for.
+        </p>
+        <FullReport report={report} />
+      </div>
+    );
+  }
+
   if (!result) {
-    if (remote.kind === 'loading') return <p className="note">Opening your card…</p>;
+    if (remote.kind === 'loading') return <p className="note">Opening your report…</p>;
     if (remote.kind === 'error') {
       return (
         <div className="stack">
-          <p className="lede">We could not open your card just now.</p>
+          <p className="lede">We could not open your report just now.</p>
           <p className="note">
             The link in your email keeps working — please try it again in a few minutes.
           </p>
@@ -91,7 +136,7 @@ export function PaidResult() {
       <div className="stack">
         <p className="lede">There is nothing to show here yet.</p>
         <p className="note">
-          This page opens a colour card that has already been made. If you came from an email, use the link in
+          This page opens a colour report that has already been paid for. If you came from an email, use the link in
           it again; otherwise start with the free colour report.
         </p>
         <a className="btn btn--primary" href="/">
@@ -104,19 +149,18 @@ export function PaidResult() {
   const season = SEASONS[result.season];
   // A card bought before a palette revision is served as it was sold; one made
   // in this browser is built from what is on the site today.
-  const card = paid ? ((remote.kind === 'found' && remote.card) ?? buildCard(result.season, result.undertone)) : null;
+  const stored = remote.kind === 'found' ? remote.card : null;
+  const card = paid ? (stored ?? buildCard(result.season, result.undertone, result.metrics)) : null;
 
   return (
     <div className="stack-lg paid-result">
       {paid ? (
         <div className="stack">
-          <p className="lede">Your {season.name} card is ready.</p>
+          <p className="lede">Your {season.name} report is ready.</p>
           <p className="note">
             Keep the email: its link opens this page on any device, including a phone in a shop.
           </p>
-          <button type="button" className="btn btn--secondary" onClick={() => window.print()}>
-            Print the card
-          </button>
+
         </div>
       ) : (
         <p className="note">
@@ -126,14 +170,27 @@ export function PaidResult() {
         </p>
       )}
 
-      {card ? <PaletteCard card={card} /> : null}
+      {paid ? (
+        <FullReport
+          report={buildReport({
+            season: result.season,
+            undertone: result.undertone,
+            source: result.source,
+            confidence: result.confidence,
+            metrics: card?.metrics ?? result.metrics,
+            palette: card ? { wear: card.wear, neutrals: card.neutrals, avoid: card.avoid } : undefined,
+          })}
+        />
+      ) : (
+        <ResultView
+          season={result.season}
+          undertone={result.undertone}
+          source={result.source}
+          confidence={result.confidence}
+        />
+      )}
 
-      <ResultView
-        season={result.season}
-        undertone={result.undertone}
-        source={result.source}
-        confidence={result.confidence}
-      />
+      {card ? <PaletteCard card={card} /> : null}
     </div>
   );
 }

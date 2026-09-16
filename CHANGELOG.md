@@ -1,5 +1,63 @@
 # Changelog
 
+## 2026-09-16 — The reading shows its working
+
+Both the photo and the quiz now hand over the result through a short sequence
+of named stages — opening the photo, finding skin and hair, measuring the three
+axes, comparing with the four seasons, building the palette — with a bar and a
+tick against each one as it passes. About four seconds, and the answer appears
+at the end of it.
+
+The thesis is that an answer that arrives instantly reads as a guess. The steps
+are the ones the code really runs, so the wait explains the method instead of
+filling time, and anyone who has asked for reduced motion gets the same list
+without the animation.
+
+## 2026-09-16 — The way out of a result is always on screen
+
+The result now opens with a bar that sticks under the menu while you scroll it:
+your season, what it was read from, and the button that starts again. The same
+button used to sit at the very bottom, several screens down.
+
+The thesis is that a result you cannot leave feels like a trap rather than an
+answer — and a visitor who wants to try a second photo is exactly the visitor
+worth keeping. The result still survives a refresh in the same tab; what changed
+is that ending it is one visible click from anywhere in it.
+
+## 2026-09-16 — Any photo is accepted, and the advice moved into a tutorial
+
+The upload no longer refuses a file for its format or its size. Whatever the
+browser can decode is read, shrunk on the device before anything is measured,
+and the thumbnail kept afterwards is a compressed copy rather than the original.
+The line about JPG, PNG and 10 MB is gone; in its place is a "What makes a good
+photo?" dialog with six crops of real photographs — daylight against the same
+face under a warm bulb, a plain wall, the face filling the frame, eyes and
+hairline visible, no filters.
+
+The thesis is that the old rules turned away people whose only problem was an
+iPhone default, while saying nothing about the things that actually change the
+answer. A file limit protects nothing here — the analysis only ever looks at a
+200px copy — so the constraint was pure friction. Showing the real conditions,
+with pictures, is worth more than a list of extensions.
+
+## 2026-09-16 — The free result is now the first part of a paid report
+
+The quiz and the photo result end in a block that says, with real counts, that
+five of the twelve parts of the report have been read and what the other seven
+hold. The paid page stopped being a printable card and became the full report:
+the three measurements behind the season with numbers, the subtype out of the
+twelve, a match score for all four seasons, the reading itself, every colour
+with hex, RGB, lightness and intensity, the subtype's own ten shades including
+the ones borrowed from the neighbouring season, a chart of the palette against
+the shades to avoid, and shopping rules for metals, whites, denim, lip colour,
+prints and hair. It exports as one picture, tall or wide, and prints.
+
+The thesis is that nothing was being sold: the free result already gave the
+season and the palette, and a printable version of what someone can already see
+is not a reason to pay. A report is. Framing the free part as the opening of the
+same report — rather than a different, lesser product — makes the paid part
+legible without taking anything away from the free one, which stays free.
+
 ## 2026-09-16 — Three pages for the moments people actually ask about
 
 Added pages on what to wear with grey hair, to an interview, and for a

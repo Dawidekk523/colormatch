@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { QUIZ_QUESTIONS, resolveQuiz, unansweredQuestionIds, type QuizAnswers } from '../lib/quiz';
+import { metricsFromQuiz } from '../lib/report';
 import {
   clearResult,
   getResultSnapshot,
@@ -9,6 +10,7 @@ import {
   subscribeResult,
 } from '../lib/result-storage';
 import type { SeasonId } from '../lib/seasons-data';
+import { AnalysisProgress } from './AnalysisProgress';
 import { ResultView } from './ResultView';
 
 function reportAnonymously(season: SeasonId) {
@@ -26,8 +28,18 @@ function reportAnonymously(season: SeasonId) {
  * One question per screen: less scrolling, larger targets, and only one thing to
  * decide at a time.
  */
+/** The same order the scoring works in, one line per pass. */
+const STAGES = [
+  'Adding up your answers',
+  'Reading warm against cool',
+  'Placing depth and contrast',
+  'Choosing the season those three point to',
+  'Building your palette',
+];
+
 export function Quiz() {
   const [step, setStep] = useState(0);
+  const [working, setWorking] = useState(false);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [warning, setWarning] = useState<string | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -38,11 +50,19 @@ export function Quiz() {
   const shown = stored?.source === 'quiz' ? stored : null;
 
   useEffect(() => {
-    if (!shown) headingRef.current?.focus();
+    if (shown) return;
+    // Each question is a new screen, so the question itself has to be the thing
+    // in view — without the browser scrolling to wherever the old one sat.
+    const node = headingRef.current;
+    node?.focus({ preventScroll: true });
+    node?.scrollIntoView?.({ block: 'nearest' });
   }, [step, shown]);
 
   useEffect(() => {
-    if (shown) resultRef.current?.focus();
+    if (!shown) return;
+    const node = resultRef.current;
+    node?.focus({ preventScroll: true });
+    node?.scrollIntoView?.({ block: 'start' });
   }, [shown]);
 
   const submit = useCallback(
@@ -51,12 +71,22 @@ export function Quiz() {
         setWarning('Please choose one answer before you continue.');
         return;
       }
+      setWorking(true);
+    },
+    [],
+  );
+
+  /** Held until the stages on screen finish, so the answer is not thrown at you. */
+  const reveal = useCallback(
+    (finalAnswers: QuizAnswers) => {
+      setWorking(false);
       const result = resolveQuiz(finalAnswers);
       saveResult({
         season: result.season,
         undertone: result.undertone,
         confidence: result.confidence,
         source: 'quiz',
+        metrics: metricsFromQuiz(result.score),
       });
       reportAnonymously(result.season);
     },
@@ -65,10 +95,19 @@ export function Quiz() {
 
   const restart = useCallback(() => {
     clearResult();
+    setWorking(false);
     setAnswers({});
     setStep(0);
     setWarning(null);
   }, []);
+
+  if (working) {
+    return (
+      <div className="quiz panel stack">
+        <AnalysisProgress steps={STAGES} onComplete={() => reveal(answers)} />
+      </div>
+    );
+  }
 
   if (shown) {
     return (

@@ -1,3 +1,4 @@
+import type { ResultMetrics } from './report';
 import type { SeasonId, Undertone } from './seasons-data';
 
 export interface StoredResult {
@@ -5,6 +6,8 @@ export interface StoredResult {
   undertone: Undertone;
   source: 'photo' | 'quiz';
   confidence: number;
+  /** The reading behind the result, kept so the full report can show numbers. */
+  metrics?: ResultMetrics;
 }
 
 const KEY = 'colormatch.result.v1';
@@ -40,10 +43,41 @@ function parse(raw: string | null): StoredResult | null {
         : 'neutral',
       source: parsed.source,
       confidence: typeof parsed.confidence === 'number' ? parsed.confidence : 0,
+      metrics: readMetrics(parsed.metrics),
     };
   } catch {
     return null;
   }
+}
+
+const axis = (value: unknown): number =>
+  typeof value === 'number' && Number.isFinite(value) ? Math.min(100, Math.max(-100, value)) : 0;
+
+const optional = (value: unknown): number | undefined =>
+  typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+
+/** Metrics ride along with the result, so they are checked like anything else. */
+export function readMetrics(value: unknown): ResultMetrics | undefined {
+  if (!value || typeof value !== 'object') return undefined;
+  const raw = value as Partial<ResultMetrics>;
+  const points = raw.points;
+  return {
+    warm: axis(raw.warm),
+    light: axis(raw.light),
+    clear: axis(raw.clear),
+    hueAngle: optional(raw.hueAngle),
+    ita: optional(raw.ita),
+    contrast: optional(raw.contrast),
+    coverage: optional(raw.coverage),
+    points:
+      points && typeof points === 'object'
+        ? {
+            warm: optional(points.warm) ?? 0,
+            light: optional(points.light) ?? 0,
+            clear: optional(points.clear) ?? 0,
+          }
+        : undefined,
+  };
 }
 
 const notify = () => listeners.forEach((listener) => listener());

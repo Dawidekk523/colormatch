@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Faq from '../components/Faq.astro';
 import { Analyzer } from '../components/Analyzer';
+import SeasonStrips from '../components/SeasonStrips.astro';
 import { SeasonExplorer } from '../components/SeasonExplorer';
 import { ColourCompare } from '../components/ColourCompare';
 
@@ -9,7 +10,7 @@ const faq = [
   {
     question: 'Is my photo uploaded anywhere?',
     answer:
-      'No. Your photo is read inside your own browser and never leaves your device, so there is nothing to delete afterwards. The free report keeps no email address and no account; only if you buy the palette card do we store your season and the address Polar used for the receipt, so the link in that email can open your card again.',
+      'No. Your photo is read inside your own browser and never leaves your device, so there is nothing to delete afterwards. The free report keeps no email address and no account; only if you buy the full report do we store your season and the address Polar used for the receipt, so the link in that email can open your report again.',
   },
   {
     question: 'Do I need to create an account?',
@@ -51,6 +52,7 @@ const faq = [
           Nothing is uploaded and nothing is stored. The reading happens inside this page, on your own
           device, and takes about a minute.
         </p>
+        <SeasonStrips />
       </div>
       <div class="hero__tool">
         <Analyzer client:load />

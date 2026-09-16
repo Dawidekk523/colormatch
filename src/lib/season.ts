@@ -63,6 +63,10 @@ export interface AnalysisResult extends ColourTraits {
   season: SeasonId;
   hueAngle: number;
   ita: number;
+  /** Lightness gap between skin and the darkest part of the crop. */
+  contrast: number;
+  /** Share of sampled pixels that looked like skin, 0–1. */
+  coverage: number;
   /** 0–1. Low values mean the photo gave us little to work with. */
   confidence: number;
 }
@@ -98,6 +102,8 @@ export function analyseSkinReading(reading: SkinReading): AnalysisResult | null 
     clarity,
     hueAngle,
     ita,
+    contrast: reading.contrast,
+    coverage: reading.coverage,
     confidence,
   };
 }

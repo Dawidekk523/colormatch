@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { Analyzer } from '../src/components/Analyzer';
 import { Quiz } from '../src/components/Quiz';
@@ -54,16 +54,28 @@ describe('Quiz', () => {
     expect(screen.queryByRole('alert')).toBeNull();
   });
 
-  it('walks through every question and shows a season at the end', () => {
-    render(<Quiz />);
-    for (let i = 0; i < QUIZ_QUESTIONS.length - 1; i += 1) {
+  it('walks through every question, names each stage, then shows a season', async () => {
+    vi.useFakeTimers();
+    try {
+      render(<Quiz />);
+      for (let i = 0; i < QUIZ_QUESTIONS.length - 1; i += 1) {
+        answerCurrent();
+        fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+      }
       answerCurrent();
-      fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Show my colours' }));
+
+      // The answer is held while the stages run, so the wait is not blank.
+      expect(screen.getByRole('status').textContent).toMatch(/Adding up your answers/);
+      await act(async () => {
+        vi.advanceTimersByTime(6000);
+      });
+
+      expect(screen.getByText('Your result')).toBeTruthy();
+      expect(screen.getByRole('button', { name: 'Take the quiz again' })).toBeTruthy();
+    } finally {
+      vi.useRealTimers();
     }
-    answerCurrent();
-    fireEvent.click(screen.getByRole('button', { name: 'Show my colours' }));
-    expect(screen.getByText('Your result')).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Take the quiz again' })).toBeTruthy();
   });
 
   it('can go back to a previous question and keeps the answer', () => {
@@ -100,25 +112,30 @@ describe('Analyzer', () => {
     render(<Analyzer />);
     const input = document.getElementById('photo-input') as HTMLInputElement;
     expect(input.type).toBe('file');
-    expect(input.accept).toContain('image/jpeg');
+    expect(input.accept).toBe('image/*');
     expect(screen.getAllByRole('button', { name: /skin/i }).length).toBe(4);
   });
 
-  it('explains what to do when the file is the wrong type', () => {
+  it('turns away a file that is not an image at all', () => {
     render(<Analyzer />);
     const input = document.getElementById('photo-input') as HTMLInputElement;
-    const file = new File(['x'], 'photo.heic', { type: 'image/heic' });
+    const file = new File(['x'], 'notes.pdf', { type: 'application/pdf' });
     fireEvent.change(input, { target: { files: [file] } });
-    expect(screen.getByRole('alert').textContent).toMatch(/JPG, PNG or WEBP/);
+    expect(screen.getByRole('alert').textContent).toMatch(/not an image/i);
   });
 
-  it('explains what to do when the file is too large', () => {
+  it('takes a huge photo without complaining about its size', () => {
     render(<Analyzer />);
     const input = document.getElementById('photo-input') as HTMLInputElement;
     const file = new File([new Uint8Array(1)], 'big.jpg', { type: 'image/jpeg' });
-    Object.defineProperty(file, 'size', { value: 11 * 1024 * 1024 });
+    Object.defineProperty(file, 'size', { value: 80 * 1024 * 1024 });
     fireEvent.change(input, { target: { files: [file] } });
-    expect(screen.getByRole('alert').textContent).toMatch(/larger than 10 MB/);
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
+
+  it('offers the photo tips without leaving the page', () => {
+    render(<Analyzer />);
+    expect(screen.getByRole('button', { name: /good photo/i })).toBeTruthy();
   });
 
   it('asks for a photo when the picker was dismissed with nothing selected', () => {
@@ -283,7 +300,7 @@ describe('UpgradeButton', () => {
     });
 
     render(<UpgradeButton />);
-    fireEvent.click(await screen.findByRole('button', { name: 'Get the palette card' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Get the full report' }));
 
     await waitFor(() => expect(calls.some(([url]) => url === '/api/result')).toBe(true));
     const parked = calls.find(([url]) => url === '/api/result')?.[1];
@@ -304,7 +321,7 @@ describe('UpgradeButton', () => {
       return new Response(JSON.stringify({ error: 'nope' }), { status: 503 });
     });
     render(<UpgradeButton />);
-    fireEvent.click(await screen.findByRole('button', { name: 'Get the palette card' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Get the full report' }));
     expect(await screen.findByText(/could not open checkout/i)).toBeTruthy();
     vi.restoreAllMocks();
   });
