@@ -26,13 +26,16 @@
   --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Hoefler Text', Georgia,
     'Times New Roman', serif;
 
-  --step--1: 1rem;
-  --step-0: 1.1875rem;
-  --step-1: 1.3125rem;
-  --step-2: 1.625rem;
-  --step-3: 2.125rem;
-  --step-4: 2.75rem;
-  --step-5: 3.5rem;
+  /* Phone first. A 19px body with a 21px button is comfortable on a laptop and
+     shouting on a 390px screen — six words a line, and a price that wraps. The
+     scale steps up at 48rem, where the column is wide enough to carry it. */
+  --step--1: 0.9375rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.1875rem;
+  --step-2: 1.375rem;
+  --step-3: 1.75rem;
+  --step-4: 2.125rem;
+  --step-5: 2.5rem;
 
   --space-1: 0.5rem;
   --space-2: 0.875rem;
@@ -121,6 +124,16 @@ h3 {
 }
 
 @media (min-width: 48rem) {
+  :root {
+    --step--1: 1rem;
+    --step-0: 1.1875rem;
+    --step-1: 1.3125rem;
+    --step-2: 1.625rem;
+    --step-3: 2.125rem;
+    --step-4: 2.75rem;
+    --step-5: 3.5rem;
+  }
+
   h1 {
     font-size: var(--step-5);
   }
@@ -383,6 +396,19 @@ svg {
   flex-wrap: wrap;
   gap: var(--space-2) var(--space-3);
   align-items: center;
+}
+
+/* On a phone a row of buttons is really a stack, and a label wrapped inside a
+   pill reads as a mistake — so each one takes the full column instead. */
+@media (max-width: 30rem) {
+  .cluster {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cluster .btn {
+    width: 100%;
+  }
 }
 
 .grid-2 {
