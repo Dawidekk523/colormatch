@@ -1434,143 +1434,6 @@
   scroll-margin-top: 96px;
 }
 
-/* What the paid report holds, drawn from the visitor's own reading and then
-   covered: a description of a chart persuades nobody, and a blurred one with a
-   lock on it says what kind of thing is missing. */
-.locked {
-  position: relative;
-  margin-top: var(--space-3);
-  border-radius: var(--radius-lg);
-  background: #fff;
-  padding: var(--space-4) var(--space-3);
-  overflow: hidden;
-}
-
-.section--tint .locked,
-.section--warm .locked {
-  background: var(--surface-cool);
-}
-
-.locked__peek {
-  display: grid;
-  gap: var(--space-3);
-  filter: blur(3px);
-  opacity: 0.65;
-  pointer-events: none;
-  user-select: none;
-  font-size: var(--step--1);
-}
-
-.locked__line {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2);
-  color: var(--ink-soft);
-}
-
-.locked__track {
-  position: relative;
-  display: block;
-  height: 8px;
-  margin-top: 6px;
-  border-radius: var(--radius-pill);
-  background: var(--surface-cool);
-}
-
-.section--tint .locked__track,
-.section--warm .locked__track {
-  background: #fff;
-}
-
-.locked__marker {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 18px;
-  height: 18px;
-  margin-left: -9px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: var(--ink);
-}
-
-.locked__bars,
-.locked__swatches {
-  display: grid;
-  gap: var(--space-1);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.locked__bars li {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) 2.5rem;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--ink-soft);
-}
-
-.locked__bar {
-  display: block;
-  height: 12px;
-  border-radius: var(--radius-pill);
-  background: var(--surface-cool);
-  overflow: hidden;
-}
-
-.locked__bar span {
-  display: block;
-  height: 100%;
-}
-
-.locked__swatches li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) 2.5rem;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--ink-soft);
-}
-
-.locked__chip {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
-}
-
-/* Sits over the middle of the covered block, where the eye lands. The label
-   carries its own solid ground, or it would be read through the blur. */
-.locked__veil {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  max-width: none;
-  background: rgb(255 255 255 / 0.4);
-}
-
-.locked__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-pill);
-  /* Ink on a pale, blurred field: the chip has to be the one thing in the
-     block that is unmistakably not blurred. */
-  background: var(--ink);
-  font-weight: 600;
-  color: #fff;
-  white-space: nowrap;
-}
-
-.locked__badge .icon {
-  color: rgb(255 255 255 / 0.75);
-}
-
 /* Breadcrumbs ------------------------------------------------------------ */
 .crumbs {
   padding-block: var(--space-3) 0;
@@ -1601,6 +1464,914 @@
 
 .crumbs [aria-current='page'] {
   color: var(--ink);
+}
+
+/* The paywall ------------------------------------------------------------ */
+/* Built for the phone first: a rail of covered cards you swipe, one-line
+   claims under it and a single full-width button. The desktop version is the
+   same thing with the rail opened out into three columns. */
+.paywall {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-3);
+}
+
+.section--tint .paywall,
+.section--warm .paywall,
+.hero--split .paywall {
+  background: #fff;
+}
+
+.paywall__step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+  max-width: none;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.paywall__bar {
+  display: block;
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.paywall__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.paywall h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--step-2);
+}
+
+/* Cards run off the edge of the phone on purpose: a rail that stops short of
+   the screen edge does not read as something you can push. */
+.peek {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78%;
+  gap: var(--space-2);
+  margin: 0 calc(var(--space-3) * -1) var(--space-3);
+  padding: 0 var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.peek::-webkit-scrollbar {
+  display: none;
+}
+
+.peek__card {
+  position: relative;
+  scroll-snap-align: start;
+  min-width: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  background: var(--surface-cool);
+  overflow: hidden;
+}
+
+.section--tint .peek__card,
+.section--warm .peek__card,
+.hero--split .peek__card {
+  background: var(--surface);
+}
+
+.peek__card h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.peek__body {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  filter: blur(3px);
+  opacity: 0.7;
+  pointer-events: none;
+  user-select: none;
+}
+
+.peek__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.peek__track {
+  position: relative;
+  display: block;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+}
+
+.peek__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.peek__bars li,
+.peek__swatches li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) 2.2rem;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.peek__swatches li {
+  grid-template-columns: auto minmax(0, 1fr) 2.2rem;
+}
+
+.peek__bar {
+  display: block;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  overflow: hidden;
+}
+
+.peek__bar span {
+  display: block;
+  height: 100%;
+}
+
+.peek__chip {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+/* The one thing in a covered card that is not covered. */
+.peek__lock {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-3);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  max-width: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.peek__lock .icon {
+  color: rgb(255 255 255 / 0.75);
+}
+
+.paywall__list {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+}
+
+.paywall__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.1rem var(--space-2);
+  font-size: var(--step--1);
+}
+
+.paywall__list .icon {
+  grid-row: span 2;
+  margin-top: 3px;
+  color: var(--ink-soft);
+}
+
+.paywall__list span {
+  color: var(--ink-soft);
+}
+
+.paywall__small {
+  margin: var(--space-2) 0 0;
+  text-align: center;
+}
+
+@media (min-width: 48rem) {
+  .paywall {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .peek {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-columns: auto;
+    gap: var(--space-3);
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .paywall__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .paywall .btn--block {
+    width: auto;
+    min-width: 18rem;
+  }
+
+  .paywall__small {
+    text-align: left;
+  }
+}
+
+/* Analysis stages -------------------------------------------------------- */
+.progress {
+  width: min(100%, 26rem);
+  margin-inline: auto;
+  text-align: left;
+}
+
+.progress__now {
+  margin: 0 0 var(--space-2);
+  max-width: none;
+  font-weight: 600;
+}
+
+.progress__bar {
+  display: block;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  transition: width 420ms ease;
+}
+
+.progress__steps {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+}
+
+.progress__step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  opacity: 0.55;
+  transition: opacity 240ms ease;
+}
+
+.progress__step--done {
+  opacity: 1;
+  color: var(--ink);
+}
+
+.progress__step--done .icon {
+  color: var(--positive);
+}
+
+/* The dot of the step being worked on breathes; the rest sit still, so the
+   movement points at the one line worth reading. */
+.progress__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--line-strong);
+}
+
+.progress__step:not(.progress__step--done):first-of-type .progress__dot,
+.progress__step--done + .progress__step .progress__dot {
+  box-shadow: inset 0 0 0 2px var(--ink);
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(0.72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__fill,
+  .progress__step {
+    transition: none;
+  }
+
+  .progress__dot {
+    animation: none;
+  }
+}
+
+/* Icons ------------------------------------------------------------------ */
+.icon {
+  display: block;
+  flex: none;
+}
+
+/* A button's icon rides with its label rather than hanging off the end. */
+.btn .icon {
+  display: inline-block;
+  vertical-align: -0.25em;
+  margin-right: 0.5rem;
+}
+
+/* Full report ------------------------------------------------------------ */
+/* The bought report is one long page rather than a set of cards: the reading
+   is a single argument, and boxing every part of it would put a border beside
+   a border on every screen. White space does the separating. */
+.report {
+  /* Lines up with the page heading rather than centring inside the shell,
+     so the report reads as the page instead of a panel dropped into it. */
+  width: min(100%, 52rem);
+}
+
+.report__head {
+  padding-left: var(--space-3);
+  border-left: 4px solid var(--brand);
+}
+
+.report__season {
+  font-size: var(--step-4);
+  margin-block: 0 var(--space-2);
+}
+
+.report__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+}
+
+@media (min-width: 40rem) {
+  .report__facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+.report__facts dt {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.report__facts dd {
+  margin: var(--space-1) 0 0;
+  font-weight: 500;
+}
+
+/* Figures for measurements read better lined up under one another. */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.meters {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.meter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.meter__label {
+  margin: 0;
+  font-size: var(--step-1);
+}
+
+.meter__value {
+  margin: 0;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.meter__value span {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.meter__track {
+  position: relative;
+  height: 10px;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--surface-cool);
+}
+
+.meter__middle {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 50%;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+.meter__marker {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.meter__ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.meter__verdict {
+  margin: var(--space-2) 0 0;
+  max-width: 34rem;
+}
+
+.chart {
+  margin: var(--space-3) 0 0;
+}
+
+.chart svg {
+  display: block;
+  width: min(100%, 34rem);
+  height: auto;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+
+.chart__caption {
+  margin-top: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  max-width: 36rem;
+}
+
+.bars {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bars__row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) 3rem;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.bars__row--on {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.bars__track {
+  display: block;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-cool);
+  overflow: hidden;
+}
+
+.bars__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.bars__value {
+  text-align: right;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-3);
+  font-size: var(--step--1);
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-2) var(--space-2) var(--space-2) 0;
+  text-align: left;
+  /* A row rule inside a table is structure, not a section divider. */
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table thead th {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.data-table tbody th {
+  font-weight: 600;
+}
+
+.data-table__swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.data-table__chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  flex: none;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+.data-table td.num {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+@media (max-width: 34rem) {
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 var(--space-2);
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .data-table tbody th,
+  .data-table td {
+    border: 0;
+    padding: 0;
+  }
+
+  .data-table__swatch {
+    gap: var(--space-2);
+  }
+
+  .data-table tbody th {
+    grid-column: 1 / -1;
+    margin-bottom: var(--space-1);
+  }
+
+  .data-table td.num:nth-of-type(2) {
+    text-align: right;
+  }
+
+  .data-table td.num:nth-of-type(3),
+  .data-table td.num:nth-of-type(4) {
+    display: none;
+  }
+}
+
+.rules {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+}
+
+@media (min-width: 44rem) {
+  .rules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+.rules dt {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.rules dd {
+  margin: var(--space-1) 0 0;
+  max-width: 28rem;
+}
+
+.share__preview {
+  margin-top: var(--space-3);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}
+
+.share__preview canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.share__preview--portrait canvas {
+  width: min(100%, 22rem);
+  margin-inline: auto;
+}
+
+/* The paywall ------------------------------------------------------------ */
+/* Built for the phone first: a rail of covered cards you swipe, one-line
+   claims under it and a single full-width button. The desktop version is the
+   same thing with the rail opened out into three columns. */
+.paywall {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-3);
+}
+
+.section--tint .paywall,
+.section--warm .paywall,
+.hero--split .paywall {
+  background: #fff;
+}
+
+.paywall__step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+  max-width: none;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.paywall__bar {
+  display: block;
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.paywall__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.paywall h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--step-2);
+}
+
+/* Cards run off the edge of the phone on purpose: a rail that stops short of
+   the screen edge does not read as something you can push. */
+.peek {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78%;
+  gap: var(--space-2);
+  margin: 0 calc(var(--space-3) * -1) var(--space-3);
+  padding: 0 var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.peek::-webkit-scrollbar {
+  display: none;
+}
+
+.peek__card {
+  position: relative;
+  scroll-snap-align: start;
+  min-width: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  background: var(--surface-cool);
+  overflow: hidden;
+}
+
+.section--tint .peek__card,
+.section--warm .peek__card,
+.hero--split .peek__card {
+  background: var(--surface);
+}
+
+.peek__card h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.peek__body {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  filter: blur(3px);
+  opacity: 0.7;
+  pointer-events: none;
+  user-select: none;
+}
+
+.peek__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.peek__track {
+  position: relative;
+  display: block;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+}
+
+.peek__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.peek__bars li,
+.peek__swatches li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) 2.2rem;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.peek__swatches li {
+  grid-template-columns: auto minmax(0, 1fr) 2.2rem;
+}
+
+.peek__bar {
+  display: block;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  overflow: hidden;
+}
+
+.peek__bar span {
+  display: block;
+  height: 100%;
+}
+
+.peek__chip {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+/* The one thing in a covered card that is not covered. */
+.peek__lock {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-3);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  max-width: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.peek__lock .icon {
+  color: rgb(255 255 255 / 0.75);
+}
+
+.paywall__list {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+}
+
+.paywall__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.1rem var(--space-2);
+  font-size: var(--step--1);
+}
+
+.paywall__list .icon {
+  grid-row: span 2;
+  margin-top: 3px;
+  color: var(--ink-soft);
+}
+
+.paywall__list span {
+  color: var(--ink-soft);
+}
+
+.paywall__small {
+  margin: var(--space-2) 0 0;
+  text-align: center;
+}
+
+@media (min-width: 48rem) {
+  .paywall {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .peek {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-columns: auto;
+    gap: var(--space-3);
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .paywall__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .paywall .btn--block {
+    width: auto;
+    min-width: 18rem;
+  }
+
+  .paywall__small {
+    text-align: left;
+  }
 }
 
 /* Analysis stages -------------------------------------------------------- */

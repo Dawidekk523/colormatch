@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-16 — The paywall rebuilt for the phone
+
+The block that ends a free result is no longer a desktop column narrowed down:
+a progress line reading "Part 5 of 13", one short heading, then a rail of three
+covered cards you swipe — your meters, your four season scores, your palette —
+each with a Locked chip, then seven one-line claims and a single full-width
+button. On a wide screen the rail opens into three columns and the claims into
+two.
+
+The thesis is that the old version took three screens of scrolling to reach a
+price, and nobody scrolls three screens to be sold to. It now takes one and a
+bit, and the first thing seen is the shape of what is missing.
+
 ## 2026-09-16 — The paid part is shown, not described
 
 The block at the end of a free result now draws the rest of the report from the

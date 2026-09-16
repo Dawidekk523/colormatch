@@ -396,37 +396,37 @@ export const REPORT_SECTION_COUNT = 13;
 export const REPORT_EXTRAS: { title: string; detail: string; icon: IconName }[] = [
   {
     icon: 'measurements',
-    title: 'Your three measurements, with numbers',
-    detail: 'How warm, how light and how clear your colouring read, each on a scale, and what each one means for a shop rail.',
+    title: 'Your three measurements',
+    detail: 'How warm, how light, how clear — each scored.',
   },
   {
     icon: 'subtype',
-    title: 'Your subtype out of the twelve, with its own palette',
-    detail: 'Not just the season, but which of its three versions you are — and the ten shades of that subtype, including the ones borrowed from the season you lean towards.',
+    title: 'Your subtype of the twelve',
+    detail: 'Which Summer, Spring, Autumn or Winter, with its own ten shades.',
   },
   {
     icon: 'seasonFit',
-    title: 'How close the other three seasons came',
-    detail: 'A match score for all four, so you know whether this was decisive or a near thing.',
+    title: 'A score for all four seasons',
+    detail: 'Whether this was decisive or a near thing.',
   },
   {
     icon: 'reading',
-    title: 'The reading behind the result',
-    detail: 'The hue angle, typology angle and contrast the photo gave, or the points each quiz answer scored.',
+    title: 'The reading behind it',
+    detail: 'The angles your photo gave, or the points your answers scored.',
   },
   {
     icon: 'colours',
     title: 'Every colour measured',
-    detail: 'Name, hex, RGB, lightness and intensity for all nineteen colours, plus a chart of where your palette sits against the shades to avoid.',
+    detail: 'Hex, RGB, lightness and intensity for all nineteen.',
   },
   {
     icon: 'wardrobe',
-    title: 'Metals, whites, denim, lips, prints and hair',
-    detail: 'The six decisions that come up every time you shop, answered for your colouring.',
+    title: 'Metals, whites, denim, lips',
+    detail: 'The six decisions that come up every time you shop.',
   },
   {
     icon: 'picture',
     title: 'A picture to keep',
-    detail: 'The whole palette as a PNG, tall for a phone or wide for a screen, and a print-ready page.',
+    detail: 'The palette as a PNG, tall or wide, and a printable page.',
   },
 ];
