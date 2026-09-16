@@ -1105,12 +1105,13 @@
   padding: 0;
   margin: 0;
   display: grid;
-  /* Wide enough for the longest name beside its code — "Terracotta #A9552C"
-     needs 13.2rem. Below that the name wrapped, which left rows of different
-     heights sitting ragged against each other and pushed the code out of its
-     own cell. */
-  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+  /* Wide enough that a two-word name and its code sit on one line. */
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   gap: var(--space-2) var(--space-4);
+  /* Without this a single wrapping name stretched every entry beside it to the
+     same height, and each of those centred its own content inside that height —
+     so one long name left a whole row of colours sitting at ragged heights. */
+  align-items: start;
 }
 
 .card-sheet__colours li {
