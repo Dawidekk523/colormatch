@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-09-16 — The paywall shows worked examples instead of a blur
+
+The rail at the end of a free result now carries four uncovered cards from a
+worked example — a cool, soft summer: the three measurements with their scores,
+all four seasons ranked, four colours with their codes and measurements, and the
+palette charted against the shades to avoid. Each is labelled Example, and the
+line above says the figures belong to someone else.
+
+The thesis is that a blurred chart proves only that something is hidden. Real
+figures from a real example show what is actually being sold, and saying whose
+they are keeps it honest.
+
 ## 2026-09-16 — The paywall rebuilt for the phone
 
 The block that ends a free result is no longer a desktop column narrowed down:
