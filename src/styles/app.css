@@ -176,9 +176,24 @@
 
 @media (min-width: 48rem) {
   .footer__grid {
-    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-5);
   }
+}
+
+@media (min-width: 62rem) {
+  .footer__grid {
+    /* The first column is the description rather than a link list, so it gets
+       the room a paragraph needs and the four lists share the rest evenly. */
+    grid-template-columns: 1.6fr repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* The disclaimer sits inside its own shell so it lines up with the first
+   footer column; putting `.note` and `.shell` on the same element centred it
+   in the middle of the footer instead. */
+.footer__small {
+  margin-top: var(--space-5);
 }
 
 .footer h2 {
@@ -224,9 +239,55 @@
 }
 
 .hero__inner {
-  width: min(100%, 46rem);
+  /* Sits on `.shell`, and a plain `100%` here would win the tie and take the
+     page gutter away — which is why every hero ran edge to edge on a phone
+     while the sections below kept their margin. */
+  width: min(100% - 2.5rem, 46rem);
   margin-inline: auto;
 }
+
+/* The tool is the product, so on a wide screen it sits beside the headline
+   rather than below the fold. On a phone the order is unchanged: read first,
+   then act. */
+.hero--split .hero__inner {
+  width: min(100% - 2.5rem, var(--shell));
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 62rem) {
+  .hero--split {
+    text-align: left;
+  }
+
+  .hero--split .hero__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .hero--split .hero__words .lede,
+  .hero--split .hero__words p {
+    margin-inline: 0;
+  }
+}
+
+/* Only earns its place in the two-column hero, where the words column has room
+   to spare. On a phone it repeats the lede and pushes the button below the
+   fold, so it is not rendered at all. */
+.hero__aside {
+  display: none;
+}
+
+@media (min-width: 62rem) {
+  .hero__aside {
+    display: block;
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+  }
+}
+
+
 
 .hero h1 {
   margin-bottom: var(--space-2);
@@ -434,6 +495,23 @@
   gap: 0.35rem;
 }
 
+/* A two-line colour name used to push its code out of line with the rest of
+   the row. Subgrid lines the chips, the names and the codes up across the whole
+   row; browsers without it keep the flex layout above, which is only untidy,
+   not broken. */
+@supports (grid-template-rows: subgrid) {
+  .swatch-grid {
+    grid-auto-rows: auto;
+  }
+
+  .swatch {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    row-gap: 0.35rem;
+  }
+}
+
 .swatch__chip {
   display: block;
   height: 92px;
@@ -521,6 +599,10 @@
   font-weight: 700;
   line-height: 1.15;
   margin: 0 0 var(--space-3);
+  /* These headings are whole sentences, not display lines. Balancing them on a
+     narrow screen pulls every line short and leaves the column looking broken;
+     `pretty` only guards against a lone word on the last line. */
+  text-wrap: pretty;
 }
 
 .quiz__question:focus {
@@ -702,7 +784,10 @@
 
 /* Compare slider --------------------------------------------------------- */
 .compare {
-  margin: 0;
+  /* Capped so the face never becomes a billboard, and centred so the cap does
+     not leave a column of dead space beside it on a tablet, where the section
+     is still one column wide. */
+  margin: 0 auto;
   width: min(100%, 30rem);
 }
 
@@ -819,7 +904,26 @@
 .steps li {
   counter-increment: step;
   padding-top: var(--space-3);
-  box-shadow: inset 0 2px 0 var(--ink);
+  position: relative;
+}
+
+/* A short mark, not a rule. In one column a full-width hairline above every
+   step reads as a divider between sections rather than as the top of a step —
+   it only earns its width once the steps sit side by side. */
+.steps li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2rem;
+  height: 2px;
+  background: var(--ink);
+}
+
+@media (min-width: 48rem) {
+  .steps li::before {
+    width: 100%;
+  }
 }
 
 .steps h3 {
@@ -1001,7 +1105,11 @@
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  /* Wide enough for the longest name beside its code — "Terracotta #A9552C"
+     needs 13.2rem. Below that the name wrapped, which left rows of different
+     heights sitting ragged against each other and pushed the code out of its
+     own cell. */
+  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
   gap: var(--space-2) var(--space-4);
 }
 
@@ -1011,6 +1119,11 @@
   align-items: center;
   gap: var(--space-2);
   break-inside: avoid;
+}
+
+/* A name is allowed to shrink rather than shove the code past the edge. */
+.card-sheet__name {
+  min-width: 0;
 }
 
 .card-sheet__chip {

@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UndertoneSection from '../components/UndertoneSection.astro';
+import { UNDERTONE_PAGES } from '../lib/undertone-pages';
+import { UNDERTONE_GROUPS } from '../lib/undertones';
+
+const page = UNDERTONE_PAGES.cool;
+const group = UNDERTONE_GROUPS.cool;
+---
+
+<BaseLayout title={page.title} description={page.description} path={`/${group.slug}/`} faq={page.faq}>
+  <UndertoneSection id="cool" />
+</BaseLayout>

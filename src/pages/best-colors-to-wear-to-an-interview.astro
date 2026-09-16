@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import SwatchGrid from '../components/SwatchGrid.astro';
+import { SEASONS } from '../lib/seasons-data';
+import type { Swatch } from '../lib/seasons-data';
+import { SEASON_PAGES } from '../lib/season-pages';
+
+/** Named lookup rather than an index, so a reordered palette cannot swap a shade out from under the copy. */
+const pick = (swatches: Swatch[], names: string[]): Swatch[] =>
+  names
+    .map((name) => swatches.find((swatch) => swatch.name === name))
+    .filter((swatch): swatch is Swatch => Boolean(swatch));
+
+const strongColours: Swatch[] = [
+  ...pick(SEASONS.winter.wear, ['True Red', 'Royal Blue', 'Emerald']),
+  ...pick(SEASONS.autumn.wear, ['Deep Teal', 'Rust']),
+  ...pick(SEASONS.spring.wear, ['Coral']),
+  ...pick(SEASONS.summer.wear, ['Slate Blue', 'Soft Rose']),
+];
+
+const quietNeutrals: Swatch[] = [
+  ...pick(SEASONS.summer.neutrals, ['Soft White', 'Cool Grey', 'Taupe', 'Navy']),
+  ...pick(SEASONS.winter.neutrals, ['Charcoal']),
+  ...pick(SEASONS.spring.neutrals, ['Soft Navy']),
+];
+
+const faq = [
+  {
+    question: 'Is navy really the safest colour for an interview?',
+    answer:
+      'Navy is safe in the sense that it offends nobody, and that is the whole of its case. It is a neutral, so it does the job of the suit rather than the job of the shirt. Worn head to toe by someone whose colouring is soft and light, it can also be the heaviest thing in the room. Treat navy as the background and decide separately what goes at the collar.',
+  },
+  {
+    question: 'Should I avoid black at an interview?',
+    answer:
+      'For most people, yes, at least right under the chin. Of the four palettes used in colour analysis, only the winter one carries true black next to the face without any softening; the other three list it among the shades to be careful with, because it draws a hard line and takes the colour out of the skin above it. Charcoal and navy read as equally formal with none of that.',
+  },
+  {
+    question: 'Can I wear a patterned shirt or tie to an interview?',
+    answer:
+      'Keep pattern away from the neckline. A fine stripe or check near the face moves whenever you move and competes with what you are saying, and on a video call it can also shimmer as the camera struggles to resolve it. Pattern lower down — a jacket lining, a skirt, a scarf worn loose — causes no trouble.',
+  },
+  {
+    question: 'What should I wear for an interview held on video?',
+    answer:
+      'One plain, clear colour at the collar, and nothing that matches your wall. Screen light is cool and flattens skin, so a shade with some life in it does more work on camera than it does in a room. Check what is behind you before you choose: a shirt close to the colour of the wall, or to a virtual background, will merge with it and leave a head floating in front of the furniture.',
+  },
+  {
+    question: 'Does the colour of my trousers or skirt matter?',
+    answer:
+      'Barely. Colour does its work where light bounces up into your face, which is the collar, the scarf and the frame of your glasses. Below the waist you are free, which is useful — it means one correct shirt can carry an outfit you already own.',
+  },
+];
+---
+
+<BaseLayout
+  title="The Best Colours to Wear to an Interview | colormatch"
+  description="The best colors to wear for an interview, with names and hex codes. Why the usual advice to wear navy ignores the person wearing it, which shade to put at the collar, and what a video call changes."
+  path="/best-colors-to-wear-to-an-interview/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>The best colours to wear to an interview</h1>
+      <p class="lede">
+        The standard advice is to wear navy and disappear into it. That is advice about the suit, not
+        about you — and an interview is one of the few occasions where being remembered is the point.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <p>
+          Almost every list of interview colours says the same three things: navy, grey, nothing loud.
+          None of it is wrong, and none of it takes any account of the face above the collar. Navy is a
+          neutral. It sets the level of formality and then stops. Whether you look well or washed out
+          while you are wearing it is decided by the shade nearest your skin, and that shade depends on
+          your own colouring rather than on the job.
+        </p>
+        <p>
+          There is a second reason not to follow the advice all the way down. An interviewer may see six
+          people in a day, and five of them will be in a dark neutral from head to foot. Being the one
+          who is easy to picture afterwards is worth more than being the one who blended in, and it costs
+          nothing but a considered shirt.
+        </p>
+      </div>
+
+      <SwatchGrid
+        title="One strong colour to put near the face"
+        description="Each of these belongs to a different palette, and only one family of them will be yours. Pick the one that suits your colouring, wear it at the collar, and keep the rest of the outfit neutral."
+        swatches={strongColours}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>How to build the outfit</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>One colour at the collar, a neutral everywhere else</h3>
+          <p>
+            This is the whole method. The suit, the jacket or the cardigan stays quiet; the piece that
+            touches your neckline carries the colour. One shade is enough — two strong colours at once
+            start arguing with each other, and the face is caught in the middle of it.
+          </p>
+        </li>
+        <li>
+          <h3>Choose charcoal or navy rather than black</h3>
+          <p>
+            Black is the deepest thing you can put next to skin, and in three of the four seasonal
+            palettes it appears on the list of shades to be careful with. It reads as severe on a great
+            many people, and it pulls the shadows in the face downwards. Charcoal and navy carry
+            exactly the same formality and do none of that damage.
+          </p>
+        </li>
+        <li>
+          <h3>Keep pattern below the shoulders</h3>
+          <p>
+            A stripe or a small check at the neckline is never still. It moves as you speak, and the eye
+            keeps returning to it instead of to your answer. Plain cloth near the face, pattern further
+            down if you want it.
+          </p>
+        </li>
+      </ol>
+
+      <SwatchGrid
+        title="The neutrals that carry the suit"
+        description="These come from the summer, winter and spring palettes, and they cover the range most interview wardrobes already contain. Any of them will sit behind a strong collar colour without competing with it."
+        swatches={quietNeutrals}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>The best colours to wear for an interview on video</h2>
+        <p>
+          A screen introduces two problems that a room does not have. The light from a monitor is cool
+          and even, which drains warmth out of skin, and the camera has to decide on an exposure for both
+          you and whatever is behind you. A shade that looks considered across a desk can look grey and
+          tired through a webcam.
+        </p>
+        <ul class="tips">
+          <li>
+            Look at your background first and choose against it. A shirt within a shade or two of a plain
+            wall will merge into it, and the same goes for a virtual background — pick a colour that is
+            clearly not in the picture behind you.
+          </li>
+          <li>
+            Avoid pure white at the neckline on camera. The camera exposes for the brightest thing it can
+            see, and a white shirt filling the frame will leave your face darker than it should be.
+          </li>
+          <li>
+            Give the colour a little more life than you would in person. Slate blue, deep teal or true
+            red hold up under screen light, where a pale, dusty shade tends to disappear into the wall.
+          </li>
+          <li>
+            Plain cloth again, and for a second reason: fine stripes and checks can shimmer and crawl on
+            a video call, which no one watching will be able to ignore.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Find the shade that is yours</h2>
+        <p>
+          Every colour on this page suits someone and flatters nobody else. Which family is yours comes
+          down to the undertone of your skin, and the free colour report reads exactly that — it takes
+          about a minute and asks for nothing.
+        </p>
+        <p>
+          <a class="btn btn--primary" href="/">Find your palette</a>
+        </p>
+        <ul class="tips">
+          <li>
+            <a href="/skin-tone-colors/">Find your undertone</a> — the one thing that decides which
+            collar colour works.
+          </li>
+          <li>
+            <a href={`/${SEASON_PAGES.winter.slug}/`}>The winter palette</a> — the one colouring that
+            genuinely wears a black suit and a white shirt.
+          </li>
+          <li>
+            <a href="/what-colors-look-good-on-me/">What colours look good on me</a> — the longer answer,
+            for the rest of the wardrobe.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <Faq title="Questions about interview colours" items={faq} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

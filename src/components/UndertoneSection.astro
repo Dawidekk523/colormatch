@@ -1,0 +1,111 @@
+---
+import Faq from './Faq.astro';
+import SwatchGrid from './SwatchGrid.astro';
+import { SEASONS } from '../lib/seasons-data';
+import { SEASON_PAGES } from '../lib/season-pages';
+import { UNDERTONE_GROUPS, UNDERTONE_LIST, undertonePalette, type UndertoneId } from '../lib/undertones';
+import { UNDERTONE_PAGES } from '../lib/undertone-pages';
+
+interface Props {
+  id: UndertoneId;
+}
+
+const { id } = Astro.props;
+const group = UNDERTONE_GROUPS[id];
+const page = UNDERTONE_PAGES[id];
+const palette = undertonePalette(group);
+const others = UNDERTONE_LIST.filter((other) => other.id !== id && UNDERTONE_PAGES[other.id]);
+---
+
+<section class="hero">
+  <div class="shell hero__inner stack">
+    <h1>{page.heading}</h1>
+    <p class="lede">{page.lede}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell stack-lg">
+    <div class="narrow stack">
+      {page.intro.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+
+    <SwatchGrid
+      title={`Colours for a ${group.name.toLowerCase()} undertone`}
+      description={group.rule}
+      swatches={palette.wear}
+    />
+
+    <SwatchGrid
+      title="Shades to be careful with"
+      description={`These are the shades ${SEASONS[group.seasons[0]].name.toLowerCase()} and ${SEASONS[group.seasons[1]].name.toLowerCase()} both struggle with — the ones that work against this undertone rather than with it.`}
+      swatches={palette.avoid}
+      tone="avoid"
+    />
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="shell stack-lg">
+    <div class="narrow stack">
+      <h2>Checking it at home</h2>
+    </div>
+    <ol class="steps">
+      {
+        page.tests.map((test) => (
+          <li>
+            <h3>{test.heading}</h3>
+            <p>{test.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell stack-lg">
+    <div class="narrow stack">
+      <h2>Wearing it</h2>
+      <ul class="tips">
+        {page.wearing.map((item) => <li>{item}</li>)}
+      </ul>
+      <p>
+        <a class="btn btn--primary" href="/">Get your free colour report</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="shell stack-lg">
+    <div class="narrow stack">
+      <Faq title={`Questions about a ${group.name.toLowerCase()} undertone`} items={page.faq} />
+    </div>
+
+    <div class="narrow stack">
+      <h2>Where to go next</h2>
+      <ul class="tips">
+        {
+          group.seasons.map((season) => (
+            <li>
+              <a href={`/${SEASON_PAGES[season].slug}/`}>{SEASON_PAGES[season].heading}</a> — one of the two
+              seasons that share this undertone.
+            </li>
+          ))
+        }
+        {
+          others.map((other) => (
+            <li>
+              <a href={`/${other.slug}/`}>Colours for a {other.name.toLowerCase()} skin tone</a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/skin-tone-colors/">Skin tone and colour, explained</a> — what undertone is, and what it
+          is not.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

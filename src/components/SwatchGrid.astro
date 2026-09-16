@@ -1,0 +1,37 @@
+---
+import { contrastRatio, hexToRgb } from '../lib/color';
+import type { Swatch } from '../lib/seasons-data';
+
+interface Props {
+  title: string;
+  description: string;
+  swatches: Swatch[];
+  tone?: 'wear' | 'avoid';
+}
+
+const { title, description, swatches, tone = 'wear' } = Astro.props;
+
+/** Pale chips need an outline or they disappear against the page. */
+const isPale = (hex: string) => contrastRatio(hexToRgb(hex), hexToRgb('#ffffff')) < 1.6;
+---
+
+<section class="swatch-block stack">
+  <h2>{title}</h2>
+  <p>{description}</p>
+  <ul class="swatch-grid">
+    {
+      swatches.map((swatch) => (
+        <li class="swatch">
+          <span
+            class={isPale(swatch.hex) ? 'swatch__chip swatch__chip--outlined' : 'swatch__chip'}
+            style={`background: ${swatch.hex}`}
+            aria-hidden="true"
+          />
+          <span class="swatch__name">{swatch.name}</span>
+          <span class="swatch__hex">{swatch.hex.toUpperCase()}</span>
+          <span class="visually-hidden">{tone === 'avoid' ? 'Colour to be careful with' : 'Good colour for you'}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

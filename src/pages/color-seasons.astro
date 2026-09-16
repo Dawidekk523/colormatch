@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Faq from '../components/Faq.astro';
 import { contrastRatio, hexToRgb } from '../lib/color';
 import { SEASONS, SEASON_ORDER, UNDERTONE_LABEL } from '../lib/seasons-data';
+import { SEASON_PAGES } from '../lib/season-pages';
 
 /** Pale chips need an outline or they disappear against the page. */
 const isPale = (hex: string) => contrastRatio(hexToRgb(hex), hexToRgb('#ffffff')) < 1.6;
@@ -13,7 +14,7 @@ const faq = [
   {
     question: 'Why four seasons and not twelve?',
     answer:
-      'Twelve-season systems split each of these into sub-groups, which is useful for a stylist working in person. For choosing a jumper on a Saturday, four is plenty, and the shades in the sub-groups all sit inside the four palettes listed here anyway.',
+      'Four is what the free report gives you, because four is enough to shop with and the sub-groups all sit inside these same palettes. If you already know your season and want to know which edge of it you sit on, each season below links to its three sub-groups — light, true and the one that leans towards the next season along.',
   },
   {
     question: 'What do warm and cool actually mean?',
@@ -75,6 +76,11 @@ const faq = [
               <p class="lede">{season.tagline}</p>
               <p>{season.description}</p>
               <p class="badge">Undertone: {UNDERTONE_LABEL[season.undertone]}</p>
+              <p>
+                <a href={`/${SEASON_PAGES[season.id].slug}/`}>
+                  Everything about the {season.name.toLowerCase()} palette
+                </a>
+              </p>
             </div>
 
             <section class="swatch-block">

@@ -38,14 +38,23 @@ const faq = [
   path="/"
   faq={faq}
 >
-  <section class="hero">
-    <div class="shell hero__inner stack">
-      <h1>Find the colours that suit you</h1>
-      <p class="lede">
-        Upload a photo or answer seven short questions. You get your colour season, your palette with names
-        and codes, and the colours that are worth avoiding. Free, and your photo stays on your device.
-      </p>
-      <Analyzer client:load />
+  <section class="hero hero--split">
+    <div class="shell hero__inner">
+      <div class="hero__words stack">
+        <h1>Find the colours that suit you</h1>
+        <p class="lede">
+          Upload a photo or answer seven short questions. You get your colour season, your palette with
+          names and codes, and the colours that are worth avoiding. Free, and your photo stays on your
+          device.
+        </p>
+        <p class="hero__aside">
+          Nothing is uploaded and nothing is stored. The reading happens inside this page, on your own
+          device, and takes about a minute.
+        </p>
+      </div>
+      <div class="hero__tool">
+        <Analyzer client:load />
+      </div>
     </div>
   </section>
 

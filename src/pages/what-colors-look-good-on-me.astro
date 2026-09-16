@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import SwatchGrid from '../components/SwatchGrid.astro';
+import { Quiz } from '../components/Quiz';
+import { SEASONS, SEASON_ORDER } from '../lib/seasons-data';
+import { SEASON_PAGES } from '../lib/season-pages';
+
+const faq = [
+  {
+    question: 'What colours look good on me?',
+    answer:
+      'The ones that share the direction of your own colouring. If your skin leans warm, warm shades let your face stay the strongest thing in the picture; if it leans cool, cool ones do. Work out which way you lean and the list of colours follows from it, which is what the seven questions below do.',
+  },
+  {
+    question: 'Is there a rule I can remember in a shop?',
+    answer:
+      'One rule covers most of it: the colour only has to be right where light bounces up into your face. Tops, scarves, collars and glasses matter. Skirts, trousers, shoes and bags are free, whatever colour they are.',
+  },
+  {
+    question: 'What if I like a colour that does not suit me?',
+    answer:
+      'Wear it further from your face, or put a shade that does suit you between it and your chin. Nothing here is a prohibition — it is a description of what happens to your face when a colour is right next to it.',
+  },
+  {
+    question: 'Do the colours that suit me change as I get older?',
+    answer:
+      'Your undertone does not change, but contrast does. Hair that greys or lightens narrows the gap between hair and skin, which usually means softer, less stark versions of the same palette suit you better than they did at thirty.',
+  },
+  {
+    question: 'Can I trust a quiz more than a photograph?',
+    answer:
+      'They fail in different ways, which is why both are here. A photograph depends on your camera and your lighting; a quiz depends on how well you can judge your own colouring. When the two agree, that is a good sign, and when they disagree it is usually the lighting.',
+  },
+];
+---
+
+<BaseLayout
+  title="What Colours Look Good on Me? Seven Questions and an Answer | colormatch"
+  description="What colors look good on me? Answer seven questions about your skin, hair and eyes and get your color season, your palette with hex codes and the shades to avoid. Free, no sign-up."
+  path="/what-colors-look-good-on-me/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>What colours look good on me?</h1>
+      <p class="lede">
+        The short answer: the ones that lean the same way your own colouring does. The seven questions
+        below work out which way that is, and give you the list.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <p>
+          A colour near your face throws light back onto your skin. A shade that matches the warmth and
+          depth already there evens your skin out and makes your eyes the thing people notice. A shade
+          that fights it puts a cast on your face, and the face is what looks wrong rather than the
+          jumper.
+        </p>
+        <p>
+          That is the whole mechanism, and it is why the answer is different for different people rather
+          than being a list of flattering colours everyone should own. Answer the questions and you get
+          your own list.
+        </p>
+      </div>
+      <Quiz client:visible />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Four answers, depending on who is asking</h2>
+        <p>
+          Every colouring lands in one of four groups. These are the palettes each one is asking for —
+          click through for the full set with codes, or use the quiz above if you do not know yours yet.
+        </p>
+      </div>
+
+      {
+        SEASON_ORDER.map((id) => (
+          <div class="stack">
+            <SwatchGrid
+              title={`If you are a ${SEASONS[id].name.toLowerCase()}`}
+              description={`${SEASONS[id].tagline}. ${SEASONS[id].description}`}
+              swatches={SEASONS[id].wear.slice(0, 5)}
+            />
+            <p>
+              <a href={`/${SEASON_PAGES[id].slug}/`}>The full {SEASONS[id].name.toLowerCase()} palette</a>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Three checks you can do today</h2>
+        <ul class="tips">
+          <li>
+            Hold gold and silver either side of your face by a window. Whichever looks like it belongs
+            tells you which half of the palettes to shop from.
+          </li>
+          <li>
+            Hold an optical white shirt under your chin, then a cream one. One of them will make your skin
+            look even and the other will make it look tired.
+          </li>
+          <li>
+            Photograph yourself in daylight and turn the picture black and white. A wide gap between your
+            hair and your skin means clear, definite colours suit you; a narrow one means softer shades do.
+          </li>
+        </ul>
+        <p>
+          <a class="btn btn--primary" href="/">Read it from a photo instead</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <Faq title="Questions people ask about this" items={faq} />
+      </div>
+
+      <div class="narrow stack">
+        <h2>Going further</h2>
+        <ul class="tips">
+          <li><a href="/skin-tone-colors/">Find your undertone</a> — the half of the answer you can check at home.</li>
+          <li><a href="/find-my-color-palette/">Work out your season by hand</a> — three passes, no tool.</li>
+          <li><a href="/color-analysis-app/">Use the app</a> — a photograph instead of questions.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

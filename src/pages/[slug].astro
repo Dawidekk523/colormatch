@@ -1,0 +1,288 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import SwatchGrid from '../components/SwatchGrid.astro';
+import { SEASON_PAGES, SEASON_PAGE_LIST } from '../lib/season-pages';
+import { SEASONS, UNDERTONE_LABEL } from '../lib/seasons-data';
+import { SUBTYPES, SUBTYPES_BY_PARENT, subtypePalette } from '../lib/subtypes';
+import { SUBTYPE_PAGES } from '../lib/subtype-pages';
+
+/**
+ * Every palette page lives at the top level, because that is where the search
+ * that brings people here points: "spring color palette", not "seasons/spring".
+ * Two kinds share the route — the four parent seasons and the twelve subtypes —
+ * and only slugs listed here are ever built. A subtype with no copy written yet
+ * is left out rather than published empty.
+ */
+export function getStaticPaths() {
+  const seasons = SEASON_PAGE_LIST.map((page) => ({
+    params: { slug: page.slug },
+    props: { kind: 'season' as const, page },
+  }));
+
+  const subtypes = SUBTYPES.filter((subtype) => SUBTYPE_PAGES[subtype.id]).map((subtype) => ({
+    params: { slug: subtype.slug },
+    props: { kind: 'subtype' as const, subtype, page: SUBTYPE_PAGES[subtype.id]! },
+  }));
+
+  return [...seasons, ...subtypes];
+}
+
+const props = Astro.props;
+---
+
+{
+  props.kind === 'season' ? (
+    (() => {
+      const { page } = props;
+      const season = SEASONS[page.season];
+      const others = SEASON_PAGE_LIST.filter((other) => other.season !== page.season);
+      const children = SUBTYPES_BY_PARENT[page.season].filter((subtype) => SUBTYPE_PAGES[subtype.id]);
+
+      return (
+        <BaseLayout title={page.title} description={page.description} path={`/${page.slug}/`} faq={page.faq}>
+          <section class="hero">
+            <div class="shell hero__inner stack">
+              <h1>{page.heading}</h1>
+              <p class="lede">{page.lede}</p>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                {page.intro.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+                <p class="badge">Undertone: {UNDERTONE_LABEL[season.undertone]}</p>
+              </div>
+
+              <SwatchGrid
+                title={`${season.name} colours to wear`}
+                description="The shades that earn their place next to your face — tops, scarves, collars and frames. Every code is the exact colour, so it can be pasted into a shop filter."
+                swatches={season.wear}
+              />
+
+              <SwatchGrid
+                title={`${season.name} neutrals`}
+                description="The quiet shades to build around: coats, trousers, bags and anything you buy once."
+                swatches={season.neutrals}
+              />
+
+              <SwatchGrid
+                title={`Shades ${season.name.toLowerCase()} finds difficult`}
+                description={season.avoidReason}
+                swatches={season.avoid}
+                tone="avoid"
+              />
+            </div>
+          </section>
+
+          <section class="section section--tint">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                <h2>Is {season.name.toLowerCase()} your season?</h2>
+                <p>{page.suits.lede}</p>
+                <ul class="tips">
+                  {page.suits.signs.map((sign) => (
+                    <li>{sign}</li>
+                  ))}
+                </ul>
+                <p>
+                  <a class="btn btn--primary" href="/">
+                    Get your free colour report
+                  </a>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                <h2>Wearing the {season.name.toLowerCase()} palette</h2>
+              </div>
+              <ol class="steps">
+                {page.wearing.map((item) => (
+                  <li>
+                    <h3>{item.heading}</h3>
+                    <p>{item.body}</p>
+                  </li>
+                ))}
+              </ol>
+
+              <div class="narrow stack">
+                <h2>Where it usually goes wrong</h2>
+                <ul class="tips">
+                  {page.mistakes.map((mistake) => (
+                    <li>{mistake}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="section section--tint">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                <Faq title={`Questions about the ${season.name.toLowerCase()} palette`} items={page.faq} />
+              </div>
+
+              {children.length > 0 ? (
+                <div class="narrow stack">
+                  <h2>The three kinds of {season.name.toLowerCase()}</h2>
+                  <p>
+                    Twelve-season systems divide each season into three. The free report gives you the
+                    parent season, which is enough to shop with; these pages are for working out which
+                    edge of it you sit on.
+                  </p>
+                  <ul class="tips">
+                    {children.map((child) => (
+                      <li>
+                        <a href={`/${child.slug}/`}>{child.name}</a>
+                        {child.aliases.length > 0 ? ` — also called ${child.aliases[0]}` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              <div class="narrow stack">
+                <h2>The other three palettes</h2>
+                <ul class="tips">
+                  {others.map((other) => (
+                    <li>
+                      <a href={`/${other.slug}/`}>{other.heading}</a> — {other.lede}
+                    </li>
+                  ))}
+                  <li>
+                    <a href="/color-seasons/">All four seasons side by side</a> — the full reference, with
+                    every shade in one place.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </BaseLayout>
+      );
+    })()
+  ) : (
+    (() => {
+      const { subtype, page } = props;
+      const parent = SEASONS[subtype.parent];
+      const parentPage = SEASON_PAGES[subtype.parent];
+      const palette = subtypePalette(subtype);
+      const siblings = SUBTYPES_BY_PARENT[subtype.parent].filter(
+        (other) => other.id !== subtype.id && SUBTYPE_PAGES[other.id],
+      );
+
+      return (
+        <BaseLayout title={page.title} description={page.description} path={`/${subtype.slug}/`} faq={page.faq}>
+          <section class="hero">
+            <div class="shell hero__inner stack">
+              <h1>The {subtype.name.toLowerCase()} colour palette</h1>
+              <p class="lede">{page.lede}</p>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                {page.intro.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+                {subtype.aliases.length > 0 ? (
+                  <p class="note">Also known as {subtype.aliases.join(', ')}.</p>
+                ) : null}
+              </div>
+
+              <SwatchGrid
+                title={`${subtype.name} colours to wear`}
+                description={
+                  subtype.neighbour
+                    ? `Seven shades from the ${parent.name.toLowerCase()} palette, chosen for the quality this subtype is named for, and three borrowed from ${SEASONS[subtype.neighbour].name.toLowerCase()} — the season it leans towards.`
+                    : `The ${parent.name.toLowerCase()} palette at its most typical. Nothing is borrowed from a neighbouring season, which is what makes this the clearest example of the season rather than a diluted one.`
+                }
+                swatches={palette.wear}
+              />
+
+              <SwatchGrid
+                title={`${subtype.name} neutrals`}
+                description="The quiet shades to build around. These are shared with the parent season, because neutrals shift far less between subtypes than the colours do."
+                swatches={palette.neutrals}
+              />
+
+              <SwatchGrid
+                title="Shades to be careful with"
+                description={parent.avoidReason}
+                swatches={palette.avoid}
+                tone="avoid"
+              />
+            </div>
+          </section>
+
+          <section class="section section--tint">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                <h2>Signs this is you</h2>
+                <ul class="tips">
+                  {page.signs.map((sign) => (
+                    <li>{sign}</li>
+                  ))}
+                </ul>
+
+                <h2>The one it gets confused with</h2>
+                <p>{page.confusion}</p>
+
+                <p>
+                  <a class="btn btn--primary" href="/">
+                    Get your free colour report
+                  </a>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                <h2>Wearing it</h2>
+              </div>
+              <ol class="steps">
+                {page.wearing.map((item) => (
+                  <li>
+                    <h3>{item.heading}</h3>
+                    <p>{item.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          <section class="section section--tint">
+            <div class="shell stack-lg">
+              <div class="narrow stack">
+                <Faq title={`Questions about ${subtype.name.toLowerCase()}`} items={page.faq} />
+              </div>
+
+              <div class="narrow stack">
+                <h2>Where this sits</h2>
+                <ul class="tips">
+                  <li>
+                    <a href={`/${parentPage.slug}/`}>{parentPage.heading}</a> — the parent season in full.
+                  </li>
+                  {siblings.map((sibling) => (
+                    <li>
+                      <a href={`/${sibling.slug}/`}>The {sibling.name.toLowerCase()} palette</a> — the other
+                      edge of {parent.name.toLowerCase()}.
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+        </BaseLayout>
+      );
+    })()
+  )
+}

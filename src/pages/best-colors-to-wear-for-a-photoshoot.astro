@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import SwatchGrid from '../components/SwatchGrid.astro';
+import { SEASONS } from '../lib/seasons-data';
+import type { Swatch } from '../lib/seasons-data';
+import { SEASON_PAGES } from '../lib/season-pages';
+
+/** Named lookup rather than an index, so a reordered palette cannot swap a shade out from under the copy. */
+const pick = (swatches: Swatch[], names: string[]): Swatch[] =>
+  names
+    .map((name) => swatches.find((swatch) => swatch.name === name))
+    .filter((swatch): swatch is Swatch => Boolean(swatch));
+
+const cameraShades: Swatch[] = [
+  ...pick(SEASONS.summer.wear, ['Slate Blue', 'Sage Green', 'Soft Plum']),
+  ...pick(SEASONS.autumn.wear, ['Deep Teal', 'Olive Green']),
+  ...pick(SEASONS.winter.wear, ['Sapphire']),
+  ...pick(SEASONS.spring.wear, ['Aqua Blue', 'Peach']),
+];
+
+const headshotNeutrals: Swatch[] = [
+  ...pick(SEASONS.summer.neutrals, ['Soft White', 'Cool Grey', 'Taupe', 'Navy']),
+  ...pick(SEASONS.winter.neutrals, ['Charcoal']),
+  ...pick(SEASONS.autumn.neutrals, ['Chocolate Brown']),
+];
+
+const faq = [
+  {
+    question: 'Why does a colour look different in a photograph than in the mirror?',
+    answer:
+      'A camera does not see what your eye sees. It records a narrower range of brightness and then pushes what it has kept, so both the contrast and the saturation come out stronger than they were in the room. A shade that looked lively in the mirror can arrive on the screen looking like a different, louder colour altogether.',
+  },
+  {
+    question: 'Is a white shirt a safe choice for a photograph?',
+    answer:
+      'It is the hardest thing in the wardrobe to photograph well. White is usually the brightest object in the frame, so the camera exposes for it and leaves the face darker, and the folds and texture of the cloth wash out into a flat shape. Against a white backdrop it disappears entirely. Soft white and cool grey keep the same idea and give the camera something to work with.',
+  },
+  {
+    question: 'What should I wear against a grey studio backdrop?',
+    answer:
+      'Grey is the easiest of the three standard backdrops because it separates from almost everything except itself. Keep clear of clothing at the same depth as the paper — a mid-grey jumper against mid-grey paper leaves a head and two hands floating. Anything clearly lighter or clearly darker than the backdrop will read properly.',
+  },
+  {
+    question: 'How many changes of clothing should I bring?',
+    answer:
+      'Three is usually enough, and they should differ in depth rather than only in colour: one light, one mid, one dark. That gives the photographer options for whichever backdrop and lighting turn out to suit you, and it means one unlucky choice does not cost you the session.',
+  },
+  {
+    question: 'Does a headshot need a jacket?',
+    answer:
+      'Not always, but it helps. A crop to the shoulders leaves very little cloth in the frame, and a collar or a lapel gives the picture a structured edge instead of an unbroken block of colour under the chin. A knit with a defined neckline does the same job when a jacket would look too formal for the purpose.',
+  },
+];
+---
+
+<BaseLayout
+  title="The Best Colours to Wear for a Photoshoot | colormatch"
+  description="The best colors to wear for a photoshoot and for headshots, with names and hex codes. Why a camera exaggerates contrast and saturation, what happens against white, gray and black backdrops, and how a crop to the shoulders changes the choice."
+  path="/best-colors-to-wear-for-a-photoshoot/"
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>The best colours to wear for a photoshoot</h1>
+      <p class="lede">
+        A camera exaggerates. It pushes contrast further than your eye does and saturation further
+        still, so the shade that is right in a mirror can be too much on a sensor.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <p>
+          Everything on this page follows from one fact. A camera records a much narrower range of
+          brightness than your eye takes in, and then stretches what it kept to fill the picture. Deep
+          shades go deeper, bright shades go brighter, and the difference between the lightest and
+          darkest thing in the frame is widened rather than softened. Your face is somewhere in the
+          middle of that, and it is the part that loses out when the clothing goes to an extreme.
+        </p>
+        <p>
+          So the shades that photograph best are rarely the boldest ones you own. They are the ones with
+          some depth and some colour but no extreme of either: a medium blue, a muted green, a dusty
+          plum. These give the sensor room to keep the detail in the cloth and the detail in your skin at
+          the same time.
+        </p>
+      </div>
+
+      <SwatchGrid
+        title="Shades that hold up on camera"
+        description="Medium in depth and honest in colour, drawn from all four palettes. Take the ones that belong to your own season — the point is to choose a shade that suits you and survives the sensor, not to choose from this grid at random."
+        swatches={cameraShades}
+      />
+
+      <div class="narrow stack">
+        <p>
+          The shades to think twice about are at the two ends. Pure white and true black both give the
+          camera nothing: white blows out into a flat shape with no texture, black collapses into a
+          silhouette with no seams. At the other extreme, the most saturated members of any palette —
+          fuchsia, magenta, bright poppy — come out of the camera stronger than they went in, and a
+          strong colour close to the skin also casts its own tint upwards onto the jaw and the neck.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>What the backdrop decides</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>White backdrop</h3>
+          <p>
+            Everything light merges with it. A soft white or cream top against white paper leaves the
+            edges of your shoulders undefined, and the picture becomes a face with no body. Medium and
+            deep shades separate cleanly, which is why navy, slate blue and deep teal are the usual
+            choices for a high-key portrait.
+          </p>
+        </li>
+        <li>
+          <h3>Grey backdrop</h3>
+          <p>
+            The most forgiving of the three, and the one that asks least of your clothing. The single
+            thing to avoid is matching it. Cool grey against grey paper flattens into one continuous
+            surface, so move a step lighter or a step darker and the problem goes away.
+          </p>
+        </li>
+        <li>
+          <h3>Black backdrop</h3>
+          <p>
+            Dark clothing vanishes into it, sometimes deliberately, and a black jacket on black paper
+            reduces the picture to a face and two hands. If that is not what you want, wear something
+            with real colour in it. If it is, the lighting has to do all the work of finding your
+            outline.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Solid cloth, and what the sleeves and the neckline do</h2>
+        <p>
+          Pattern is the other thing a sensor handles badly. Fine stripes and small checks fight with the
+          grid of pixels recording them and can break into a shimmering moiré that no amount of editing
+          will remove. A large, calm pattern is safe enough further down the body, but near the face it
+          takes attention that ought to be on the face. Solid cloth is the default for a reason.
+        </p>
+        <p>
+          Sleeves and necklines are not styling details in a photograph; they are the frame. Bare arms
+          put two more areas of your own skin tone at the edges of the picture, so the face is no longer
+          the only thing of that colour and has to share the attention. A three-quarter or long sleeve
+          keeps it where you want it. At the neck, a plain round neckline gives the simplest line under the chin,
+          while a collar or a V adds structure — which matters most when very little of you is in shot.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>The best colours to wear for headshots</h2>
+        <p>
+          A headshot is a photoshoot with almost all of the clothing cropped away. What survives is a
+          band of colour across the bottom of the frame and whatever of it reaches the collar, so that
+          single shade is doing the entire job. Two things follow from the crop.
+        </p>
+        <p>
+          The first is that the shade near your face matters more here than anywhere else, because there
+          is nothing else in the picture to balance it. The second is that the picture needs some
+          structure at the neckline — a lapel, a collar, a defined edge — or the bottom third becomes an
+          unbroken slab of one colour under your chin.
+        </p>
+        <ul class="tips">
+          <li>
+            Keep the shade clearly different in depth from both your hair and the backdrop, so your head
+            has an outline.
+          </li>
+          <li>
+            Avoid anything that will date the picture quickly, since a headshot is usually in use for
+            several years.
+          </li>
+          <li>
+            Bring a second top in a different depth. A headshot session takes minutes, and comparing two
+            is easier than guessing once.
+          </li>
+          <li>
+            Leave the busiest jewellery at home. Anything that catches the light near the jaw pulls the
+            eye off the face.
+          </li>
+        </ul>
+      </div>
+
+      <SwatchGrid
+        title="Neutrals for a headshot"
+        description="Quiet shades that behave against any of the three standard backdrops, taken from the summer, winter and autumn palettes. Choose the one that belongs to your own colouring and keep the picture simple."
+        swatches={headshotNeutrals}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Which shades are actually yours</h2>
+        <p>
+          A camera can only exaggerate what is already there. If the colour suits you in daylight it will
+          survive the lens; if it did not suit you to begin with, the photograph will say so louder. The
+          free colour report gives you the palette to choose from before the session — it takes about a
+          minute and asks for nothing.
+        </p>
+        <p>
+          <a class="btn btn--primary" href="/">Find your palette</a>
+        </p>
+        <ul class="tips">
+          <li>
+            <a href="/skin-tone-colors/">Find your undertone</a> — the first thing to settle, and the
+            camera does not change it.
+          </li>
+          <li>
+            <a href={`/${SEASON_PAGES.summer.slug}/`}>The summer palette</a> — the softened shades that
+            tend to photograph most easily.
+          </li>
+          <li>
+            <a href="/best-colors-to-wear-with-gray-hair/">Colours for grey hair</a> — useful if the
+            contrast in your face has changed.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <Faq title="Questions about photoshoot and headshot colours" items={faq} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { Analyzer } from '../components/Analyzer';
+
+const faq = [
+  {
+    question: 'Is there anything to download?',
+    answer:
+      'No. It runs in the browser you are reading this in, on a phone, a tablet or a computer. There is nothing to install, nothing to update and no app store account involved.',
+  },
+  {
+    question: 'Is it really free?',
+    answer:
+      'Your season, your undertone, ten colours to wear, four neutrals and the shades to be careful with are free, with no sign-up. The only paid thing is a printable palette card, and the report stands on its own without it.',
+  },
+  {
+    question: 'Where does my photo go?',
+    answer:
+      'Nowhere. The file is opened on your own device and read on a small off-screen canvas; the pixels never leave the browser. That is a consequence of how it is built, not a promise about how we behave with your data.',
+  },
+  {
+    question: 'How accurate is an app compared with a person?',
+    answer:
+      'A consultation in good light with fabric held against your face is more accurate, and it costs a great deal more. What an app measures well is the relationship between your skin, hair and eyes in one photograph. What it cannot see is you in daylight, from several angles, over an hour.',
+  },
+  {
+    question: 'What if I do not want to use a photo?',
+    answer:
+      'Answer seven questions instead. They ask about things you can check at home — the veins on your wrist, how your skin behaves in the sun, whether gold or silver suits you — and produce the same kind of result.',
+  },
+  {
+    question: 'Does it work for every skin tone?',
+    answer:
+      'It is built to. The reading measures undertone and contrast rather than lightness, and all four seasons occur at every skin depth. The sample photographs on the site deliberately cover a wide range, because a tool that only works on pale skin is not finished.',
+  },
+];
+---
+
+<BaseLayout
+  title="A Free Colour Analysis App That Runs in Your Browser | colormatch"
+  description="A free color analysis app with no download and no sign-up. Upload a photo or answer seven questions and get your color season, undertone and palette with hex codes. The photo never leaves your device."
+  path="/color-analysis-app/"
+  faq={faq}
+>
+  <section class="hero hero--split">
+    <div class="shell hero__inner">
+      <div class="hero__words stack">
+        <h1>A colour analysis app with nothing to install</h1>
+        <p class="lede">
+          It opens in this page. Upload a photo or answer seven questions, and you get your colour season,
+          your undertone and a palette you can take shopping — free, with no account.
+        </p>
+        <p class="hero__aside">
+          The photo is read on your own device and never uploaded, so there is nothing to delete
+          afterwards.
+        </p>
+      </div>
+      <div class="hero__tool">
+        <Analyzer client:load />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>What it does</h2>
+        <p>
+          The app measures the skin tones in the middle of your photograph and compares their warmth,
+          depth and contrast with the four seasonal palettes. It reports the closest match, how sure it is,
+          and the colours that follow from it — each one named, with the code you can paste into a shop
+          filter.
+        </p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Pick a photograph</h3>
+          <p>
+            Daylight, no sunglasses, no heavy filter, and a plain background if you have one. A picture
+            taken by a window beats a studio portrait with a coloured backdrop.
+          </p>
+        </li>
+        <li>
+          <h3>It reads the pixels</h3>
+          <p>
+            The image is decoded onto a small canvas inside the browser and the skin tones are measured
+            there. Nothing is sent anywhere, which is also why it works with the aeroplane mode on.
+          </p>
+        </li>
+        <li>
+          <h3>You get a palette</h3>
+          <p>
+            A season, a likely undertone, ten colours to wear near your face, four everyday neutrals and
+            the shades that tend to work against you — with an honest note about how close the call was.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>What it cannot do</h2>
+        <p>
+          An app reads one photograph. A colour consultant sees you in daylight, moves fabric under your
+          chin and watches what happens to your face over an hour. That is a better measurement, and it is
+          worth the money if you want certainty.
+        </p>
+        <p>
+          What this replaces is not the consultant. It is the guessing — standing in a shop wondering
+          whether the mustard jumper is a mistake, with nothing to go on. A palette with names and codes
+          answers that question in a second, and costs nothing.
+        </p>
+        <p>
+          Two things also make any photo-based reading less reliable, and it is better to say so than to
+          hide it: strong artificial light, which adds warmth that is not yours, and a heavy filter, which
+          invents a colouring you do not have. If the result surprises you, the quiz is the second opinion
+          — it uses what you can see rather than what the camera recorded.
+        </p>
+        <p>
+          <a class="btn btn--secondary" href="/color-analysis-quiz/">Answer seven questions instead</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <Faq title="Questions about the app" items={faq} />
+      </div>
+
+      <div class="narrow stack">
+        <h2>Once you have your season</h2>
+        <ul class="tips">
+          <li><a href="/color-seasons/">The four colour seasons</a> — every shade in all four palettes.</li>
+          <li><a href="/skin-tone-colors/">Skin tone and undertone</a> — what the reading is actually measuring.</li>
+          <li><a href="/find-my-color-palette/">How to find your palette by hand</a> — the three-pass method, no tool involved.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
