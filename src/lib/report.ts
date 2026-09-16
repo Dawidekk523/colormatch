@@ -391,7 +391,7 @@ export function buildReport(input: ReportInput): FullReportData {
  * not — is both fairer and more persuasive than a vague "premium" label.
  */
 export const FREE_SECTION_COUNT = 5;
-export const REPORT_SECTION_COUNT = 13;
+export const REPORT_SECTION_COUNT = 14;
 
 export const REPORT_EXTRAS: { title: string; detail: string; icon: IconName }[] = [
   {
@@ -428,5 +428,10 @@ export const REPORT_EXTRAS: { title: string; detail: string; icon: IconName }[] 
     icon: 'picture',
     title: 'A picture to keep',
     detail: 'The palette as a PNG, tall or wide, and a printable page.',
+  },
+  {
+    icon: 'subtype',
+    title: 'A lookbook of you',
+    detail: 'Four pictures of you wearing your own colours, if you ask for them.',
   },
 ];

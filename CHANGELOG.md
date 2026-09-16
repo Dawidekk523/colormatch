@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-09-16 — A lookbook in the paid report
+
+The bought report can now make four pictures of the buyer wearing colours from
+their own palette. It is the one thing on the site that sends a photograph
+anywhere, so it asks: a photo chosen inside the report, a consent box agreed in
+the same request, the image service used once, and only the pictures that come
+back are kept — with a button that deletes them. The wording everywhere else is
+now exact: the reading never uploads a photo; the lookbook does, and only if
+asked.
+
+The thesis is that a palette is abstract until it is on a person. Pictures of
+the actual buyer in their actual colours are the strongest possible argument for
+the season, and they are worth the one compromise the product makes — as long as
+the compromise is stated in plain words at the moment it happens.
+
 ## 2026-09-16 — The paywall shows worked examples instead of a blur
 
 The rail at the end of a free result now carries four uncovered cards from a

@@ -37,6 +37,11 @@ const faq = [
       'The free result is the first five parts of a twelve-part report. The rest is the reading behind it: your three measurements with numbers, which of the twelve subtypes you are, how close the other three seasons came, every colour measured with its hex, RGB, lightness and intensity, the rules for metals, whites, denim, lip colour, prints and hair, a picture of the whole palette to save or share, and a printable card. The season itself is not paid for — that stays free.',
   },
   {
+    question: 'What is the lookbook, and where does my photo go?',
+    answer:
+      'Four pictures of you wearing colours from your own palette. It is the one part of the site that sends a photograph anywhere: you choose a photo inside the paid report, agree to it being sent, and it goes to an image service that makes the pictures. We do not store the photo you send — only the pictures that come back, with your report, and a button deletes them. Everything else, including the colour reading itself, still happens on your own device.',
+  },
+  {
     question: 'Can I share the report?',
     answer:
       'Yes. The report exports as a single picture, tall for a phone or wide for a screen, with your season, your measurements and every colour in the palette. It also prints on one page.',
@@ -95,6 +100,7 @@ const faq = [
             <li><Icon name="colours" size={20} />Every colour measured: hex, RGB, lightness and intensity</li>
             <li><Icon name="wardrobe" size={20} />Metals, whites, denim, lip colour, prints and hair colour</li>
             <li><Icon name="picture" size={20} />The palette as a picture to share, tall or wide, and a printable card</li>
+            <li><Icon name="subtype" size={20} />A lookbook: four pictures of you wearing your own colours</li>
             <li><Icon name="included" size={20} />One payment, no subscription</li>
           </ul>
           <UpgradeButton client:visible />

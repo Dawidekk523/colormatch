@@ -1,8 +1,11 @@
 import type { FullReportData, MeasuredSwatch } from '../lib/report';
+import { Lookbook } from './Lookbook';
 import { ShareExport } from './ShareExport';
 
 interface Props {
   report: FullReportData;
+  /** Present on a bought report; the lookbook is addressed by it. */
+  token?: string;
 }
 
 /** A meter for one axis: where the reading sits between the two ends. */
@@ -187,7 +190,7 @@ function SeasonFit({ report }: { report: FullReportData }) {
  * between the seasons, the palette with its measurements, and the shopping
  * rules that follow from all of it.
  */
-export function FullReport({ report }: Props) {
+export function FullReport({ report, token }: Props) {
   const { metrics } = report;
 
   return (
@@ -389,6 +392,8 @@ export function FullReport({ report }: Props) {
           </p>
         </section>
       ) : null}
+
+      {token ? <Lookbook token={token} /> : null}
 
       <ShareExport report={report} />
 

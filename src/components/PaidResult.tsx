@@ -49,6 +49,7 @@ function previewSeason(local: SeasonId | null): SeasonId | null {
 export function PaidResult() {
   const [remote, setRemote] = useState<Remote>({ kind: 'idle' });
   const [preview, setPreview] = useState<SeasonId | null>(null);
+  const [paidToken, setPaidToken] = useState<string | null>(null);
 
   const snapshot = useSyncExternalStore(subscribeResult, getResultSnapshot, getServerResultSnapshot);
   const local = useMemo(() => readResult(snapshot), [snapshot]);
@@ -94,6 +95,7 @@ export function PaidResult() {
     const controller = new AbortController();
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setRemote({ kind: 'loading' });
+    setPaidToken(token);
     void load(token, controller.signal);
     return () => controller.abort();
   }, [load]);
@@ -172,6 +174,7 @@ export function PaidResult() {
 
       {paid ? (
         <FullReport
+          token={paidToken ?? undefined}
           report={buildReport({
             season: result.season,
             undertone: result.undertone,

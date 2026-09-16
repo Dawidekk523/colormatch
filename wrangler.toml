@@ -11,9 +11,21 @@ binding = "DB"
 database_name = "color_palette_db"
 database_id = "e96614b6-79cd-4091-81dd-b80a0ab752bc"
 
+# Generated lookbook images. Only the pictures that come back from the image
+# model live here; the photograph someone sends is held in memory for the one
+# request and never written down. Create it with
+# `wrangler r2 bucket create colormatch-lookbook`.
+[[r2_buckets]]
+binding = "LOOKBOOK"
+bucket_name = "colormatch-lookbook"
+
 [vars]
 # Non-secret defaults. Secrets (POLAR_ACCESS_TOKEN, POLAR_WEBHOOK_SECRET,
 # EMAIL_SES_*, RESEND_API_KEY) are set with `wrangler pages secret put <NAME>`
 # and never stored in this file.
 ANALYSIS_DAILY_LIMIT = "50"
 RESULT_DAILY_LIMIT = "20"
+# The image model behind the lookbook, and how many pictures one purchase may
+# generate in total, including retries.
+LOOKBOOK_MODEL = "gpt-image-2.5-flare"
+LOOKBOOK_MAX_IMAGES = "8"
