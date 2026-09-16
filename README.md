@@ -10,8 +10,10 @@ Production domain: **getcolormatch.com**
 Two things shape the whole build:
 
 - **The photo never leaves the device.** It is decoded onto a small off-screen
-  canvas in the browser and only the resulting season is ever sent anywhere, and
-  only for an anonymous count.
+  canvas in the browser; the only thing that ever leaves is the season it came
+  out as. Buying the palette card stores that season and the email address Polar
+  took for the receipt, because the link in that email is the only way back to
+  the card — there are no accounts. The free report stores nothing personal.
 - **It has to be readable by someone in their seventies.** Large type, WCAG AA
   contrast, big targets, visible focus rings, and nothing that depends on
   telling two colours apart — every swatch is labelled with a name and a code.
@@ -58,19 +60,28 @@ repository.**
 | `PUBLIC_SITE_URL` | Pages build environment | Canonical URLs and the sitemap fall back to the production domain in `astro.config.mjs` |
 | `ANALYSIS_DAILY_LIMIT` | `[vars]` in `wrangler.toml` | Defaults to 50 anonymous analyses per visitor per day |
 | `POLAR_WEBHOOK_SECRET` | `wrangler pages secret put` | The webhook refuses every delivery with `503` |
-| `POLAR_CHECKOUT_URL` | `wrangler pages secret put` | The upgrade button says the plan is not open yet |
-| `RESEND_API_KEY` | `wrangler pages secret put` | `/api/subscribe` answers `503 email-not-configured` and sends nothing |
-| `RESEND_FROM` | `wrangler pages secret put` | Same as above |
+| `RESULT_DAILY_LIMIT` | `[vars]` in `wrangler.toml` | Defaults to 20 parked results per visitor per day |
+| `POLAR_ACCESS_TOKEN` | `wrangler pages secret put` | The upgrade button says the plan is not open yet |
+| `POLAR_PRODUCT_ID` | `wrangler pages secret put` | Same as above |
+| `POLAR_API_BASE` | `wrangler pages secret put` | Defaults to `https://api.polar.sh`; set the sandbox host while testing |
+| `POLAR_CHECKOUT_URL` | `wrangler pages secret put` | Legacy hosted link, used only when no access token is set. It cannot carry a result token, so the buyer gets no email link |
+| `EMAIL_SES_REGION`, `EMAIL_SES_ACCESS_KEY_ID`, `EMAIL_SES_SECRET_ACCESS_KEY` | `wrangler pages secret put` | SES is skipped and Resend is tried instead |
+| `EMAIL_FROM` | `wrangler pages secret put` | Falls back to `RESEND_FROM`; with neither, nothing is ever sent |
+| `RESEND_API_KEY` | `wrangler pages secret put` | No fallback if SES fails or is unset |
+| `RESEND_FROM` | `wrangler pages secret put` | Sender for the fallback path |
 
 For local work, copy `.dev.vars.example` to `.dev.vars`. That file is
 git-ignored and must stay that way.
 
 ### Database
 
-D1 is only used for anonymous counters: which season came out, whether it came
-from a photo or the quiz, a per-visitor daily cap, email sign-ups, and webhook
-event ids for de-duplication. The IP address is never stored — only a SHA-256
-hash of the IP joined with the current date.
+D1 holds anonymous counters — which season came out, whether it came from a
+photo or the quiz, a per-visitor daily cap, webhook event ids for
+de-duplication — and the `results` table behind the paid card. A result row
+starts anonymous: it is a random 32-character token plus the season. An email
+address is written to it only when Polar reports the order paid, so an abandoned
+checkout leaves nothing personal behind. The IP address is never stored — only a
+SHA-256 hash of the IP joined with the current date.
 
 ```sh
 wrangler d1 create color_palette_db     # copy the id into wrangler.toml

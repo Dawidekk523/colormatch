@@ -168,11 +168,11 @@ describe('GET /api/checkout', () => {
     await expect(res.json()).resolves.toEqual({ available: false, reason: 'checkout-not-configured' });
   });
 
-  it('hands back the configured checkout link', async () => {
+  it('falls back to the hosted link, and says it carries no token', async () => {
     const res = await checkoutGet(
       ctx(new Request('https://getcolormatch.com/api/checkout'), { POLAR_CHECKOUT_URL: 'https://polar.sh/x' }),
     );
-    await expect(res.json()).resolves.toEqual({ available: true, url: 'https://polar.sh/x' });
+    await expect(res.json()).resolves.toEqual({ available: true, url: 'https://polar.sh/x', tokenless: true });
   });
 });
 

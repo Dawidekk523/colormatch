@@ -9,6 +9,11 @@ const site = process.env.PUBLIC_SITE_URL ?? 'https://getcolormatch.com';
 export default defineConfig({
   site,
   output: 'static',
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    // A bought result is private and reachable only with its token, so it has
+    // no business in the sitemap.
+    sitemap({ filter: (page) => !page.includes('/result/') }),
+  ],
   devToolbar: { enabled: false },
 });

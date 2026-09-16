@@ -1,6 +1,21 @@
 # Copy to .dev.vars for local `wrangler pages dev`. Never commit .dev.vars.
+
+# Polar. POLAR_ACCESS_TOKEN + POLAR_PRODUCT_ID open the real flow: the checkout
+# is created server-side so the result token can ride in its metadata.
+POLAR_ACCESS_TOKEN=polar_oat_replace_me
+POLAR_PRODUCT_ID=00000000-0000-0000-0000-000000000000
+POLAR_API_BASE=https://sandbox-api.polar.sh
 POLAR_WEBHOOK_SECRET=whsec_replace_me
-POLAR_CHECKOUT_URL=https://polar.sh/checkout/replace-me
+# Legacy hosted link. Sells, but the buyer cannot reopen the result from email.
+POLAR_CHECKOUT_URL=
+
+# Email. SES is the sender; Resend stays as a fallback when SES is unset or errs.
+EMAIL_SES_REGION=eu-west-1
+EMAIL_SES_ACCESS_KEY_ID=replace_me
+EMAIL_SES_SECRET_ACCESS_KEY=replace_me
+EMAIL_FROM=colormatch <hello@getcolormatch.com>
 RESEND_API_KEY=re_replace_me
 RESEND_FROM=colormatch <hello@getcolormatch.com>
+
 ANALYSIS_DAILY_LIMIT=50
+RESULT_DAILY_LIMIT=20

@@ -29,3 +29,43 @@ export function timingSafeEqual(a: string, b: string): boolean {
 export function isEmail(value: unknown): value is string {
   return typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) && value.length <= 254;
 }
+
+export const UNDERTONES = ['warm', 'cool', 'neutral'] as const;
+
+/**
+ * 32 hex characters of real randomness. A result is readable by anyone holding
+ * its token, so the token has to be unguessable rather than merely unique.
+ */
+export function randomToken(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  return [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Counts one action against a visitor's daily budget and says whether it is
+ * allowed. `scope` keeps separate budgets apart, so saving a result cannot use
+ * up the allowance for recording an analysis.
+ */
+export async function consumeDailyBudget(
+  db: D1Database,
+  request: Request,
+  scope: string,
+  limit: number,
+): Promise<boolean> {
+  const day = dayKey();
+  const ip = request.headers.get('cf-connecting-ip') ?? 'unknown';
+  const visitor = await sha256Hex(`${scope}|${ip}|${day}`);
+  const used = await db
+    .prepare('SELECT count FROM rate_limits WHERE visitor_hash = ? AND day = ?')
+    .bind(visitor, day)
+    .first<{ count: number }>();
+  if ((used?.count ?? 0) >= limit) return false;
+  await db
+    .prepare(
+      `INSERT INTO rate_limits (visitor_hash, day, count) VALUES (?, ?, 1)
+       ON CONFLICT(visitor_hash, day) DO UPDATE SET count = count + 1`,
+    )
+    .bind(visitor, day)
+    .run();
+  return true;
+}

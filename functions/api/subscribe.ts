@@ -1,5 +1,6 @@
 import { isEmail, json } from '../_shared';
 import { SEASON_IDS } from '../_shared';
+import { sendEmail, sender } from '../mail';
 
 interface Body {
   email?: unknown;
@@ -7,9 +8,9 @@ interface Body {
 }
 
 /**
- * Emails a copy of a palette through Resend. Nothing is sent unless both the
- * key and a verified sender are configured, which keeps test and preview
- * environments quiet by default.
+ * Emails a copy of a palette. Nothing is sent unless a sender and at least one
+ * provider are configured, which keeps test and preview environments quiet by
+ * default.
  */
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   let body: Body;
@@ -28,7 +29,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       : null;
   if (!season) return json({ error: 'Unknown season.' }, 400);
 
-  if (!env.RESEND_API_KEY || !env.RESEND_FROM) {
+  const from = sender(env);
+  if (!from) {
     return json({ sent: false, reason: 'email-not-configured' }, 503);
   }
 
@@ -45,22 +47,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
   }
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      authorization: `Bearer ${env.RESEND_API_KEY}`,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: env.RESEND_FROM,
-      to: [body.email],
-      subject: `Your ${season} colour palette`,
-      text: `Here is your palette again: ${new URL('/color-seasons/', request.url).href}`,
-    }),
+  const sent = await sendEmail(env, {
+    from,
+    to: body.email,
+    subject: `Your ${season} colour palette`,
+    text: `Here is your palette again: ${new URL('/color-seasons/', request.url).href}`,
   });
 
-  if (!response.ok) {
-    return json({ sent: false, reason: 'email-provider-error' }, 502);
+  if (!sent.sent) {
+    return json({ sent: false, reason: sent.reason ?? 'email-provider-error' }, 502);
   }
 
   return json({ sent: true });

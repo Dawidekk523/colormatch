@@ -336,11 +336,26 @@ svg {
   border: 1px solid var(--line);
 }
 
-.stack > * + * {
+/* The class is repeated on purpose. `.stack > * + *` scores the same as a plain
+   component class, and component rules are loaded later — so every list or
+   widget that resets its own margin was silently dropping out of the stack. */
+.stack.stack > * + * {
   margin-top: var(--space-3);
 }
 
-.stack-lg > * + * {
+.stack-lg.stack-lg > * + * {
+  margin-top: var(--space-5);
+}
+
+/* An island is wrapped in `<astro-island>`, which Astro lays out as
+   `display: contents` — it has no box, so the stack's margin landed on nothing
+   and every interactive widget sat hard against the paragraph above it. The
+   spacing therefore has to go to what the island actually renders. */
+.stack.stack > astro-island:not(:first-child) > :first-child {
+  margin-top: var(--space-3);
+}
+
+.stack-lg.stack-lg > astro-island:not(:first-child) > :first-child {
   margin-top: var(--space-5);
 }
 

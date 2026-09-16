@@ -22,6 +22,8 @@ export interface Season {
   avoid: Swatch[];
   avoidReason: string;
   tips: string[];
+  /** Printed on the bought card: what to look for when actually shopping. */
+  checklist: string[];
 }
 
 export const SEASONS: Record<SeasonId, Season> = {
@@ -67,6 +69,15 @@ export const SEASONS: Record<SeasonId, Season> = {
       'If you like dark colours, use soft navy or warm brown instead of black.',
       'Gold jewellery usually suits this palette better than silver.',
     ],
+    checklist: [
+      'A warm white or ivory shirt, instead of a bright white one.',
+      'A coral, peach or salmon top to wear close to the face.',
+      'A camel coat or jacket in place of a black one.',
+      'One clear, light blue — aqua or periwinkle — for contrast.',
+      'Gold earrings or a gold chain, worn at the neckline.',
+      'A scarf in apple green or golden yellow to lift a plain outfit.',
+      'Soft navy for the one dark piece every wardrobe needs.',
+    ],
   },
   summer: {
     id: 'summer',
@@ -109,6 +120,15 @@ export const SEASONS: Record<SeasonId, Season> = {
       'Choose soft white instead of bright white.',
       'Navy and charcoal work better than pure black near the face.',
       'Silver jewellery usually suits this palette better than gold.',
+    ],
+    checklist: [
+      'A soft white or oyster shirt rather than a stark white one.',
+      'A powder blue or dusty pink top for the face-framing layer.',
+      'A grey-blue or slate coat instead of black.',
+      'One gentle accent — lavender, sage or mauve — in a scarf or knit.',
+      'Silver jewellery, kept fine rather than chunky.',
+      'Two colours of similar lightness together, not one dark and one bright.',
+      'A cool-toned denim rather than a warm, orange-cast wash.',
     ],
   },
   autumn: {
@@ -153,6 +173,15 @@ export const SEASONS: Record<SeasonId, Season> = {
       'Chocolate brown or deep olive can replace black in an outfit.',
       'Gold, copper and bronze jewellery suit this palette well.',
     ],
+    checklist: [
+      'A cream or oatmeal shirt in place of a cool white one.',
+      'A rust, terracotta or warm olive top near the face.',
+      'A camel, chocolate or bronze coat rather than a black one.',
+      'One deep accent — teal or forest green — for contrast.',
+      'Gold, copper or antique brass jewellery.',
+      'Textured fabrics — wool, suede, linen — which hold these colours well.',
+      'Warm denim, and brown shoes and belts instead of black.',
+    ],
   },
   winter: {
     id: 'winter',
@@ -195,6 +224,15 @@ export const SEASONS: Record<SeasonId, Season> = {
       'Pure white and true black both work well right next to your face.',
       'One strong colour with a neutral is usually enough — you do not need many colours at once.',
       'Silver and platinum jewellery suit this palette well.',
+    ],
+    checklist: [
+      'A true white shirt — this is the palette that can wear it.',
+      'One strong colour near the face: true red, fuchsia or royal blue.',
+      'A black or charcoal coat, which genuinely suits you.',
+      'An icy pastel as the light note, rather than a beige one.',
+      'Silver or platinum jewellery, and it can be bold.',
+      'One clear colour with one neutral — resist wearing three at once.',
+      'Crisp fabrics over heathered, muted ones.',
     ],
   },
 };

@@ -6,8 +6,11 @@ import { ResultView } from '../src/components/ResultView';
 import { SeasonExplorer } from '../src/components/SeasonExplorer';
 import { ColourCompare } from '../src/components/ColourCompare';
 import { UpgradeButton } from '../src/components/UpgradeButton';
+import { PaletteCard } from '../src/components/PaletteCard';
+import { buildCard } from '../src/lib/card';
 import { QUIZ_QUESTIONS } from '../src/lib/quiz';
 import { SEASONS } from '../src/lib/seasons-data';
+import { saveResult } from '../src/lib/result-storage';
 
 describe('ResultView', () => {
   it('names the season, the undertone and every colour in words', () => {
@@ -234,7 +237,7 @@ describe('ColourCompare', () => {
 });
 
 describe('UpgradeButton', () => {
-  it('says the plan is not open when no checkout link is configured', async () => {
+  it('says the plan is not open when checkout is not configured', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       new Response(JSON.stringify({ available: false, reason: 'checkout-not-configured' }), { status: 200 }),
     );
@@ -244,13 +247,65 @@ describe('UpgradeButton', () => {
     vi.restoreAllMocks();
   });
 
-  it('turns into a real checkout link once one is configured', async () => {
+  it('uses the hosted link directly when it cannot carry a token', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify({ available: true, url: 'https://polar.sh/checkout/abc' }), { status: 200 }),
+      new Response(JSON.stringify({ available: true, url: 'https://polar.sh/checkout/abc', tokenless: true }), {
+        status: 200,
+      }),
     );
     render(<UpgradeButton />);
     const link = await screen.findByRole('link', { name: 'Continue to checkout' });
     expect(link.getAttribute('href')).toBe('https://polar.sh/checkout/abc');
+    vi.restoreAllMocks();
+  });
+
+  it('asks for a colour result first, since the card is made from one', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ available: true }), { status: 200 }),
+    );
+    render(<UpgradeButton />);
+    expect(await screen.findByRole('link', { name: 'Get your colours first' })).toBeTruthy();
+    vi.restoreAllMocks();
+  });
+
+  it('parks the result and sends the token through to checkout', async () => {
+    saveResult({ season: 'autumn', undertone: 'warm', source: 'quiz', confidence: 0.7 });
+    const token = 'a'.repeat(32);
+    const calls: Array<[string, string | undefined]> = [];
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
+      const url = String(input);
+      calls.push([url, init?.body as string | undefined]);
+      if (url === '/api/checkout' && init?.method === 'POST') {
+        return new Response(JSON.stringify({ available: true, url: 'https://polar.sh/checkout/xyz' }), { status: 200 });
+      }
+      if (url === '/api/checkout') return new Response(JSON.stringify({ available: true }), { status: 200 });
+      return new Response(JSON.stringify({ stored: true, token }), { status: 200 });
+    });
+
+    render(<UpgradeButton />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Get the palette card' }));
+
+    await waitFor(() => expect(calls.some(([url]) => url === '/api/result')).toBe(true));
+    const parked = calls.find(([url]) => url === '/api/result')?.[1];
+    expect(JSON.parse(parked ?? '{}').season).toBe('autumn');
+    await waitFor(() => {
+      const checkout = calls.find(([url, body]) => url === '/api/checkout' && body);
+      expect(JSON.parse(checkout?.[1] ?? '{}').token).toBe(token);
+    });
+    vi.restoreAllMocks();
+  });
+
+  it('says so plainly when checkout will not open', async () => {
+    saveResult({ season: 'winter', undertone: 'cool', source: 'photo', confidence: 0.5 });
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
+      if (String(input) === '/api/checkout' && !init?.method) {
+        return new Response(JSON.stringify({ available: true }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ error: 'nope' }), { status: 503 });
+    });
+    render(<UpgradeButton />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Get the palette card' }));
+    expect(await screen.findByText(/could not open checkout/i)).toBeTruthy();
     vi.restoreAllMocks();
   });
 
@@ -259,12 +314,26 @@ describe('UpgradeButton', () => {
     render(<UpgradeButton />);
     await waitFor(() => expect(screen.getByText(/could not check the plan/i)).toBeTruthy());
 
-    // Retrying actually re-checks, and succeeds once the link is configured.
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify({ available: true, url: 'https://polar.sh/checkout/abc' }), { status: 200 }),
+      new Response(JSON.stringify({ available: true, url: 'https://polar.sh/checkout/abc', tokenless: true }), {
+        status: 200,
+      }),
     );
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
     expect(await screen.findByRole('link', { name: 'Continue to checkout' })).toBeTruthy();
     vi.restoreAllMocks();
+  });
+});
+
+describe('PaletteCard', () => {
+  it('prints every colour with a name and a code, and the shopping checklist', () => {
+    const card = buildCard('summer', 'cool');
+    render(<PaletteCard card={card} />);
+    expect(screen.getByRole('heading', { name: 'Summer' })).toBeTruthy();
+    for (const swatch of card.wear) {
+      expect(screen.getByText(swatch.name)).toBeTruthy();
+      expect(screen.getByText(swatch.hex.toUpperCase())).toBeTruthy();
+    }
+    for (const item of card.checklist) expect(screen.getByText(item)).toBeTruthy();
   });
 });

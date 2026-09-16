@@ -2,6 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { UpgradeButton } from '../components/UpgradeButton';
 
+// Matches the Polar product (ColorMatch Personal Color Analysis, $9.99).
+// PUBLIC_CARD_PRICE in the Pages build environment overrides it, so a price
+// change does not need a code change.
+const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
+
 const faq = [
   {
     question: 'Will the free colour report stay free?',
@@ -11,12 +16,12 @@ const faq = [
   {
     question: 'What would the paid plan add?',
     answer:
-      'A printable palette card to take shopping, a wardrobe checklist, and a copy sent to your email address. None of it changes the colour result itself.',
+      'A printable palette card to take shopping, a wardrobe checklist, and a copy emailed to you. None of it changes the colour result itself — the season, the palette and the colours to avoid stay free.',
   },
   {
-    question: 'Is the paid plan available today?',
+    question: 'Do I need an account to open my card?',
     answer:
-      'Not yet. The button on this page tells you honestly whether checkout is open, and it will start working the moment the plan goes live.',
+      'No. After payment the card opens straight away, and the receipt email holds a link that opens the same card on any device. Keep that email — the link is the only way back, because there is nothing to sign in to.',
   },
 ];
 ---
@@ -32,8 +37,8 @@ const faq = [
       <div class="narrow stack">
         <h1>Plans</h1>
         <p class="lede">
-          Finding your colours costs nothing and always will. A paid plan is being prepared for people who
-          want something to take with them when they shop.
+          Finding your colours costs nothing and always will. The paid card is for people who want something
+          to take with them when they shop.
         </p>
       </div>
 
@@ -54,7 +59,7 @@ const faq = [
 
         <div class="plan plan--tint">
           <h2>Palette card</h2>
-          <p class="plan__price">Coming soon</p>
+          <p class="plan__price">{cardPrice}</p>
           <ul>
             <li>Everything in the free plan</li>
             <li>A printable card with your palette, sized for a handbag</li>

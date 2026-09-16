@@ -8,9 +8,11 @@ interface Props {
   /** Path with a trailing slash, e.g. "/color-seasons/". */
   path: string;
   faq?: { question: string; answer: string }[];
+  /** For pages that exist for one visitor only, like a bought result. */
+  noindex?: boolean;
 }
 
-const { title, description, path, faq } = Astro.props;
+const { title, description, path, faq, noindex } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
 
 const nav = [
@@ -42,6 +44,7 @@ const faqSchema = faq
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

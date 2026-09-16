@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-09-16 — The palette card is actually buyable
+
+Turned the paid plan from an honest placeholder into a working product. The
+result a visitor computed is parked under a random token before checkout, the
+token travels through Polar in the checkout metadata, and the paid-order webhook
+uses it to unlock the card and email a link back to it.
+
+The thesis is that an account is the wrong price to charge for a one-off
+purchase: this audience will abandon a sign-up form, and a password is one more
+thing to lose. The receipt email is the account — its link opens the card on any
+device, including a phone held up in a shop. That does mean we now store a
+season and the address Polar used for the receipt, so the privacy copy says so
+instead of claiming nothing personal is ever kept. The photo is still read in
+the browser and still never uploaded.
+
+The card itself is what is being sold: one sheet with every colour named and
+coded, and a checklist of things to actually look for in a shop. It is frozen at
+the moment of purchase rather than read live from the site, because a card
+bought in March should still be the card someone is holding in December. The
+price on the pricing page is $9.99, matching the Polar product.
+
 ## 2026-09-15 — Real logo and favicons
 
 Put the colormatch mark — a colour wheel around a garment on a hanger — in the
