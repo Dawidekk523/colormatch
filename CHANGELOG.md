@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-09-19 — The sitemap answers at /sitemap.xml
+
+The framework only ever writes `sitemap-index.xml`, so the conventional
+`/sitemap.xml` address was a 404 and `robots.txt` sent crawlers to the
+unconventional name. The index is now served at `/sitemap.xml` too, and robots
+points there.
+
+The thesis is that Search Console and Bing both accept whatever robots declares,
+but the conventional path is what gets typed and submitted by hand; making it
+work removes a needless step between the site and being indexed.
+
 ## 2026-09-16 — A lookbook in the paid report
 
 The bought report can now make four pictures of the buyer wearing colours from

@@ -129,8 +129,10 @@ call a real payment provider.
 | `/find-my-color-palette/` | How to find your palette |
 | `/pricing/` | Plans |
 
-`sitemap-index.xml` is generated at build time and `robots.txt` is served from
-`src/pages/robots.txt.ts`, both from `PUBLIC_SITE_URL`.
+The sitemap integration generates `sitemap-index.xml` at build time; a route at
+`src/pages/sitemap.xml.ts` serves the same index at the conventional
+`/sitemap.xml`, which is what `robots.txt` (`src/pages/robots.txt.ts`)
+advertises. All three derive from `PUBLIC_SITE_URL`.
 
 ## Limits worth knowing
 
