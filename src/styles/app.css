@@ -163,6 +163,18 @@
   display: none;
 }
 
+/* With JavaScript the menu starts collapsed from the first paint rather than
+   when the script at the end of the page gets to it. */
+@media (max-width: 55.99rem) {
+  html[data-js] .nav-toggle[hidden] {
+    display: inline-flex;
+  }
+
+  html[data-js] .masthead:not([data-nav='open']) .site-nav {
+    display: none;
+  }
+}
+
 .footer {
   background: var(--surface);
   padding-block: var(--space-6);
