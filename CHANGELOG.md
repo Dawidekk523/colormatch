@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-01 — Every subtype page is one click from anywhere
+
+The footer now lists the twelve subtype palettes, and the search snippets
+(titles and descriptions) were trimmed so Google shows them whole instead of
+cutting them off. Guides are marked up as articles and the home page as a web
+app.
+
+The thesis is that Google barely shows the site yet because it has not found or
+weighed most pages: the twelve subtype pages had three internal links each and
+none from the home page. Linking them from every page, and giving every result a
+snippet that fits, should get more of the 32 pages indexed and shown.
+
 ## 2026-09-19 — The sitemap answers at /sitemap.xml
 
 The framework only ever writes `sitemap-index.xml`, so the conventional

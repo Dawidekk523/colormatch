@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/app.css';
+import { SUBTYPES } from '../lib/subtypes';
 
 interface Crumb {
   name: string;
@@ -83,6 +84,23 @@ if (breadcrumbs?.length) {
       name: item.name,
       item: new URL(item.path, Astro.site).href,
     })),
+  });
+}
+
+// A page that sits under another and is not itself the tool or the offer is a
+// written guide, so it is described as one.
+if (breadcrumbs?.length && !schema.length && !noindex) {
+  graph.push({
+    '@type': 'Article',
+    '@id': `${canonical}#article`,
+    headline: here,
+    description,
+    image: shareImage,
+    inLanguage: 'en',
+    dateModified: new Date().toISOString(),
+    author: { '@id': `${origin}#organisation` },
+    publisher: { '@id': `${origin}#organisation` },
+    mainEntityOfPage: { '@id': `${canonical}#page` },
   });
 }
 
@@ -217,6 +235,14 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
             <li><a href="/autumn-color-palette/">Autumn</a></li>
             <li><a href="/winter-color-palette/">Winter</a></li>
             <li><a href="/color-seasons/">All four, side by side</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>The twelve subtypes</h2>
+          <ul>
+            {SUBTYPES.map((subtype) => (
+              <li><a href={`/${subtype.slug}/`}>{subtype.name}</a></li>
+            ))}
           </ul>
         </div>
         <div>

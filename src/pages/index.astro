@@ -31,12 +31,26 @@ const faq = [
     answer: 'The season, the palette and the colours to avoid are free and always will be.',
   },
 ];
+
+const appSchema = [
+  {
+    '@type': 'WebApplication',
+    name: 'colormatch',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Any browser',
+    url: 'https://getcolormatch.com/',
+    description:
+      'Finds a colour season, an undertone and a palette with colour codes from a photo or seven questions. The reading never uploads the photo.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
 ---
 
 <BaseLayout
   title="Free Color Analysis From a Photo or a Quiz | colormatch"
-  description="Find your color season in about a minute. Upload a photo or answer seven short questions and get your palette, your best colors and the colors to avoid. Free, no sign-up, photo never uploaded."
+  description="Find your color season in a minute from a photo or seven short questions. Get your palette, best colors and colors to avoid. Free, no sign-up, photo stays put."
   path="/"
+  schema={appSchema}
   faq={faq}
 >
   <section class="hero hero--split">

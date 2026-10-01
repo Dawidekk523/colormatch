@@ -184,8 +184,8 @@
 @media (min-width: 62rem) {
   .footer__grid {
     /* The first column is the description rather than a link list, so it gets
-       the room a paragraph needs and the four lists share the rest evenly. */
-    grid-template-columns: 1.6fr repeat(4, minmax(0, 1fr));
+       the room a paragraph needs and the lists share the rest evenly. */
+    grid-template-columns: 1.6fr repeat(5, minmax(0, 1fr));
   }
 }
 

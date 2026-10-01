@@ -26,9 +26,9 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   spring: {
     season: 'spring',
     slug: 'spring-color-palette',
-    title: 'The Spring Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Spring Colour Palette — Every Shade, With Codes | colormatch',
     description:
-      'The full spring color palette: warm, clear shades with names and hex codes, the neutrals that go with them, the colors to avoid, and how to tell if spring is your season.',
+      'The full spring color palette: warm, clear shades with hex codes, the neutrals that go with them, the colors to avoid, and how to tell if spring is your season.',
     heading: 'The spring colour palette',
     lede: 'Warm, clear and light — the palette of a garden in early morning sun, before the colours have had a chance to dust over.',
     intro: [
@@ -96,9 +96,9 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   summer: {
     season: 'summer',
     slug: 'summer-color-palette',
-    title: 'The Summer Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Summer Colour Palette — Every Shade, With Codes | colormatch',
     description:
-      'The full summer color palette: cool, soft shades with names and hex codes, the neutrals that anchor them, the colors to avoid, and how to tell if summer is your season.',
+      'The full summer color palette: cool, soft shades with hex codes, the neutrals that anchor them, the colors to avoid, and how to tell if summer is your season.',
     heading: 'The summer colour palette',
     lede: 'Cool and gently muted — the palette of a garden after rain, where every colour has a little grey mixed into it.',
     intro: [
@@ -166,9 +166,9 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   autumn: {
     season: 'autumn',
     slug: 'autumn-color-palette',
-    title: 'The Autumn Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Autumn Colour Palette — Every Shade, With Codes | colormatch',
     description:
-      'The full autumn color palette: warm, earthy shades with names and hex codes, the neutrals to build on, the colors to avoid, and how to tell if autumn is your season.',
+      'The full autumn color palette: warm, earthy shades with hex codes, the neutrals to build on, the colors to avoid, and how to tell if autumn is your season.',
     heading: 'The autumn colour palette',
     lede: 'Warm and earthy — the palette of turning leaves, spice and old gold, where richness matters more than brightness.',
     intro: [
@@ -236,9 +236,9 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   winter: {
     season: 'winter',
     slug: 'winter-color-palette',
-    title: 'The Winter Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Winter Colour Palette — Every Shade, With Codes | colormatch',
     description:
-      'The full winter color palette: cool, clear shades with names and hex codes, the neutrals that carry them, the colors to avoid, and how to tell if winter is your season.',
+      'The full winter color palette: cool, clear shades with hex codes, the neutrals that carry them, the colors to avoid, and how to tell if winter is your season.',
     heading: 'The winter colour palette',
     lede: 'Cool and clear — the palette of frost and ink, where colours stay true and contrast is the point.',
     intro: [

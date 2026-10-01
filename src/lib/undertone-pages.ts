@@ -25,7 +25,7 @@ export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
     id: 'warm',
     title: 'Colours for a Warm Skin Tone, With Codes | colormatch',
     description:
-      'The colors that suit a warm skin tone, with names and hex codes: which shades to wear near your face, which to be careful with, and how to check your undertone at home.',
+      'Colors that suit a warm skin tone, with hex codes: which shades to wear near your face, which to be careful with, and how to check your undertone at home.',
     heading: 'Colours for a warm skin tone',
     lede: 'Gold suits you, cream beats optical white, and the shades that work have yellow somewhere inside them.',
     intro: [
@@ -133,7 +133,7 @@ export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
     id: 'neutral',
     title: 'Colours for a Neutral Skin Tone, With Codes | colormatch',
     description:
-      'The colors that suit a neutral skin tone, with names and hex codes: why the usual tests come back split, what a split result means, and the softened shades that work.',
+      'Colors that suit a neutral skin tone, with hex codes: why the usual tests come back split, what a split result means, and the softened shades that work.',
     heading: 'Colours for a neutral skin tone',
     lede: 'Gold and silver both look acceptable, your veins read neither green nor blue, and the shades that work lean least in either direction.',
     intro: [
@@ -187,7 +187,7 @@ export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
     id: 'olive',
     title: 'Colours for an Olive Skin Tone, With Codes | colormatch',
     description:
-      'The colors that suit olive skin, with names and hex codes: why olive is a cast rather than an undertone, and the muted shades that sit alongside the green instead of fighting it.',
+      'Colors that suit olive skin, with hex codes: why olive is a cast rather than an undertone, and the muted shades that sit with the green instead of fighting it.',
     heading: 'Colours for an olive skin tone',
     lede: 'Olive is a green or grey cast across the skin, and the shades that suit it are muted rather than clear.',
     intro: [

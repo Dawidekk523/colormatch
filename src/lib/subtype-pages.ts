@@ -24,7 +24,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'light-spring',
     title: 'The Light Spring Colour Palette, With Codes | colormatch',
     description:
-      'The light spring color palette: the lightest, freshest spring shades plus three borrowed from summer, with names and hex codes, and how light spring differs from warm spring.',
+      'The light spring color palette: the lightest, freshest spring shades plus three from summer, with hex codes, and how light spring differs from warm spring.',
     lede: 'Spring at its lightest, with a little of summer’s coolness let in at the edges.',
     intro: [
       'Light spring is the corner of spring that sits closest to summer. It keeps the warmth — gold still beats silver, cream still beats optical white — but the shades are the delicate ones: peach rather than poppy, aqua rather than turquoise at full strength. Depth is what this colouring cannot carry: a heavy shade next to the face outweighs it.',
@@ -70,7 +70,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'warm-spring',
     title: 'The Warm Spring Colour Palette, With Codes | colormatch',
     description:
-      'The warm spring color palette, also called true spring: all ten spring shades with names and hex codes, nothing borrowed from a neighbouring season, and how warm spring differs from light spring.',
+      'The warm spring (true spring) color palette: all ten spring shades with hex codes, nothing borrowed, and how warm spring differs from light spring.',
     lede: 'Spring in the middle, where warmth is the whole of it and nothing has to be borrowed.',
     intro: [
       'Warm spring — true spring in some books — sits at the centre of the season rather than at either edge. Golden warmth is the quality that decides everything here: peach, coral, golden yellow and apple green all read as if the sun is on them. Nothing in this colouring asks for coolness, and nothing asks to be quietened.',
@@ -116,7 +116,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'bright-spring',
     title: 'The Bright Spring Colour Palette, With Codes | colormatch',
     description:
-      'The bright spring color palette, also called clear spring: the seven clearest spring shades plus three borrowed from winter, with names and hex codes, and how bright spring differs from warm spring.',
+      'The bright spring (clear spring) color palette: the clearest spring shades plus three from winter, with hex codes, and how it differs from warm spring.',
     lede: 'Spring at its clearest, with three of winter’s strong colours let in.',
     intro: [
       'Bright spring, or clear spring, is the corner of spring that sits closest to winter. Warmth is still there, but clarity is the quality that decides: bright poppy, golden yellow, apple green and coral all keep their full strength, and a dusty or heathered version of the same colour goes flat on this colouring.',
@@ -162,7 +162,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'light-summer',
     title: 'The Light Summer Colour Palette, With Codes | colormatch',
     description:
-      'The light summer color palette: the lightest, gentlest summer shades plus three borrowed from spring, with names and hex codes, and how light summer differs from cool summer.',
+      'The light summer color palette: the lightest, gentlest summer shades plus three from spring, with hex codes, and how light summer differs from cool summer.',
     lede: 'Summer at its lightest, with a little of spring’s warmth let in at the edges.',
     intro: [
       'Light summer is the corner of summer that sits closest to spring. It stays cool — soft white rather than cream, silver rather than gold — but it takes the gentlest shades of the season: powder blue, seafoam, soft rose and dusty pink rather than anything deep. Weight is what this colouring cannot carry, and a black jumper at the neckline shows that plainly.',
@@ -208,7 +208,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'cool-summer',
     title: 'The Cool Summer Colour Palette, With Codes | colormatch',
     description:
-      'The cool summer color palette, also called true summer: all ten summer shades with names and hex codes, nothing borrowed from a neighbouring season, and how cool summer differs from soft summer.',
+      'The cool summer (true summer) color palette: all ten summer shades with hex codes, nothing borrowed, and how cool summer differs from soft summer.',
     lede: 'Summer in the middle, cool the whole way through, with nothing borrowed at either edge.',
     intro: [
       'Cool summer — true summer elsewhere — sits at the centre of the season. Coolness is the quality that decides here, not lightness and not softness: slate blue, soft rose, lavender and soft plum all have a blue or grey cast, and a shade with any gold in it looks out of place beside them.',
@@ -254,7 +254,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'soft-summer',
     title: 'The Soft Summer Colour Palette, With Codes | colormatch',
     description:
-      'The soft summer color palette, also called muted summer: the quietest summer shades plus three deep shades borrowed from autumn, with names and hex codes, and how soft summer differs from soft autumn.',
+      'The soft summer (muted summer) color palette: the quietest summer shades plus three from autumn, with hex codes, and how soft summer differs from soft autumn.',
     lede: 'Summer at its quietest, with three of autumn’s deep shades let in.',
     intro: [
       'Soft summer, or muted summer, is the corner of summer that sits closest to autumn. It stays cool, but muting is what decides here: sage green, mauve, soft plum and seafoam all read as if a little grey has been stirred through them, and a clear, saturated colour looks loud on this colouring rather than cheerful.',
@@ -300,7 +300,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'soft-autumn',
     title: 'The Soft Autumn Colour Palette, With Codes | colormatch',
     description:
-      'The soft autumn color palette, also called muted autumn: the quietest autumn shades plus three cool shades borrowed from summer, with names and hex codes, and how soft autumn differs from warm autumn.',
+      'The soft autumn (muted autumn) color palette: the quietest autumn shades plus three from summer, with hex codes, and how soft autumn differs from warm autumn.',
     lede: 'Autumn at its quietest, with three of summer’s cool, greyed shades let in.',
     intro: [
       'Soft autumn, or muted autumn, is the corner of autumn that sits closest to summer. The warmth is still there, but it is held back: olive, moss, warm aubergine and forest green suit this colouring far better than pumpkin or mustard at full strength, which look loud against it.',
@@ -346,7 +346,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'warm-autumn',
     title: 'The Warm Autumn Colour Palette, With Codes | colormatch',
     description:
-      'The warm autumn color palette, also called true autumn: all ten autumn shades with names and hex codes, nothing borrowed from a neighbouring season, and how warm autumn differs from deep autumn.',
+      'The warm autumn (true autumn) color palette: all ten autumn shades with hex codes, nothing borrowed, and how warm autumn differs from deep autumn.',
     lede: 'Autumn in the middle, golden all the way through, with nothing borrowed at either edge.',
     intro: [
       'Warm autumn — true autumn in most books — sits at the centre of the season. Golden warmth decides everything here, and it shows in the shades that suit best: terracotta, rust, mustard, moss and pumpkin, colours that look as though they have been left in the sun.',
@@ -392,7 +392,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'deep-autumn',
     title: 'The Deep Autumn Colour Palette, With Codes | colormatch',
     description:
-      'The deep autumn color palette, also called dark autumn: the darkest autumn shades plus three borrowed from winter, with names and hex codes, and how deep autumn differs from deep winter.',
+      'The deep autumn (dark autumn) color palette: the darkest autumn shades plus three from winter, with hex codes, and how deep autumn differs from deep winter.',
     lede: 'Autumn at its deepest, with three cold winter shades let in.',
     intro: [
       'Deep autumn, or dark autumn, is the corner of autumn that sits closest to winter. The warmth remains — brown still beats black, cream still beats pure white — but depth is what decides: warm aubergine, brick red, forest green and rust suit this colouring far better than the lighter, softer end of the season.',
@@ -438,7 +438,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'deep-winter',
     title: 'The Deep Winter Colour Palette, With Codes | colormatch',
     description:
-      'The deep winter color palette, also called dark winter: the darkest winter shades plus three borrowed from autumn, with names and hex codes, and how deep winter differs from cool winter.',
+      'The deep winter (dark winter) color palette: the darkest winter shades plus three from autumn, with hex codes, and how deep winter differs from cool winter.',
     lede: 'Winter at its deepest, with three of autumn’s darkest shades let in.',
     intro: [
       'Deep winter, or dark winter, is the corner of winter that sits closest to autumn. It stays cool and clear — black and pure white both work here — but depth decides: deep violet, pine green, sapphire and royal blue do more for this colouring than winter’s icy pastels.',
@@ -484,7 +484,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'cool-winter',
     title: 'The Cool Winter Colour Palette, With Codes | colormatch',
     description:
-      'The cool winter color palette, also called true winter: all ten winter shades with names and hex codes, nothing borrowed from a neighbouring season, and how cool winter differs from bright winter.',
+      'The cool winter (true winter) color palette: all ten winter shades with hex codes, nothing borrowed, and how cool winter differs from bright winter.',
     lede: 'Winter in the middle, cold and clear, with nothing borrowed at either edge.',
     intro: [
       'Cool winter — true winter in most systems — sits at the centre of the season. Coldness decides here, at every depth the palette offers: emerald, sapphire, magenta and deep violet at one end, icy pink and icy blue at the other, with nothing golden anywhere between them.',
@@ -530,7 +530,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     id: 'bright-winter',
     title: 'The Bright Winter Colour Palette, With Codes | colormatch',
     description:
-      'The bright winter color palette, also called clear winter or vivid winter: the most saturated winter shades plus three borrowed from spring, with names and hex codes, and how bright winter differs from bright spring.',
+      'The bright winter (clear winter) color palette: the most vivid winter shades plus three from spring, with hex codes, and how it differs from bright spring.',
     lede: 'Winter at its clearest, with three of spring’s warm brights let in.',
     intro: [
       'Bright winter — clear winter, or vivid winter — is the corner of winter that sits closest to spring. It stays cold, but saturation is what decides: true red, fuchsia, magenta and royal blue at full strength suit this colouring, and the same colours in a greyed version go flat against it.',
