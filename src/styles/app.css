@@ -327,6 +327,14 @@
   padding-block: var(--space-5);
 }
 
+/* On a phone the tool already fills the screen, and centring it would move the
+   whole hero up as a slow connection delivers the rest of the page. */
+@media (max-width: 47.99rem) {
+  .hero--split:not(:has(.analyzer--result)) {
+    align-content: start;
+  }
+}
+
 @media (min-width: 62rem) {
   .hero--split {
     text-align: left;
