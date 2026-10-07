@@ -2273,3 +2273,45 @@
     break-inside: avoid;
   }
 }
+
+/* The twelve seasons, four families side by side on a wide screen. Rows are
+   separated by space, not rules. */
+.twelve {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 56rem) {
+  .twelve {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+}
+
+.twelve__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.twelve__list li {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.twelve__name {
+  font-weight: 600;
+  font-size: var(--step-1);
+}
+
+.twelve__aka,
+.twelve__note {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.hero__strips .strips {
+  margin-inline: auto;
+}

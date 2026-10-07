@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-07 — A guide to seasonal colour analysis
+
+A new page explains seasonal colour analysis as a system: the three qualities
+behind every season, the step from four seasons to twelve, all twelve subtypes
+with their colours and every other name they go by (True Summer, Dark Autumn,
+Clear Winter), and the three ways to find yours.
+
+The thesis is that "seasonal color analysis" is searched tens of thousands of
+times a month in the US with little competition, and the site had no page that
+answered it — only the palettes themselves. The names people search under
+differ from book to book, so one page that maps them all should send those
+searches on to the right palette.
+
 ## 2026-10-07 — Unlock opens checkout straight from the result
 
 The "Unlock the full report" button at the end of a free result now opens the

@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import SeasonStrips from '../components/SeasonStrips.astro';
+import { SEASONS, SEASON_ORDER } from '../lib/seasons-data';
+import { SUBTYPES_BY_PARENT, subtypePalette } from '../lib/subtypes';
+
+const LEAN_NOTE: Record<string, string> = {
+  light: 'the lightest version, pulled towards',
+  deep: 'the deepest version, pulled towards',
+  soft: 'the most muted version, pulled towards',
+  bright: 'the clearest version, pulled towards',
+  true: 'the season at its purest, with no pull from a neighbour',
+};
+
+const groups = SEASON_ORDER.map((id) => ({
+  season: SEASONS[id],
+  subtypes: SUBTYPES_BY_PARENT[id].map((subtype) => ({
+    ...subtype,
+    chips: subtypePalette(subtype).wear.slice(0, 6),
+    note:
+      subtype.neighbour === null
+        ? LEAN_NOTE.true
+        : `${LEAN_NOTE[subtype.lean]} ${SEASONS[subtype.neighbour].name}`,
+  })),
+}));
+
+const faq = [
+  {
+    question: 'What is seasonal color analysis?',
+    answer:
+      'It is a way of sorting colours by how they sit next to a face. Each season — Spring, Summer, Autumn and Winter — is a family of shades that share an undertone, a depth and a level of clarity. Your season is the family whose three qualities match your own skin, hair and eyes, so its colours make you look rested instead of tired.',
+  },
+  {
+    question: 'What is the difference between 4-season and 12-season color analysis?',
+    answer:
+      'The four-season system answers one question at a time: warm or cool, then light or deep. The twelve-season system keeps the four families but splits each into three, according to which of its qualities is strongest. A Summer whose colouring is mostly gentle and dusty becomes a Soft Summer; one whose colouring is mostly pale becomes a Light Summer.',
+  },
+  {
+    question: 'What is a "true" summer, autumn, winter or spring?',
+    answer:
+      'The true subtype is the season at its purest, with no pull towards a neighbouring season. True Summer is the same as Cool Summer, True Winter is Cool Winter, True Autumn is Warm Autumn and True Spring is Warm Spring. Different books use different names for the same twelve palettes.',
+  },
+  {
+    question: 'Is dark autumn the same as deep autumn?',
+    answer:
+      'Yes. Dark Autumn and Deep Autumn are two names for one subtype, and Dark Winter and Deep Winter are another pair. Clear and Bright are interchangeable in the same way, and so are Muted and Soft.',
+  },
+  {
+    question: 'How accurate is color analysis from a photo?',
+    answer:
+      'A photo can judge undertone and depth well when the light is daylight and the face is free of filters. Clarity is harder, because screens and cameras shift it. Treat a photo result as a strong first answer, then check it by holding two or three shades from the palette against your face in a mirror.',
+  },
+  {
+    question: 'Do I need an in-person draping session?',
+    answer:
+      'No. Draping — holding dyed fabric under the chin, one colour after another — is the classic method and it is pleasant to have done, but it answers the same three questions you can answer at home with daylight, a mirror and a few garments you already own.',
+  },
+];
+---
+
+<BaseLayout
+  title="Seasonal Color Analysis: The 4 and 12 Seasons | colormatch"
+  description="Seasonal color analysis explained: the three qualities behind every season, all twelve subtypes with their other names, and a free test to find yours."
+  path="/seasonal-color-analysis/"
+  crumb="Seasonal color analysis"
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>Seasonal colour analysis, explained</h1>
+      <p class="lede">
+        Seasonal colour analysis sorts every colour into four families named after the seasons, then
+        matches you to the family that shares your colouring. Twelve-season analysis splits each family in
+        three. Here is how both work, and every one of the twelve palettes.
+      </p>
+      <div class="hero__strips"><SeasonStrips /></div>
+      <div class="cluster">
+        <a class="btn btn--primary" href="/">Find your season free</a>
+        <a class="btn btn--secondary" href="/color-analysis-quiz/">Answer seven questions</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Three qualities decide your season</h2>
+        <p>
+          Every colour, and every face, can be described by the same three qualities. A season is simply a
+          group of colours that agree on them, which is why colours from your season sit easily on you:
+          they repeat what is already there.
+        </p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Undertone: warm or cool</h3>
+          <p>
+            Whether the skin carries golden, peachy warmth or pink and blue coolness. Spring and Autumn
+            are warm. Summer and Winter are cool. This is the first and most important split.
+          </p>
+        </li>
+        <li>
+          <h3>Depth: light or deep</h3>
+          <p>
+            How light or dark your colouring reads overall — skin, hair and eyes together. Spring and
+            Summer are light. Autumn and Winter are deep.
+          </p>
+        </li>
+        <li>
+          <h3>Clarity: bright or soft</h3>
+          <p>
+            Whether your colouring is clear and high in contrast, or blended and gentle. Spring and
+            Winter are clear. Summer and Autumn are soft. Clarity is what separates the twelve subtypes
+            most often.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>All twelve seasons, with their other names</h2>
+        <p>
+          Each season has three subtypes: one at its purest, and two that lean towards a neighbouring
+          season. Different books and analysts name them differently, so the other names are listed too.
+          Open any of them for the full palette with codes, the neutrals and the shades to avoid.
+        </p>
+      </div>
+      <div class="twelve">
+        {
+          groups.map((group) => (
+            <div class="twelve__group stack">
+              <h3>{group.season.name}</h3>
+              <ul class="twelve__list">
+                {group.subtypes.map((subtype) => (
+                  <li>
+                    <a href={`/${subtype.slug}/`} class="twelve__name">
+                      {subtype.name}
+                    </a>
+                    {subtype.aliases.length > 0 && (
+                      <span class="twelve__aka">
+                        Also called {subtype.aliases.map((alias) => alias.replace(/^\w/, (c) => c.toUpperCase())).join(', ')}
+                      </span>
+                    )}
+                    <span class="strips__row" aria-hidden="true">
+                      {subtype.chips.map((chip) => (
+                        <span class="strips__chip" style={`background: ${chip.hex}`} title={chip.name} />
+                      ))}
+                    </span>
+                    <span class="twelve__note">{group.season.name}: {subtype.note}.</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--warm">
+    <div class="shell grid-2">
+      <div class="stack">
+        <h2>Three ways to find your season</h2>
+        <p>
+          <strong>Draping.</strong> The classic method: an analyst holds dyed fabrics under your chin in
+          daylight and watches what each one does to your skin. It is thorough and it costs money and an
+          appointment.
+        </p>
+        <p>
+          <strong>A photo.</strong> A clear, unfiltered photo in daylight shows undertone and depth well.
+          colormatch reads the skin in your browser — the reading never uploads your photo — and gives you a
+          season, an undertone and a palette.
+        </p>
+        <p>
+          <strong>A quiz.</strong> Seven questions about your veins, how you tan, your natural hair and
+          which jewellery flatters you. It works where a photo cannot, such as under poor light.
+        </p>
+        <div class="cluster">
+          <a class="btn btn--primary" href="/color-palette-from-image/">Use a photo</a>
+          <a class="btn btn--secondary" href="/find-my-color-palette/">Do it by hand</a>
+        </div>
+      </div>
+      <div class="panel stack">
+        <h3>Where seasonal analysis comes from</h3>
+        <p>
+          The idea that colouring falls into seasonal families goes back to the colour teaching of the
+          Bauhaus painter Johannes Itten. It became popular in 1980 with Carole Jackson's book <em>Color Me Beautiful</em>,
+          which used four seasons. The twelve-season system came later, to
+          place the many people who sat between two of the four.
+        </p>
+        <p>
+          Personal colour analysis is especially popular in Korea, where the same seasons are often
+          called by their undertone first: spring warm, summer cool, autumn warm, winter cool.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell narrow stack">
+      <h2>What a season is good for, and what it is not</h2>
+      <p>
+        A season is a shortcut for the colours worn near your face: tops, scarves, glasses, lipstick and
+        hair colour. It narrows a rail of forty tops to the five worth trying on. It says nothing about
+        trousers, shoes or rooms, and it is not a rule anyone has to obey.
+      </p>
+      <p>
+        Your undertone stays the same through life, so your half of the wheel rarely moves. Depth and
+        contrast do change — most of all as hair turns grey — which is why many people drift to a softer
+        or lighter neighbour of their season over the years. The <a href="/best-colors-to-wear-with-gray-hair/">guide to colours with grey hair</a>
+        covers that change.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell">
+      <Faq title="Questions about seasonal colour analysis" items={faq} />
+    </div>
+  </section>
+</BaseLayout>
