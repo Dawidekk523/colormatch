@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-07 — Unlock opens checkout straight from the result
+
+The "Unlock the full report" button at the end of a free result now opens the
+payment page directly. Before, it led to the pricing page, where the same
+decision had to be made a second time with a second button.
+
+The thesis is that the moment of wanting the report is at the end of the
+result, and every extra page between that moment and payment loses people. The
+pricing page stays for anyone who arrives there on their own.
+
 ## 2026-10-01 — Every subtype page is one click from anywhere
 
 The footer now lists the twelve subtype palettes, and the search snippets

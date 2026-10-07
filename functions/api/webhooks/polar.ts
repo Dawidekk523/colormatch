@@ -49,6 +49,40 @@ function isPaid(type: string, data: Record<string, unknown>): boolean {
   return false;
 }
 
+/**
+ * The sale, server-side, for the shared PostHog funnel. Only rows this site
+ * parked get here, so another app's order on the shared Polar organisation can
+ * never be counted. The visitor id from checkout joins it to the visit.
+ */
+async function capturePurchase(data: Record<string, unknown>, row: ResultRow): Promise<void> {
+  const cents = [data.total_amount, data.net_amount, data.amount].find((v) => typeof v === 'number') as number | undefined;
+  const visitor =
+    str(record(data.metadata)?.visitor) ?? str(record(record(data.checkout)?.metadata)?.visitor) ?? row.token;
+  try {
+    await fetch('https://eu.i.posthog.com/i/v0/e/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        api_key: 'phc_oefH8qAXsjNKGyATiEUBs49yeecsxjUjyqxFVmzdynp8',
+        event: 'purchase',
+        distinct_id: visitor,
+        properties: {
+          app: 'getcolormatch.com',
+          $lib: 'colormatch-server',
+          amount: cents === undefined ? null : cents / 100,
+          currency: (str(data.currency) ?? 'usd').toUpperCase(),
+          product: 'full_report',
+          order_id: str(data.id),
+          billing_reason: str(data.billing_reason) ?? 'purchase',
+          season: row.season,
+        },
+      }),
+    });
+  } catch {
+    // The sale is recorded in D1 and Polar; analytics is best effort.
+  }
+}
+
 interface ResultRow {
   token: string;
   season: string;
@@ -83,7 +117,7 @@ async function findResult(
  * result token in the checkout metadata and the buyer's email from the receipt,
  * which together are the whole account system this product has.
  */
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestPost: PagesFunction<Env> = async ({ request, env, waitUntil }) => {
   const raw = await request.text();
   const verified = await verifyStandardWebhook(request.headers, raw, env.POLAR_WEBHOOK_SECRET);
 
@@ -145,6 +179,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   } catch {
     return json({ received: true, type, matched: true, stored: false });
   }
+
+  if (!alreadyPaid) waitUntil?.(capturePurchase(data, row));
 
   if (alreadyPaid || !email) return json({ received: true, type, matched: true, emailed: false });
 

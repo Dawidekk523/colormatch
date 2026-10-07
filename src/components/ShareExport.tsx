@@ -1,3 +1,4 @@
+import { track } from '../lib/analytics';
 import { useEffect, useRef, useState } from 'react';
 import type { FullReportData } from '../lib/report';
 import { Icon } from './Icon';
@@ -58,6 +59,7 @@ export function ShareExport({ report }: Props) {
     setProblem(null);
     try {
       await downloadShareImage(shareData(report), orientation);
+      track('value_reached', { tool: 'report', kind: 'download', orientation });
     } catch {
       setProblem('The image could not be saved just now. Please try again.');
     } finally {
@@ -105,7 +107,10 @@ export function ShareExport({ report }: Props) {
           <Icon name="download" size={20} />
           {busy ? 'Making the picture…' : 'Download PNG'}
         </button>
-        <button type="button" className="btn btn--secondary" onClick={() => window.print()}>
+        <button type="button" className="btn btn--secondary" onClick={() => {
+            track('value_reached', { tool: 'report', kind: 'print' });
+            window.print();
+          }}>
           <Icon name="print" size={20} />
           Print the report
         </button>

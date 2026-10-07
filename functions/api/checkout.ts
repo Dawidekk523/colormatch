@@ -2,6 +2,8 @@ import { json } from '../_shared';
 
 interface Body {
   token?: unknown;
+  /** The visitor's anonymous analytics id, carried to the webhook so the purchase joins their funnel. */
+  visitor?: unknown;
 }
 
 const isToken = (value: unknown): value is string =>
@@ -46,6 +48,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   const token = body.token;
+  const visitor =
+    typeof body.visitor === 'string' && /^[\w.$:-]{1,80}$/.test(body.visitor) ? body.visitor : null;
   const existing = await env.DB.prepare('SELECT token FROM results WHERE token = ?')
     .bind(token)
     .first<{ token: string }>();
@@ -67,7 +71,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         products: [env.POLAR_PRODUCT_ID],
         success_url: successUrl,
-        metadata: { token },
+        metadata: { token, ...(visitor ? { visitor } : {}) },
       }),
     });
     if (!response.ok) return json({ available: false, reason: 'checkout-provider-error' }, 502);

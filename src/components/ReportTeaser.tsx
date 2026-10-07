@@ -1,12 +1,17 @@
 import { buildReport, FREE_SECTION_COUNT, REPORT_SECTION_COUNT, REPORT_EXTRAS, type FullReportData } from '../lib/report';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { track } from '../lib/analytics';
+import { openCheckout } from '../lib/checkout';
+import { getResultSnapshot, readResult } from '../lib/result-storage';
 import { Icon } from './Icon';
 
 const PRICE = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
 
 /**
  * On a development machine the button opens the report itself, so the paid page
- * can be looked at while it is being built. Everywhere else it goes to checkout,
- * which is the only way to see it for real.
+ * can be looked at while it is being built. Everywhere else it opens checkout
+ * straight from the result; the pricing page is the fallback when that fails or
+ * JavaScript is off, and it explains a plan that is not open yet.
  */
 const FULL_REPORT_HREF = import.meta.env.DEV ? '/result/?preview=1' : '/pricing/';
 
@@ -128,10 +133,37 @@ const CARDS = [
  * you swipe on a phone and a grid on a wide screen.
  */
 export function ReportTeaser({ report }: Props) {
+  const [opening, setOpening] = useState(false);
+  const paywallRef = useRef<HTMLElement>(null);
+
+  // Counted once, when the paywall actually scrolls into view.
+  useEffect(() => {
+    const node = paywallRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      track('upgrade_prompt_viewed', { reason: 'result' });
+      observer.disconnect();
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const unlock = (event: MouseEvent<HTMLAnchorElement>) => {
+    const stored = readResult(getResultSnapshot());
+    if (import.meta.env.DEV || !stored || opening) return;
+    event.preventDefault();
+    setOpening(true);
+    openCheckout(stored, 'result').then(
+      (url) => window.location.assign(url),
+      () => window.location.assign(FULL_REPORT_HREF),
+    );
+  };
+
   const remaining = REPORT_SECTION_COUNT - FREE_SECTION_COUNT;
 
   return (
-    <section className="paywall" aria-labelledby="paywall-heading">
+    <section className="paywall" aria-labelledby="paywall-heading" ref={paywallRef}>
       <p className="paywall__step">
         <span className="paywall__bar" aria-hidden="true">
           <span
@@ -169,8 +201,8 @@ export function ReportTeaser({ report }: Props) {
         ))}
       </ul>
 
-      <a className="btn btn--primary btn--block" href={FULL_REPORT_HREF}>
-        Unlock the full report — {import.meta.env.DEV ? 'preview' : PRICE}
+      <a className="btn btn--primary btn--block" href={FULL_REPORT_HREF} onClick={unlock} aria-busy={opening}>
+        {opening ? 'Opening checkout…' : `Unlock the full report — ${import.meta.env.DEV ? 'preview' : PRICE}`}
       </a>
       <p className="note paywall__small">One payment. No subscription, no account.</p>
     </section>

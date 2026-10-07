@@ -278,6 +278,11 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
       </div>
     </footer>
 
+    <script>
+      import { loadAnalytics } from '../lib/analytics';
+      void loadAnalytics();
+    </script>
+
     <script is:inline>
       // The menu only collapses once this runs, so a page without JavaScript
       // keeps every link visible instead of hiding them behind a dead button.

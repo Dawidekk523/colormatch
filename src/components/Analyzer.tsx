@@ -17,6 +17,7 @@ import {
 import { metricsFromPhoto } from '../lib/report';
 import type { AnalysisResult } from '../lib/season';
 import type { SeasonId } from '../lib/seasons-data';
+import { track } from '../lib/analytics';
 import { AnalysisProgress } from './AnalysisProgress';
 import { PhotoTips } from './PhotoTips';
 import { ResultView } from './ResultView';
@@ -41,6 +42,7 @@ const SAMPLES = [
 
 /** Records the outcome only. It never blocks the result and never sends the photo. */
 function reportAnonymously(season: SeasonId, source: 'photo' | 'quiz') {
+  track('core_action_completed', { tool: source, ok: true, season });
   void fetch('/api/analysis', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -103,6 +105,7 @@ export function Analyzer() {
     readyRef.current = null;
     stagesDoneRef.current = false;
     setStatus('idle');
+    track('core_action_completed', { tool: 'photo', ok: false, error: err instanceof AnalysisError ? err.kind : 'unknown' });
     setError(
       err instanceof AnalysisError
         ? ANALYSIS_FAILURE_MESSAGE[err.kind]
@@ -118,6 +121,7 @@ export function Analyzer() {
       setPreviewLabel(label);
       setPreview(src);
       setStatus('working');
+      track('core_action_started', { tool: 'photo', input: 'sample' });
       try {
         release(await analyzeImageSource(src));
       } catch (err) {
@@ -136,6 +140,7 @@ export function Analyzer() {
       setError(null);
       setPreviewLabel('The photo you chose');
       setStatus('working');
+      track('core_action_started', { tool: 'photo', input: 'upload' });
       try {
         // The photo is decoded straight to the sizes we need, so nothing larger
         // than a thumbnail is ever held — any camera file is fair game.
@@ -156,6 +161,7 @@ export function Analyzer() {
     (file: File | null | undefined) => {
       const problem = checkFile(file);
       if (problem) {
+        track('core_action_completed', { tool: 'photo', ok: false, error: problem });
         setError(FILE_PROBLEM_MESSAGE[problem]);
         setStatus('idle');
         return;

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
-import { buildCard } from '../lib/card';
+import { openCheckout } from '../lib/checkout';
 import {
   getResultSnapshot,
   getServerResultSnapshot,
@@ -61,23 +61,7 @@ export function UpgradeButton() {
     setStarting(true);
     setProblem(null);
     try {
-      const parked = await fetch('/api/result', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...stored, card: buildCard(stored.season, stored.undertone, stored.metrics) }),
-      });
-      const parkedBody = (await parked.json()) as { token?: string };
-      if (!parked.ok || typeof parkedBody.token !== 'string') throw new Error('not parked');
-
-      const checkout = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ token: parkedBody.token }),
-      });
-      const checkoutBody = (await checkout.json()) as { url?: string };
-      if (!checkout.ok || typeof checkoutBody.url !== 'string') throw new Error('no checkout');
-
-      window.location.href = checkoutBody.url;
+      window.location.href = await openCheckout(stored, 'pricing');
     } catch {
       setStarting(false);
       setProblem('We could not open checkout just now. Please try again in a moment.');

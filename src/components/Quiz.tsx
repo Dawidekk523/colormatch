@@ -10,10 +10,12 @@ import {
   subscribeResult,
 } from '../lib/result-storage';
 import type { SeasonId } from '../lib/seasons-data';
+import { track } from '../lib/analytics';
 import { AnalysisProgress } from './AnalysisProgress';
 import { ResultView } from './ResultView';
 
 function reportAnonymously(season: SeasonId) {
+  track('core_action_completed', { tool: 'quiz', ok: true, season });
   void fetch('/api/analysis', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -136,6 +138,7 @@ export function Quiz() {
       return;
     }
     setWarning(null);
+    if (step === 0) track('core_action_started', { tool: 'quiz' });
     if (isLast) {
       submit(answers);
     } else {
