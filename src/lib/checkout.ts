@@ -9,7 +9,7 @@ import type { StoredResult } from './result-storage';
  */
 export async function openCheckout(stored: StoredResult, from: 'result' | 'pricing'): Promise<string> {
   track('checkout_started', { plan: 'full_report', from, season: stored.season, source: stored.source });
-  const parked = await fetch('/api/result', {
+  const parked = await checkoutFetch('/api/result', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ ...stored, card: buildCard(stored.season, stored.undertone, stored.metrics) }),
@@ -17,7 +17,7 @@ export async function openCheckout(stored: StoredResult, from: 'result' | 'prici
   const parkedBody = (await parked.json()) as { token?: string };
   if (!parked.ok || typeof parkedBody.token !== 'string') throw new Error('not parked');
 
-  const checkout = await fetch('/api/checkout', {
+  const checkout = await checkoutFetch('/api/checkout', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ token: parkedBody.token, visitor: await visitorId() }),
@@ -26,4 +26,10 @@ export async function openCheckout(stored: StoredResult, from: 'result' | 'prici
   if (!checkout.ok || typeof checkoutBody.url !== 'string') throw new Error('no checkout');
 
   return checkoutBody.url;
+}
+
+// Safari reuses a closed keep-alive connection; a rejected fetch never reached the server,
+// so one retry is safe. HTTP errors are not retried.
+function checkoutFetch(input: string, init: RequestInit): Promise<Response> {
+  return fetch(input, init).catch(() => fetch(input, init));
 }
