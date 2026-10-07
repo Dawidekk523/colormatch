@@ -27,5 +27,5 @@ ANALYSIS_DAILY_LIMIT = "50"
 RESULT_DAILY_LIMIT = "20"
 # The image model behind the lookbook, and how many pictures one purchase may
 # generate in total, including retries.
-LOOKBOOK_MODEL = "gpt-image-2.5-flare"
+LOOKBOOK_MODEL = "gemini-3.1-flash-image"
 LOOKBOOK_MAX_IMAGES = "8"

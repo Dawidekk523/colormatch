@@ -32,9 +32,9 @@ declare global {
     RESULT_DAILY_LIMIT?: string;
     /** Bucket holding generated lookbook images. Absent means the feature is off. */
     LOOKBOOK?: R2Bucket;
-    /** OpenAI key for the image model. Absent means the feature is off. */
-    OPENAI_API_KEY?: string;
-    /** Image model id, e.g. `gpt-image-2.5-flare`. */
+    /** Gemini key for the image model. Absent means the feature is off. */
+    GEMINI_API_KEY?: string;
+    /** Gemini image model id, e.g. `gemini-3.1-flash-image`. */
     LOOKBOOK_MODEL?: string;
     /** How many images one purchase may generate in total. */
     LOOKBOOK_MAX_IMAGES?: string;

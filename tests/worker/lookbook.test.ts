@@ -112,7 +112,7 @@ describe('the lookbook endpoint', () => {
     vi.stubGlobal('fetch', fetchSpy);
 
     const response = await post(
-      { DB: db.binding, LOOKBOOK: fakeBucket().binding, OPENAI_API_KEY: 'sk-test' },
+      { DB: db.binding, LOOKBOOK: fakeBucket().binding, GEMINI_API_KEY: 'test-key' },
       form({ consent: 'nope' }),
     );
 
@@ -126,7 +126,7 @@ describe('the lookbook endpoint', () => {
     vi.stubGlobal('fetch', fetchSpy);
 
     const response = await post(
-      { DB: db.binding, LOOKBOOK: fakeBucket().binding, OPENAI_API_KEY: 'sk-test' },
+      { DB: db.binding, LOOKBOOK: fakeBucket().binding, GEMINI_API_KEY: 'test-key' },
       form(),
     );
 
@@ -137,19 +137,22 @@ describe('the lookbook endpoint', () => {
   it('names the palette colour in the prompt and keeps only what comes back', async () => {
     const db = fakeDb({ paid_at: '2026-09-16', palette_json: PALETTE });
     const bucket = fakeBucket();
-    let sent: FormData | null = null;
+    let sent = '';
     vi.stubGlobal('fetch', async (_url: string, init: RequestInit) => {
-      sent = init.body as FormData;
-      return new Response(JSON.stringify({ data: [{ b64_json: btoa('png-bytes') }] }), { status: 200 });
+      sent = String(init.body);
+      return new Response(
+        JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ inlineData: { mimeType: 'image/png', data: btoa('png-bytes') } }] } }] }),
+        { status: 200 },
+      );
     });
 
     const response = await post(
-      { DB: db.binding, LOOKBOOK: bucket.binding, OPENAI_API_KEY: 'sk-test' },
+      { DB: db.binding, LOOKBOOK: bucket.binding, GEMINI_API_KEY: 'test-key' },
       form(),
     );
 
     expect(response.status).toBe(200);
-    const prompt = String(sent!.get('prompt'));
+    const prompt = sent;
     expect(prompt).toContain('#8FB3D1');
     expect(prompt).toContain('the same face');
     // The photograph itself is never written down; only the result is.
@@ -163,7 +166,7 @@ describe('the lookbook endpoint', () => {
     vi.stubGlobal('fetch', fetchSpy);
 
     const response = await post(
-      { DB: db.binding, LOOKBOOK: fakeBucket().binding, OPENAI_API_KEY: 'sk-test', LOOKBOOK_MAX_IMAGES: '8' },
+      { DB: db.binding, LOOKBOOK: fakeBucket().binding, GEMINI_API_KEY: 'test-key', LOOKBOOK_MAX_IMAGES: '8' },
       form(),
     );
 

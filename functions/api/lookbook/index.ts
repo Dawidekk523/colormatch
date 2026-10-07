@@ -82,20 +82,29 @@ function promptFor(look: Look, swatch: Swatch): string {
   ].join(' ');
 }
 
+/**
+ * Gemini's native image model (generateContent with the photo inline). The
+ * OpenAI account behind the first version has had billing off since
+ * 2026-09-25, so every picture failed with a 502.
+ */
 async function generate(
   apiKey: string,
   model: string,
   photo: Blob,
   prompt: string,
 ): Promise<{ ok: true; png: ArrayBuffer } | { ok: false; reason: string; status: number }> {
-  const body = new FormData();
-  body.append('model', model);
-  body.append('prompt', prompt);
-  body.append('image', photo, 'photo.png');
-  body.append('size', '1024x1024');
-  body.append('quality', 'medium');
-  body.append('n', '1');
-  body.append('output_format', 'png');
+  const bytes = new Uint8Array(await photo.arrayBuffer());
+  let binary = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  const body = {
+    contents: [
+      {
+        role: 'user',
+        parts: [{ inlineData: { mimeType: photo.type || 'image/jpeg', data: btoa(binary) } }, { text: prompt }],
+      },
+    ],
+    generationConfig: { responseModalities: ['IMAGE'], imageConfig: { aspectRatio: '1:1' } },
+  };
 
   // The model can take a minute or more. This is the ceiling before the edge
   // would close the connection anyway, and a clear failure beats a hung page.
@@ -104,10 +113,10 @@ async function generate(
 
   let response: Response;
   try {
-    response = await fetch('https://api.openai.com/v1/images/edits', {
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST',
-      headers: { authorization: `Bearer ${apiKey}` },
-      body,
+      headers: { 'x-goog-api-key': apiKey, 'content-type': 'application/json' },
+      body: JSON.stringify(body),
       signal: controller.signal,
     });
   } catch (err) {
@@ -126,20 +135,26 @@ async function generate(
     return { ok: false, status: response.status === 400 ? 422 : 502, reason: 'model' };
   }
 
-  const payload = (await response.json()) as { data?: { b64_json?: string }[] };
-  const b64 = payload.data?.[0]?.b64_json;
-  if (!b64) return { ok: false, status: 502, reason: 'empty' };
+  const payload = (await response.json()) as {
+    candidates?: { finishReason?: string; content?: { parts?: { inlineData?: { data?: string } }[] } }[];
+  };
+  const candidate = payload.candidates?.[0];
+  const b64 = candidate?.content?.parts?.find((part) => part.inlineData?.data)?.inlineData?.data;
+  // No picture with a safety finish is the model declining the photo.
+  if (!b64) return candidate?.finishReason && candidate.finishReason !== 'STOP'
+    ? { ok: false, status: 422, reason: 'model' }
+    : { ok: false, status: 502, reason: 'empty' };
 
-  const binary = atob(b64);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
-  return { ok: true, png: bytes.buffer };
+  const decoded = atob(b64);
+  const out = new Uint8Array(decoded.length);
+  for (let i = 0; i < decoded.length; i += 1) out[i] = decoded.charCodeAt(i);
+  return { ok: true, png: out.buffer };
 }
 
 /** Says whether the feature is switched on at all, and what has been made. */
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const token = new URL(request.url).searchParams.get('token');
-  const available = Boolean(env.LOOKBOOK && env.OPENAI_API_KEY && env.DB);
+  const available = Boolean(env.LOOKBOOK && env.GEMINI_API_KEY && env.DB);
   if (!available) return json({ available: false, looks: [] });
   if (!isToken(token)) return json({ available: true, looks: [] });
 
@@ -162,7 +177,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  if (!env.LOOKBOOK || !env.OPENAI_API_KEY || !env.DB) {
+  if (!env.LOOKBOOK || !env.GEMINI_API_KEY || !env.DB) {
     return json({ error: 'The lookbook is not switched on.' }, 503);
   }
 
@@ -212,8 +227,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     .run();
 
   const result = await generate(
-    env.OPENAI_API_KEY,
-    env.LOOKBOOK_MODEL ?? 'gpt-image-2.5-flare',
+    env.GEMINI_API_KEY,
+    env.LOOKBOOK_MODEL ?? 'gemini-3.1-flash-image',
     photo,
     promptFor(look, swatch),
   );

@@ -13,6 +13,6 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
       (env.EMAIL_SES_ACCESS_KEY_ID && env.EMAIL_SES_SECRET_ACCESS_KEY) || env.RESEND_API_KEY,
     ),
     sender: Boolean(env.EMAIL_FROM ?? env.RESEND_FROM),
-    lookbook: Boolean(env.LOOKBOOK && env.OPENAI_API_KEY),
+    lookbook: Boolean(env.LOOKBOOK && env.GEMINI_API_KEY),
   });
 };
