@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-17 — Find your season on the seasonal colour analysis page
+
+The seasonal colour analysis page now opens with the same photo-or-quiz tool as
+the home page, so a visitor can find their season right where they read about
+it. The title and heading now say plainly what the page offers ("Seasonal Color
+Analysis — Find Your Season Free"), and the page is linked from the main menu
+and from the seasons section of the home page.
+
+The thesis is that people searching "seasonal color analysis" mostly want to
+know their own season, and the guide without a tool answered only half of that.
+
 ## 2026-10-07 — A guide to seasonal colour analysis
 
 A new page explains seasonal colour analysis as a system: the three qualities
