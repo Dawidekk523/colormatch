@@ -377,7 +377,58 @@
   }
 }
 
+/* The seasonal-colour-analysis hero. On a phone the finder has to reach the
+   first screen, so the intro drops to its opening sentence and the palette
+   strips — which only earn their place beside the two-column copy — step out
+   until the hero is side by side again. */
+@media (max-width: 61.99rem) {
+  .hero--seasonal .lede__extra {
+    display: none;
+  }
 
+  .hero--seasonal .strips {
+    display: none;
+  }
+
+  /* The finder has to reach the first screen with both ways in — upload and the
+     quiz — so this hero keeps a tighter stack than the shared spacing allows
+     and the sample photos, which are only a fallback, drop below the quiz. */
+  .hero--seasonal:not(:has(.analyzer--result)) {
+    padding-block: var(--space-4);
+  }
+
+  .hero--seasonal .hero__inner {
+    gap: var(--space-4);
+  }
+
+  .hero--seasonal .hero__words .lede {
+    margin-top: var(--space-2);
+    margin-bottom: 0;
+  }
+
+  .hero--seasonal .dropzone {
+    padding-block: var(--space-3);
+  }
+
+  .hero--seasonal .analyzer:not(.analyzer--result):not(.analyzer--working) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero--seasonal .analyzer .note {
+    order: 1;
+  }
+
+  .hero--seasonal .analyzer .samples {
+    order: 2;
+  }
+}
+
+/* The hero sits on its own warm surface, so the breadcrumb keeps a clear strip
+   of page between itself and that edge rather than meeting it. */
+.crumbs:has(+ .hero--seasonal) {
+  padding-bottom: var(--space-2);
+}
 
 .hero h1 {
   margin-bottom: var(--space-2);

@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-17 — The season finder on the seasonal page meets the fold
+
+On a phone the seasonal colour analysis hero led with the intro and the four
+palette strips, which pushed the finder — the photo upload and the quiz link —
+below the first screen. The intro now keeps its opening sentence on a phone,
+the strips wait for the two-column layout, and the quiz link sits above the
+sample photos. The breadcrumb also keeps a strip of page between itself and the
+hero's warm surface. Desktop is unchanged.
+
 ## 2026-10-17 — Find your season on the seasonal colour analysis page
 
 The seasonal colour analysis page now opens with the same photo-or-quiz tool as
