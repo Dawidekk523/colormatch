@@ -17,7 +17,12 @@ interface Props {
   showTeaser?: boolean;
 }
 
-function confidenceWords(confidence: number): string {
+function confidenceWords(source: 'photo' | 'quiz', confidence: number): string {
+  if (source === 'photo') {
+    if (confidence >= 0.66) return 'The light and the skin tone in the photo agreed: one direction.';
+    if (confidence >= 0.33) return 'The light and the skin tone in the photo leaned one way, but not strongly.';
+    return 'This was a close call — the light and skin tone in the photo did not settle it, so the seasons next door are worth trying too.';
+  }
   if (confidence >= 0.66) return 'The answers pointed clearly in one direction.';
   if (confidence >= 0.33) return 'The answers leaned one way, but not strongly.';
   return 'This was a close call — the other seasons next door are worth trying too.';
@@ -52,7 +57,6 @@ export function ResultView({
       ) : null}
 
       <div className="result__head" style={{ borderColor: data.accent }}>
-        <p className="result__kicker">Your result</p>
         <Heading className="result__season">{data.name}</Heading>
         <p className="lede">{data.tagline}. {data.description}</p>
         <dl className="result__facts">
@@ -66,7 +70,7 @@ export function ResultView({
           </div>
           <div>
             <dt>How sure is this</dt>
-            <dd>{confidenceWords(confidence)}</dd>
+            <dd>{confidenceWords(source, confidence)}</dd>
           </div>
         </dl>
       </div>

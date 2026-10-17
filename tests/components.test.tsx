@@ -73,7 +73,7 @@ describe('Quiz', () => {
         vi.advanceTimersByTime(6000);
       });
 
-      expect(screen.getByText('Your result')).toBeTruthy();
+      expect(screen.getByText(/from your quiz answers/)).toBeTruthy();
       expect(screen.getByRole('button', { name: 'Take the quiz again' })).toBeTruthy();
     } finally {
       vi.useRealTimers();
