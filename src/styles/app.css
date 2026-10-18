@@ -1047,27 +1047,6 @@
 
 .steps li {
   counter-increment: step;
-  padding-top: var(--space-3);
-  position: relative;
-}
-
-/* A short mark, not a rule. In one column a full-width hairline above every
-   step reads as a divider between sections rather than as the top of a step —
-   it only earns its width once the steps sit side by side. */
-.steps li::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2rem;
-  height: 2px;
-  background: var(--ink);
-}
-
-@media (min-width: 48rem) {
-  .steps li::before {
-    width: 100%;
-  }
 }
 
 .steps h3 {
@@ -1075,13 +1054,8 @@
 }
 
 .steps h3::before {
-  content: counter(step);
-  display: block;
-  margin-bottom: var(--space-1);
-  font-size: var(--step--1);
-  font-weight: 600;
+  content: counter(step) '. ';
   font-variant-numeric: tabular-nums;
-  color: var(--ink-soft);
 }
 
 .steps p {
