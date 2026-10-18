@@ -377,49 +377,58 @@
   }
 }
 
-/* The seasonal-colour-analysis hero. On a phone the finder has to reach the
-   first screen, so the intro drops to its opening sentence and the palette
-   strips — which only earn their place beside the two-column copy — step out
-   until the hero is side by side again. */
+/* The home and seasonal-colour-analysis heroes. On a phone the finder has to
+   reach the first screen, so the intro drops to its opening sentence and the
+   palette strips — which only earn their place beside the two-column copy —
+   step out until the hero is side by side again. */
 @media (max-width: 61.99rem) {
-  .hero--seasonal .lede__extra {
+  .hero--seasonal .lede__extra,
+  .hero--home .lede__extra {
     display: none;
   }
 
-  .hero--seasonal .strips {
+  .hero--seasonal .strips,
+  .hero--home .strips {
     display: none;
   }
 
   /* The finder has to reach the first screen with both ways in — upload and the
      quiz — so this hero keeps a tighter stack than the shared spacing allows
      and the sample photos, which are only a fallback, drop below the quiz. */
-  .hero--seasonal:not(:has(.analyzer--result)) {
+  .hero--seasonal:not(:has(.analyzer--result)),
+  .hero--home:not(:has(.analyzer--result)) {
     padding-block: var(--space-4);
   }
 
-  .hero--seasonal .hero__inner {
+  .hero--seasonal .hero__inner,
+  .hero--home .hero__inner {
     gap: var(--space-4);
   }
 
-  .hero--seasonal .hero__words .lede {
+  .hero--seasonal .hero__words .lede,
+  .hero--home .hero__words .lede {
     margin-top: var(--space-2);
     margin-bottom: 0;
   }
 
-  .hero--seasonal .dropzone {
+  .hero--seasonal .dropzone,
+  .hero--home .dropzone {
     padding-block: var(--space-3);
   }
 
-  .hero--seasonal .analyzer:not(.analyzer--result):not(.analyzer--working) {
+  .hero--seasonal .analyzer:not(.analyzer--result):not(.analyzer--working),
+  .hero--home .analyzer:not(.analyzer--result):not(.analyzer--working) {
     display: flex;
     flex-direction: column;
   }
 
-  .hero--seasonal .analyzer .note {
+  .hero--seasonal .analyzer .note,
+  .hero--home .analyzer .note {
     order: 1;
   }
 
-  .hero--seasonal .analyzer .samples {
+  .hero--seasonal .analyzer .samples,
+  .hero--home .analyzer .samples {
     order: 2;
   }
 }
@@ -2234,6 +2243,39 @@
   .data-table td.num:nth-of-type(3),
   .data-table td.num:nth-of-type(4) {
     display: none;
+  }
+}
+
+.twelve-table .strips__row {
+  margin-top: var(--space-1);
+  max-width: 8rem;
+}
+
+.twelve-table .strips__chip {
+  height: 1rem;
+}
+
+/* The home page's two tables. On a phone the header row goes, so the stylist
+   comparison names each side above its cell, and the season table stacks. */
+@media (max-width: 34rem) {
+  .compare-table tbody tr {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 var(--space-3);
+  }
+
+  .compare-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+
+  .twelve-table tbody tr {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .twelve-table td:nth-of-type(1) {
+    color: var(--ink-soft);
   }
 }
 

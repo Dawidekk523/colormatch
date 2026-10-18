@@ -5,30 +5,48 @@ import { Analyzer } from '../components/Analyzer';
 import SeasonStrips from '../components/SeasonStrips.astro';
 import { SeasonExplorer } from '../components/SeasonExplorer';
 import { ColourCompare } from '../components/ColourCompare';
+import { SEASONS, SEASON_ORDER } from '../lib/seasons-data';
+import { SUBTYPES_BY_PARENT } from '../lib/subtypes';
+
+// Same source as the pricing page, so the FAQ never quotes a stale price.
+const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
+
+const twelve = SEASON_ORDER.map((id) => ({ season: SEASONS[id], subtypes: SUBTYPES_BY_PARENT[id] }));
 
 const faq = [
+  {
+    question: 'What is color analysis?',
+    answer:
+      'Color analysis is a way of finding the colours that flatter your natural colouring — your skin, hair and eyes. It sorts shades into seasons by three qualities: undertone (warm or cool), value (light or deep) and contrast (clear or soft). The season whose qualities match yours is the palette that makes you look rested rather than tired.',
+  },
+  {
+    question: 'Can you do color analysis from a photo?',
+    answer:
+      'Yes, if the photo is a fair record of your face: daylight from a window, no filter, no beauty mode and little make-up. The skin, hair and eyes in the picture carry the same undertone, value and contrast a stylist looks at. A yellow lamp or a heavy filter shifts them, which is why the quiz is there as a second opinion.',
+  },
+  {
+    question: 'Is online color analysis accurate?',
+    answer:
+      'It is a strong first answer, not a measurement. Undertone and value come through a good photo well; contrast is the hardest, because cameras and screens change it. Hold two or three colours from your palette against your face in a mirror — if they brighten your skin and lift your eyes, the result fits.',
+  },
+  {
+    question: 'How much does professional color analysis cost?',
+    answer: `An in-person session with a stylist usually costs somewhere between $150 and $500 in the US, takes one and a half to three hours and often has to be booked weeks ahead. Here the season, palette and colours to avoid are free; the optional full report with your subtype is a one-off ${cardPrice}.`,
+  },
+  {
+    question: 'What are the 12 seasons in color analysis?',
+    answer:
+      'Each of the four seasons splits into three. Spring: light, warm and bright. Summer: light, cool and soft. Autumn: soft, warm and deep. Winter: deep, cool and bright. The middle one of each is the season at its purest; the other two lean towards a neighbouring season.',
+  },
   {
     question: 'Is my photo uploaded anywhere?',
     answer:
       'No. The reading happens inside your own browser and the photo never leaves your device, so there is nothing to delete afterwards. The free report keeps no email address and no account. Buying the full report stores your season and the address Polar used for the receipt, so the link in that email opens your report again — and if you then ask for the lookbook, that one photo is sent to an image service to make the pictures, which you can delete from the report at any time.',
   },
   {
-    question: 'Do I need to create an account?',
-    answer: 'No. There is no sign-up, no password and no email address needed to see your colours.',
-  },
-  {
-    question: 'How accurate is the result?',
+    question: 'Is the color analysis really free?',
     answer:
-      'It is a helpful starting point, not a measurement. Camera settings, indoor lighting and make-up all change the colours in a photo, so treat the answer as a suggestion and trust your own eyes in a mirror.',
-  },
-  {
-    question: 'What if I do not want to use a photo?',
-    answer:
-      'Use the quiz instead. Seven short questions about your veins, your jewellery, your hair and your eyes get you to the same kind of result.',
-  },
-  {
-    question: 'Does this cost anything?',
-    answer: 'The season, the palette and the colours to avoid are free and always will be.',
+      'Yes. The season, the palette and the colours to avoid are free and always will be, with no sign-up, password or email address. If you do not want to use a photo, the seven-question quiz gets you to the same kind of result.',
   },
 ];
 
@@ -47,16 +65,16 @@ const appSchema = [
 ---
 
 <BaseLayout
-  title="Free Color Analysis From a Photo or a Quiz | colormatch"
-  description="Find your color season in a minute from a photo or seven short questions. Get your palette, best colors and colors to avoid. Free, no sign-up, photo stays put."
+  title="Color Analysis Online — Free Test From a Photo or Quiz | colormatch"
+  description="Free color analysis online: upload a photo or answer seven questions to find your color season, your palette with color codes and the colors to avoid. No sign-up, and the photo stays on your device."
   path="/"
   schema={appSchema}
   faq={faq}
 >
-  <section class="hero hero--split">
+  <section class="hero hero--split hero--home">
     <div class="shell hero__inner">
       <div class="hero__words stack">
-        <h1>Find the colours that suit you</h1>
+        <h1>Free Color Analysis From a Photo</h1>
         <p class="lede">
           Upload a photo or answer seven short questions. You get your colour season, your palette with
           names and codes, and the colours that are worth avoiding. Free, and your photo stays on your
@@ -77,67 +95,36 @@ const appSchema = [
   <section class="section section--tint">
     <div class="shell stack-lg">
       <div class="narrow stack">
-        <h2>See the difference a colour makes</h2>
+        <h2>How color analysis from a photo works</h2>
         <p>
-          The same person, the same light, two different tops. Drag the handle — or use the left and right
-          arrow keys — to swap between them.
+          A stylist doing a colour analysis looks at three things in your face, and so does this page. It finds
+          the skin in the middle of your photo, leaves out the background, clothes and hair, and measures what is
+          left.
         </p>
       </div>
-      <div class="grid-2">
-        <ColourCompare season="summer" client:visible />
-        <div class="stack">
-          <h3>Why it changes so much</h3>
-          <p>
-            A colour close to your face bounces light back onto your skin. A colour that matches your
-            natural warmth evens out your skin and lifts your eyes. A colour that fights it adds shadow
-            under the chin and around the eyes.
-          </p>
-          <p>
-            This is why the same jumper can look wonderful on a friend and tired on you. Nothing is wrong
-            with the jumper.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell stack-lg">
-      <div class="narrow stack">
-        <h2>The four colour seasons, side by side</h2>
-        <p>
-          Pick a season to see it draped on a photograph, then tap any colour in the palette to try it on. This is a
-          sample result — yours will look the same, with your own season at the top. How the seasons split into
-          twelve, with every palette, is in the <a href="/seasonal-color-analysis/">seasonal colour analysis guide</a>.
-        </p>
-      </div>
-      <SeasonExplorer client:visible />
-    </div>
-  </section>
-
-  <section class="section section--warm">
-    <div class="shell stack-lg">
-      <h2>How it works</h2>
       <ol class="steps">
         <li>
-          <h3>Choose a photo or start the quiz</h3>
+          <h3>Undertone: warm or cool</h3>
           <p>
-            A clear photo of your face in daylight works best. No photo handy? The quiz asks about things
-            you can check at home.
+            The colour under the surface of your skin. The page reads the hue of your skin in the same colour
+            space printers and paint makers use: golden and peachy skin sits on the warm side, pink and rosy skin
+            on the cool side, and the narrow band between is read as neutral.
           </p>
         </li>
         <li>
-          <h3>Your browser reads the colours</h3>
+          <h3>Value: light or deep</h3>
           <p>
-            The photo is opened on your device and the skin tones in the middle of the picture are measured.
-            Nothing is sent anywhere.
+            How light or dark your colouring is overall. It is measured with the individual typology angle, the
+            scale dermatologists use to place skin from very light to dark, rather than by plain brightness, which
+            shifts with every lamp.
           </p>
         </li>
         <li>
-          <h3>You get a palette you can use</h3>
+          <h3>Contrast: clear or soft</h3>
           <p>
-            Colours to wear, everyday neutrals, and colours to be careful with — each one with a name and a
-            colour code you can take shopping.
+            The gap between your skin and the darkest parts of your face — hair, brows and eyes. A big gap calls
+            for crisp, clear colours; a small one for gentler, dusty shades. Warm or cool picks the half, light or
+            deep picks the season, and contrast settles the close calls.
           </p>
         </li>
       </ol>
@@ -145,34 +132,143 @@ const appSchema = [
   </section>
 
   <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>A sample color analysis result</h2>
+        <p>
+          Pick a season to see it draped on a photograph, then tap any colour in the palette to try it on. Your
+          result looks the same, with your own season at the top: ten colours to wear, four everyday neutrals and
+          five colours to be careful with, each with a name and a code you can take shopping.
+        </p>
+      </div>
+      <SeasonExplorer client:visible />
+    </div>
+  </section>
+
+  <section class="section section--warm">
     <div class="shell grid-2">
       <div class="stack">
-        <h2>Two ways in, one result</h2>
+        <h2>See the difference a colour makes</h2>
         <p>
-          Photos are quick but depend on your camera and your lighting. The quiz is slower but uses things
-          you can see with your own eyes, like the veins on your wrist. Many people try both and compare.
+          The same person, the same light, two different tops. Drag the handle — or use the left and right arrow
+          keys — to swap between them.
         </p>
-        <div class="cluster">
-          <a class="btn btn--primary" href="/color-analysis-quiz/">Take the quiz</a>
-          <a class="btn btn--secondary" href="/color-palette-from-image/">Use a photo</a>
-        </div>
+        <p>
+          A colour close to your face bounces light back onto your skin. One that matches your natural warmth
+          evens out your skin and lifts your eyes; one that fights it adds shadow under the chin and around the
+          eyes. That is why the same jumper can look wonderful on a friend and tired on you.
+        </p>
       </div>
-      <div class="panel stack">
-        <h3>What you get, free</h3>
-        <ul class="prose">
-          <li>Your season: Spring, Summer, Autumn or Winter</li>
-          <li>A possible undertone: warm, cool or neutral</li>
-          <li>Ten colours to wear, with names and colour codes</li>
-          <li>Four everyday neutrals that go with them</li>
-          <li>Five colours to be careful with, and why</li>
-        </ul>
+      <ColourCompare season="summer" client:visible />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>The 12 seasons of color analysis</h2>
+        <p>
+          The four seasons are the start. Each one splits into three, depending on which of its qualities is
+          strongest, which gives the twelve seasons most stylists work with. The free result gives you your
+          season; the full report adds which of its three subtypes you are.
+        </p>
       </div>
+      <table class="data-table twelve-table">
+        <thead>
+          <tr>
+            <th scope="col">Season</th>
+            <th scope="col">Its colouring</th>
+            <th scope="col">The three subtypes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            twelve.map(({ season, subtypes }) => (
+              <tr>
+                <th scope="row">
+                  {season.name}
+                  <span class="strips__row" aria-hidden="true">
+                    {season.wear.slice(0, 5).map((chip) => (
+                      <span class="strips__chip" style={`background: ${chip.hex}`} title={chip.name} />
+                    ))}
+                  </span>
+                </th>
+                <td>{season.tagline}</td>
+                <td>
+                  {subtypes.map((subtype, index) => (
+                    <>
+                      {index > 0 && ', '}
+                      <a href={`/${subtype.slug}/`}>{subtype.name}</a>
+                    </>
+                  ))}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="narrow">
+        Every subtype with its palette and the other names it goes by is in the <a href="/seasonal-color-analysis/"
+          >seasonal color analysis guide</a
+        >.
+      </p>
     </div>
   </section>
 
   <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Online color analysis or a stylist?</h2>
+        <p>
+          Professional colour analysis is done in person: you sit in daylight while a stylist holds dyed fabric
+          under your chin, one colour after another, and watches what it does to your face. It is pleasant to have
+          done, and it answers the same three questions this page measures.
+        </p>
+      </div>
+      <table class="data-table compare-table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">With a stylist</th>
+            <th scope="col">colormatch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Cost</th>
+            <td data-label="With a stylist">Usually $150–$500 in the US</td>
+            <td data-label="colormatch">Free; full report {cardPrice} once</td>
+          </tr>
+          <tr>
+            <th scope="row">Time</th>
+            <td data-label="With a stylist">1½–3 hours, booked ahead</td>
+            <td data-label="colormatch">About a minute, any time</td>
+          </tr>
+          <tr>
+            <th scope="row">How</th>
+            <td data-label="With a stylist">Fabric drapes under controlled light</td>
+            <td data-label="colormatch">Your photo or seven questions</td>
+          </tr>
+          <tr>
+            <th scope="row">You keep</th>
+            <td data-label="With a stylist">A fabric swatch book, often extra</td>
+            <td data-label="colormatch">Colour names and codes, a shareable palette</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="narrow stack">
+        <p>
+          A stylist sees your face in person, which no photo can match. Start here, check the palette in a mirror
+          against a few clothes you already own, and book a session only if you still want a second opinion. No
+          photo you trust? <a href="/color-analysis-quiz/">Take the color analysis quiz</a> instead.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="shell">
-      <Faq title="Questions people ask" items={faq} />
+      <Faq title="Color analysis questions" items={faq} />
     </div>
   </section>
 </BaseLayout>

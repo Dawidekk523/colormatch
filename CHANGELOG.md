@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-10-18 — The home page explains colour analysis, not just runs it
+
+The home page now says what it is in the words people search for: the title is
+"Color Analysis Online — Free Test From a Photo or Quiz" and the heading "Free
+Color Analysis From a Photo". Below the finder it explains how a photo is read
+(undertone, value and contrast, and how each is measured), shows a sample
+result, lists the twelve seasons with links to every subtype and the seasonal
+guide, and compares the free analysis with a session at a stylist — cost, time,
+method and what you keep. The questions now answer what people ask about colour
+analysis (accuracy, cost, photos, the twelve seasons). On a phone the hero uses
+the same compact layout as the seasonal page, so the quiz link joins the upload
+button on the first screen. Four guides link back to the home page as colour
+analysis.
+
+The thesis is that "color analysis" (60,500 searches a month in the US) wants a
+test with a result and an explanation, and the home page had only the test.
+
 ## 2026-10-17 — The season finder on the seasonal page meets the fold
 
 On a phone the seasonal colour analysis hero led with the intro and the four
