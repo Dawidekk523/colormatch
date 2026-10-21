@@ -2518,6 +2518,12 @@ main:has(> .section--close) + .footer {
 /* Two tools fit a phone side by side: no sideways scroll that cuts the rival in half. */
 .rivals-table--fit {
   min-width: 0;
+  table-layout: fixed;
+}
+
+.rivals-table--fit tbody th {
+  width: 5.5rem;
+  min-width: 0;
 }
 
 .rivals-table--fit thead th:not(:first-child) {
