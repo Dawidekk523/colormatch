@@ -2,7 +2,7 @@
 import { RIVALS_CHECKED, rivalColumns, rivals, type RivalId } from '../lib/rivals';
 
 interface Props {
-  /** Rows in reading order; the page's subject usually goes first. */
+  /** Tools in reading order; the page's subject usually goes first. */
   ids: RivalId[];
   cardPrice: string;
   caption: string;
@@ -10,41 +10,48 @@ interface Props {
 
 const { ids, cardPrice, caption } = Astro.props;
 const all = rivals(cardPrice);
-const rows = ids.map((id) => all[id]);
+const tools = ids.map((id) => all[id]);
+const headingId = `rivals-${caption.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
 ---
 
-<div class="rivals">
-  <table class="data-table rivals-table">
-    <caption>{caption}</caption>
-    <thead>
-      <tr>
-        <th scope="col">Tool</th>
-        {rivalColumns.map((column) => (
-          <th scope="col">{column.label}</th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {rows.map((rival) => (
+<section class="rivals" aria-labelledby={headingId}>
+  <h2 id={headingId}>{caption}</h2>
+  <div class="rivals__scroll" tabindex="0" role="region" aria-labelledby={headingId}>
+    <table class="rivals-table" style={`--tool-count: ${tools.length}`}>
+      <thead>
         <tr>
-          <th scope="row">
-            {rival.id === 'colormatch' ? (
-              rival.name
-            ) : (
-              <a href={rival.url} rel="nofollow noopener" target="_blank">
-                {rival.name}
-              </a>
-            )}
-          </th>
-          {rivalColumns.map((column) => (
-            <td data-label={column.label}>{rival[column.key]}</td>
-          ))}
+          <th scope="col" class="rivals-table__corner"><span class="visually-hidden">Criterion</span></th>
+          {
+            tools.map((tool) => (
+              <th scope="col">
+                {tool.id === 'colormatch' ? (
+                  tool.name
+                ) : (
+                  <a href={tool.url} rel="nofollow noopener" target="_blank">
+                    {tool.name}
+                  </a>
+                )}
+              </th>
+            ))
+          }
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {
+          rivalColumns.map((column) => (
+            <tr>
+              <th scope="row">{column.label}</th>
+              {tools.map((tool) => (
+                <td>{tool[column.key]}</td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
   <p class="note">
     Checked on {RIVALS_CHECKED} on each tool's own site, running each one once. "By their statement" marks what happens
     on their servers, which nobody outside can test.
   </p>
-</div>
+</section>

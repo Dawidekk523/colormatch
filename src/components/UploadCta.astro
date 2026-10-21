@@ -1,0 +1,28 @@
+---
+/**
+ * The hero's upload button, repeated where a reader finishes a section and has
+ * decided. It clicks the one file input the page already has rather than
+ * adding a second copy of the tool.
+ */
+interface Props {
+  label?: string;
+}
+
+const { label = 'Upload a photo' } = Astro.props;
+---
+
+<div class="upload-cta">
+  <button type="button" class="btn btn--primary btn--block" data-photo-cta>{label}</button>
+</div>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-photo-cta]')) {
+    button.addEventListener('click', () => {
+      const input = document.getElementById('photo-input');
+      // Once a result is on screen it replaces the upload panel, so the page's
+      // input is gone and the reader is sent to the upload page instead.
+      if (input instanceof HTMLInputElement) input.click();
+      else window.location.assign('/color-palette-from-image/');
+    });
+  }
+</script>

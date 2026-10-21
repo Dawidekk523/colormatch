@@ -2253,71 +2253,148 @@
   }
 }
 
-/* The comparison on the alternatives and versus pages: one row per tool. Six
-   columns of prose only fit a wide screen, so below that each tool becomes a
-   block with its name on top and every cell labelled. */
-.rivals {
-  display: grid;
-  gap: var(--space-2);
-}
-
-.rivals-table caption {
+/* The versus and alternatives pages --------------------------------------
+   These three pages read as a document rather than a landing screen, so their
+   opening copy keeps the headline's left edge, the hero stops stretching to a
+   full screen (which left a hole of background above the table), and the
+   sample faces are photographs with a caption underneath instead of framed
+   tiles. */
+.hero--rivals {
   text-align: left;
-  font-weight: 600;
-  font-size: var(--step-0);
-  padding-bottom: var(--space-1);
 }
 
-.rivals-table tbody th {
-  white-space: nowrap;
+.hero--rivals .hero__words > p {
+  margin-inline: 0;
+}
+
+.hero--rivals.hero--split:not(:has(.analyzer--result)) {
+  min-height: 0;
+  align-content: start;
+}
+
+.samples--bare .samples__row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.samples--bare .samples__item {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.samples--bare .samples__item img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.samples--bare .samples__item:hover img {
+  transform: none;
+}
+
+/* The comparison itself: criteria down the side, one column per tool, so every
+   tool's answer to the same question sits on one line. On a phone the table
+   scrolls sideways with the criterion column pinned, rather than turning into
+   one long block per tool where the same criterion is a screen apart. */
+.rivals {
+  /* The pinned column has to paint over whatever scrolls under it. */
+  --rivals-bg: var(--page);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.section--tint .rivals {
+  --rivals-bg: var(--surface-cool);
+}
+
+.section--warm .rivals {
+  --rivals-bg: var(--surface);
+}
+
+.rivals h2 {
+  margin: 0;
+}
+
+.rivals__scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.rivals-table {
+  width: 100%;
+  /* Wider than the screen by as many tool columns as there are, so the next
+     column always peeks in and the row stays a row rather than one tool at a
+     time on a phone. */
+  min-width: calc(6.5rem + var(--tool-count) * 10rem);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--step--1);
+  text-align: left;
+}
+
+.rivals-table th,
+.rivals-table td {
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  vertical-align: top;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.rivals-table thead th {
+  padding-top: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.rivals-table th,
+.rivals-table td {
+  overflow-wrap: break-word;
 }
 
 .rivals-table td,
+.rivals-table thead th:not(:first-child) {
+  /* Clear of the pinned column's rule. */
+  padding-left: var(--space-2);
+}
+
 .rivals-table tbody th {
-  vertical-align: top;
+  width: 6.5rem;
+  min-width: 6.5rem;
+  font-weight: 600;
 }
 
-.rivals-table td {
-  min-width: 8.5rem;
+.rivals-table thead th:not(:first-child) {
+  min-width: 10rem;
 }
 
-@media (max-width: 60rem) {
-  .rivals-table thead {
-    display: none;
-  }
-
-  .rivals-table tbody tr {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--space-2) var(--space-3);
-    padding-block: var(--space-3);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .rivals-table tbody th,
-  .rivals-table td {
-    border: 0;
-    padding: 0;
-    min-width: 0;
-  }
-
-  .rivals-table tbody th {
-    grid-column: 1 / -1;
-    font-size: var(--step-0);
-  }
-
-  .rivals-table td::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-  }
+.rivals-table tbody th,
+.rivals-table__corner {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--rivals-bg);
+  box-shadow: 1px 0 0 var(--line);
 }
 
-@media (max-width: 34rem) {
-  .rivals-table tbody tr {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* The hero's upload button, repeated where a section has made the case. */
+.upload-cta {
+  width: min(100%, 24rem);
+}
+
+.section--close {
+  padding-bottom: var(--space-5);
+}
+
+/* Two plain sections in a row would add both paddings into one hole. */
+.section:not(.section--tint):not(.section--warm) + .section--close {
+  padding-top: 0;
+}
+
+/* A page that ends with the upload button needs no extra band of white
+   between the button and the footer. */
+main:has(> .section--close) + .footer {
+  margin-top: 0;
 }
 
 .rules {

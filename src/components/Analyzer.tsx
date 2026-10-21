@@ -53,7 +53,17 @@ function reportAnonymously(season: SeasonId, source: 'photo' | 'quiz') {
   });
 }
 
-export function Analyzer() {
+interface AnalyzerProps {
+  /**
+   * The comparison pages read as a document, so the sample faces there are
+   * photographs with a caption underneath rather than framed cards. They also
+   * load at once: on those pages the strip sits in the opening screen, and a
+   * lazy image that has not been scrolled to leaves an empty grey square.
+   */
+  bareSamples?: boolean;
+}
+
+export function Analyzer({ bareSamples = false }: AnalyzerProps) {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -258,7 +268,7 @@ export function Analyzer() {
         <PhotoTips />
       </div>
 
-      <div className="samples">
+      <div className={bareSamples ? 'samples samples--bare' : 'samples'}>
         <p className="samples__title" id="samples-title">
           No photo to hand? Try one of these photos:
         </p>
@@ -270,7 +280,14 @@ export function Analyzer() {
                 className="samples__item"
                 onClick={() => run(sample.src, sample.label)}
               >
-                <img src={sample.src} alt="" width={640} height={640} loading="lazy" decoding="async" />
+                <img
+                  src={sample.src}
+                  alt=""
+                  width={640}
+                  height={640}
+                  loading={bareSamples ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
                 <span>{sample.label}</span>
               </button>
             </li>

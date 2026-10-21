@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Faq from '../../components/Faq.astro';
 import RivalTable from '../../components/RivalTable.astro';
+import UploadCta from '../../components/UploadCta.astro';
 import { Analyzer } from '../../components/Analyzer';
 import { colormatchApp } from '../../lib/rivals';
 
@@ -45,7 +46,7 @@ const faq = [
   breadcrumbs={[{ name: 'Home', path: '/' }]}
   faq={faq}
 >
-  <section class="hero hero--split">
+  <section class="hero hero--split hero--rivals">
     <div class="shell hero__inner">
       <div class="hero__words stack">
         <h1>colormatch vs Colorwise</h1>
@@ -60,7 +61,7 @@ const faq = [
         </p>
       </div>
       <div class="hero__tool">
-        <Analyzer client:load />
+        <Analyzer client:load bareSamples />
       </div>
     </div>
   </section>
@@ -72,6 +73,7 @@ const faq = [
         cardPrice={cardPrice}
         caption="colormatch and Colorwise side by side"
       />
+      <UploadCta />
     </div>
   </section>
 
@@ -123,9 +125,10 @@ const faq = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell">
+  <section class="section section--close">
+    <div class="shell stack-lg">
       <Faq title="colormatch and Colorwise: questions" items={faq} />
+      <UploadCta />
     </div>
   </section>
 </BaseLayout>

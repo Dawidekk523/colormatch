@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Faq from '../../components/Faq.astro';
 import RivalTable from '../../components/RivalTable.astro';
+import UploadCta from '../../components/UploadCta.astro';
 import { Analyzer } from '../../components/Analyzer';
 import { RIVALS_CHECKED, RIVALS_CHECKED_ISO, colormatchApp } from '../../lib/rivals';
 
@@ -45,7 +46,7 @@ const faq = [
   breadcrumbs={[{ name: 'Home', path: '/' }]}
   faq={faq}
 >
-  <section class="hero hero--split">
+  <section class="hero hero--split hero--rivals">
     <div class="shell hero__inner">
       <div class="hero__words stack">
         <h1>color-analysis.app alternatives</h1>
@@ -60,7 +61,7 @@ const faq = [
         </p>
       </div>
       <div class="hero__tool">
-        <Analyzer client:load />
+        <Analyzer client:load bareSamples />
       </div>
     </div>
   </section>
@@ -72,6 +73,7 @@ const faq = [
         cardPrice={cardPrice}
         caption="color-analysis.app and four alternatives"
       />
+      <UploadCta />
     </div>
   </section>
 
@@ -80,13 +82,8 @@ const faq = [
       <div class="narrow stack">
         <h2>What the trial costs over a year</h2>
         <p>
-          The trial is $1 for seven days. If it is not cancelled, it becomes $29.99 every three months — about $121 in
-          the first year. The checkout shows a ten-minute countdown and a "save 85%" promo code; neither changes the
-          renewal price written under the button. The same checkout does promise a 30-day money-back guarantee.
-        </p>
-        <p>
-          A season and a palette are not something you need a subscription for: they do not change from month to month.
-          Every alternative below gives you the result without one.
+          About $121 in the first year — for a season and a palette that do not change from month to month. Every
+          alternative below gives you the result without a subscription.
         </p>
       </div>
 
@@ -130,9 +127,10 @@ const faq = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell">
+  <section class="section section--close">
+    <div class="shell stack-lg">
       <Faq title="Questions about color-analysis.app" items={faq} />
+      <UploadCta />
     </div>
   </section>
 </BaseLayout>
