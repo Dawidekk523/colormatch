@@ -2529,3 +2529,14 @@ main:has(> .section--close) + .footer {
 .rivals-table--fit thead th:not(:first-child) {
   min-width: 0;
 }
+
+.rivals-table--fit thead th {
+  letter-spacing: 0;
+  font-size: 0.75rem;
+}
+
+.rivals-table--fit th,
+.rivals-table--fit td {
+  overflow-wrap: normal;
+  hyphens: auto;
+}
