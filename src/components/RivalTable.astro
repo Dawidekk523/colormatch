@@ -1,0 +1,50 @@
+---
+import { RIVALS_CHECKED, rivalColumns, rivals, type RivalId } from '../lib/rivals';
+
+interface Props {
+  /** Rows in reading order; the page's subject usually goes first. */
+  ids: RivalId[];
+  cardPrice: string;
+  caption: string;
+}
+
+const { ids, cardPrice, caption } = Astro.props;
+const all = rivals(cardPrice);
+const rows = ids.map((id) => all[id]);
+---
+
+<div class="rivals">
+  <table class="data-table rivals-table">
+    <caption>{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Tool</th>
+        {rivalColumns.map((column) => (
+          <th scope="col">{column.label}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((rival) => (
+        <tr>
+          <th scope="row">
+            {rival.id === 'colormatch' ? (
+              rival.name
+            ) : (
+              <a href={rival.url} rel="nofollow noopener" target="_blank">
+                {rival.name}
+              </a>
+            )}
+          </th>
+          {rivalColumns.map((column) => (
+            <td data-label={column.label}>{rival[column.key]}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p class="note">
+    Checked on {RIVALS_CHECKED} on each tool's own site, running each one once. "By their statement" marks what happens
+    on their servers, which nobody outside can test.
+  </p>
+</div>

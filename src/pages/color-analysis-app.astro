@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Faq from '../components/Faq.astro';
 import { Analyzer } from '../components/Analyzer';
+import { RIVALS_CHECKED, RIVALS_CHECKED_ISO } from '../lib/rivals';
+
+const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
 
 const faq = [
   {
@@ -68,8 +71,11 @@ const appSchema = [
           your undertone and a palette you can take shopping — free, with no account.
         </p>
         <p class="hero__aside">
-          The photo is read on your own device and is not uploaded, so there is nothing to delete
-          afterwards.
+          colormatch gives one of four seasons, ten colours, four neutrals and five to avoid, each with a hex
+          code, read on your device without uploading the photo. The optional full report is {cardPrice}, paid
+          once. Updated <time
+            datetime={RIVALS_CHECKED_ISO}>{RIVALS_CHECKED}</time
+          >.
         </p>
       </div>
       <div class="hero__tool">
@@ -154,6 +160,8 @@ const appSchema = [
           <li><a href="/color-seasons/">The four colour seasons</a> — every shade in all four palettes.</li>
           <li><a href="/skin-tone-colors/">Skin tone and undertone</a> — what the reading is actually measuring.</li>
           <li><a href="/find-my-color-palette/">How to find your palette by hand</a> — the three-pass method, no tool involved.</li>
+          <li><a href="/vs/colorwise/">colormatch vs Colorwise</a> — the other free tool that keeps your photo in the browser.</li>
+          <li><a href="/alternatives/colorwise/">Colorwise alternatives</a> and <a href="/alternatives/color-analysis-app/"><span class="nowrap">color-analysis.app</span> alternatives</a> — prices and limits, checked.</li>
         </ul>
       </div>
     </div>

@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Faq from '../../components/Faq.astro';
+import RivalTable from '../../components/RivalTable.astro';
+import { Analyzer } from '../../components/Analyzer';
+import { RIVALS_CHECKED, RIVALS_CHECKED_ISO, colormatchApp } from '../../lib/rivals';
+
+const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
+
+const faq = [
+  {
+    question: 'What is a good Colorwise.me alternative?',
+    answer:
+      'colormatch, if you want the photo read for you rather than picking your own skin, hair and eye colours: it is free, needs no account and never uploads the photo, and a seven-question quiz covers you when there is no good photo. ColorMe, if you want a live mirror to judge palettes yourself. Tonebook, if you want an iPhone app and do not mind the photo going to OpenAI.',
+  },
+  {
+    question: 'Where can I get a free color analysis from a photo online?',
+    answer:
+      'colormatch and Colorwise both give a full result from a photo for free, in the browser, with no sign-up. colormatch measures the photo by itself and gives one of four seasons with ten colours, four neutrals and five to avoid, all with hex codes. Colorwise has you pick your colours on the photo and gives one of twelve seasons.',
+  },
+  {
+    question: 'What is the best free seasonal color analysis app?',
+    answer:
+      'There is no single best: Colorwise gives the most for free (twelve seasons), colormatch is the easiest to get right (no colour picking, a quiz when the photo is poor, every colour coded), and ColorMe is best for judging palettes with your own eyes. All three are free, need no account and keep the photo on your device.',
+  },
+  {
+    question: 'Is there a color analysis app without a subscription?',
+    answer: `Yes. colormatch, Colorwise and ColorMe give their results free with no subscription. colormatch's optional full report is a single ${cardPrice} payment. color-analysis.app is the one to watch: its $1 trial turns into $29.99 every three months unless you cancel.`,
+  },
+  {
+    question: 'What is a good Dressika alternative for personal color analysis?',
+    answer:
+      'Dressika is a phone app. If you would rather not install anything, colormatch and Colorwise both work in the browser for free with no account: colormatch reads your photo by itself or asks seven questions, Colorwise has you pick your colours and gives one of twelve seasons.',
+  },
+];
+---
+
+<BaseLayout
+  title="Colorwise Alternatives — Free Color Analysis Apps Compared | colormatch"
+  description="The best Colorwise.me alternatives: colormatch reads your photo for you, free and without uploading it; ColorMe is a live mirror; Tonebook is an iPhone app. Prices checked."
+  path="/alternatives/colorwise/"
+  crumb="Colorwise alternatives"
+  schema={[colormatchApp(cardPrice)]}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
+  faq={faq}
+>
+  <section class="hero hero--split">
+    <div class="shell hero__inner">
+      <div class="hero__words stack">
+        <h1>Colorwise alternatives</h1>
+        <p class="lede">
+          The closest free alternative to Colorwise.me is colormatch: it reads your photo by itself, names and codes
+          every colour, and never uploads the photo. To judge palettes by eye, ColorMe; for an iPhone app, Tonebook.
+        </p>
+        <p class="hero__aside">
+          Try colormatch right here. Prices and limits below come from each tool's own site, checked{' '}
+          <time datetime={RIVALS_CHECKED_ISO}>{RIVALS_CHECKED}</time>.
+        </p>
+      </div>
+      <div class="hero__tool">
+        <Analyzer client:load />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <RivalTable
+        ids={['colorwise', 'colormatch', 'colorme', 'tonebook', 'color-analysis-app']}
+        cardPrice={cardPrice}
+        caption="Colorwise and four alternatives"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>Why people look for an alternative</h2>
+        <p>
+          Colorwise is a good free tool, and for many people it is enough. The step that trips people up is the second
+          one: you click the pixels that stand for your skin, your hair and your eyes, and the season follows from those
+          clicks. Their own FAQ warns that picking anything but the most prominent tones skews the result, and that
+          repeating the analysis can give different results.
+        </p>
+      </div>
+
+      <div class="grid-2 grid-2--top">
+        <div class="stack">
+          <h3>colormatch</h3>
+          <p>
+            Pick it if you want the photo read for you. It finds the skin in the middle of the picture, leaves out the
+            background, hair and clothes, and measures undertone, value and contrast. The result is one of the four
+            seasons with ten colours to wear, four neutrals and five to be careful with — each with a name and a hex
+            code. No photo you trust? <a href="/color-analysis-quiz/">Seven questions</a> get you the same kind of
+            result. The twelve-season subtype is in an optional {cardPrice} report, paid once. See{' '}
+            <a href="/vs/colorwise/">colormatch vs Colorwise</a> for the two side by side.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h3>ColorMe</h3>
+          <p>
+            Pick it if you trust your own eye more than any verdict. It is a live camera mirror that frames your face
+            with each palette, corrects the white balance, and leaves the judgement to you. It never names a season.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h3>Tonebook</h3>
+          <p>
+            Pick it if you want an iPhone app with outfit ideas around your palette. The free preview shows your season
+            and up to ten colours; the rest is a Pro plan. The photo is sent to OpenAI for the analysis, by Tonebook's
+            own account, and there is no Android app.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h3>color-analysis.app</h3>
+          <p>
+            Listed because it comes up in searches, not because it is free. After about twenty questions it asks for
+            your email, then shows the result only behind a $1 seven-day trial that renews at $29.99 every three months.
+            More on that on the <a href="/alternatives/color-analysis-app/"><span class="nowrap">color-analysis.app</span> alternatives</a> page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <Faq title="Questions about Colorwise alternatives" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

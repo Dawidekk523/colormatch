@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Faq from '../../components/Faq.astro';
+import RivalTable from '../../components/RivalTable.astro';
+import { Analyzer } from '../../components/Analyzer';
+import { RIVALS_CHECKED, RIVALS_CHECKED_ISO, colormatchApp } from '../../lib/rivals';
+
+const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
+
+const faq = [
+  {
+    question: 'Is color-analysis.app free?',
+    answer:
+      'The quiz is free to take, the result is not. After about twenty questions it asks for your email address, then shows the result behind a $1 seven-day trial that renews at $29.99 every three months until you cancel. Checked on its own checkout page on 21 October 2026.',
+  },
+  {
+    question: 'How do I cancel color-analysis.app?',
+    answer:
+      'Its help page says to log in to your account, where a link opens the Stripe customer portal to manage or cancel the subscription. You keep access until the end of the period already paid. Cancel before the seven-day trial ends to avoid the first $29.99 charge.',
+  },
+  {
+    question: 'Is there a free color analysis with no email required?',
+    answer:
+      'Yes. colormatch shows your season, undertone and palette straight away, with no email address, account or upload — and the photo never leaves your browser. Colorwise and ColorMe also need no sign-up.',
+  },
+  {
+    question: 'What season am I? Is there a free color analysis quiz?',
+    answer:
+      'The colormatch quiz is seven questions about your veins, jewellery, hair and eyes, takes about ninety seconds and shows the result at once, free and with no email. It gives one of the four seasons with ten colours to wear, four neutrals and five to avoid.',
+  },
+  {
+    question: 'What is the best free seasonal color analysis app?',
+    answer:
+      'For a result you do not have to steer, with a quiz when the photo is poor and every colour coded: colormatch. For twelve seasons for free if you pick your own skin, hair and eye colours: Colorwise. Both run in the browser with no account.',
+  },
+];
+---
+
+<BaseLayout
+  title="color-analysis.app Alternatives — Free, No Email, No Trial | colormatch"
+  description="color-analysis.app shows its result after a $1 trial that renews at $29.99 every 3 months. Free alternatives with no email: colormatch, Colorwise.me, ColorMe. Checked."
+  path="/alternatives/color-analysis-app/"
+  crumb="color-analysis.app alternatives"
+  schema={[colormatchApp(cardPrice)]}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
+  faq={faq}
+>
+  <section class="hero hero--split">
+    <div class="shell hero__inner">
+      <div class="hero__words stack">
+        <h1>color-analysis.app alternatives</h1>
+        <p class="lede">
+          color-analysis.app shows its result only after your email and a $1 seven-day trial that renews at $29.99 every
+          three months. colormatch gives your season and palette straight away, free and with no email — from a photo
+          that never leaves your browser, or from seven questions.
+        </p>
+        <p class="hero__aside">
+          Checked by taking the color-analysis.app quiz to its checkout on{' '}
+          <time datetime={RIVALS_CHECKED_ISO}>{RIVALS_CHECKED}</time>.
+        </p>
+      </div>
+      <div class="hero__tool">
+        <Analyzer client:load />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <RivalTable
+        ids={['color-analysis-app', 'colormatch', 'colorwise', 'tonebook', 'colorme']}
+        cardPrice={cardPrice}
+        caption="color-analysis.app and four alternatives"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>What the trial costs over a year</h2>
+        <p>
+          The trial is $1 for seven days. If it is not cancelled, it becomes $29.99 every three months — about $121 in
+          the first year. The checkout shows a ten-minute countdown and a "save 85%" promo code; neither changes the
+          renewal price written under the button. The same checkout does promise a 30-day money-back guarantee.
+        </p>
+        <p>
+          A season and a palette are not something you need a subscription for: they do not change from month to month.
+          Every alternative below gives you the result without one.
+        </p>
+      </div>
+
+      <div class="grid-2 grid-2--top">
+        <div class="stack">
+          <h3>colormatch</h3>
+          <p>
+            Free season, undertone, ten colours, four neutrals and five to avoid, each with a name and a hex code — from
+            a photo read inside your browser or from <a href="/color-analysis-quiz/">seven questions</a>. No email, no
+            account. The full report with your twelve-season subtype and every colour measured is an optional{' '}
+            {cardPrice}, paid once.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h3>Colorwise.me</h3>
+          <p>
+            Free, no sign-up, the photo stays in the browser, and the result is one of twelve seasons. You pick the
+            colours of your skin, hair and eyes on the selfie yourself, so the result is only as good as those clicks.
+            See <a href="/vs/colorwise/">colormatch vs Colorwise</a> and{' '}
+            <a href="/alternatives/colorwise/">Colorwise alternatives</a>.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h3>Tonebook</h3>
+          <p>
+            An iPhone app with a free preview of your season and up to ten colours; the full version is a Pro plan. The
+            photo goes to OpenAI for the analysis, by Tonebook's own account, and there is no Android app.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h3>ColorMe</h3>
+          <p>
+            A free live mirror that frames your face with each palette, corrects the white balance and lets you judge.
+            It never names a season, so it suits people who trust their own eye more than a verdict.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <Faq title="Questions about color-analysis.app" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

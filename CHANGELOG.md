@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-10-21 — Comparison pages, and the site described for answer engines
+
+Three new pages set colormatch against the tools that ChatGPT, Perplexity and
+Google's AI answers name instead of it: "colormatch vs Colorwise", "Colorwise
+alternatives" and "color-analysis.app alternatives". Each answers the question
+in its first paragraph, carries the photo tool in the hero, and compares five
+tools — colormatch, Colorwise.me, color-analysis.app, Tonebook and ColorMe — on
+price, the free result, sign-up, where the photo goes, method and platforms.
+Every value was checked on the tool's own site on 21 October 2026, the
+color-analysis.app price by taking its quiz to the checkout ($1 for seven days,
+then $29.99 every three months), and the pages say where Colorwise is the
+better pick. They are linked from the app page and the footer.
+
+The app page now states what colormatch gives in numbers (one of four seasons,
+ten colours, four neutrals, five to avoid, $9.99 once) with an update date.
+`/llms.txt` and `/llms-full.txt` describe the product, the palettes with hex
+codes and the comparison in plain text, and robots.txt names the AI crawlers
+(GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended
+and others) explicitly.
+
+The thesis is that on 20 October colormatch appeared in none of 18 AI answers
+to the questions its users ask, while Colorwise.me appeared in six; answer
+engines quote pages that state facts plainly and compare honestly.
+
 ## 2026-10-18 — The home page explains colour analysis, not just runs it
 
 The home page now says what it is in the words people search for: the title is

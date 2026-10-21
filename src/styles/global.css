@@ -430,6 +430,16 @@ svg {
     gap: var(--space-6);
     align-items: center;
   }
+
+  /* Two columns of reading, rather than words beside a picture, share a top line. */
+  .grid-2--top {
+    align-items: start;
+  }
+}
+
+/* For names with a hyphen, like a domain, that read wrong split over two lines. */
+.nowrap {
+  white-space: nowrap;
 }
 
 .note {

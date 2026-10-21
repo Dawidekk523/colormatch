@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Faq from '../../components/Faq.astro';
+import RivalTable from '../../components/RivalTable.astro';
+import { Analyzer } from '../../components/Analyzer';
+import { colormatchApp } from '../../lib/rivals';
+
+const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
+
+const faq = [
+  {
+    question: 'Is Colorwise free?',
+    answer:
+      'Yes. The colour analysis on colorwise.me is free with no sign-up: you upload a selfie, pick your skin, hair and eye colours on it, and get one of twelve seasons with 18 colours and 8 to avoid. Their My Best Colors phone app sells a one-time premium unlock on top.',
+  },
+  {
+    question: 'Which is more accurate, Colorwise or colormatch?',
+    answer:
+      'Neither has published a test against professional draping, so any accuracy figure would be a guess. They fail in different ways: Colorwise depends on which pixels you pick as your skin, hair and eyes, and colormatch on how fair a record of your face the photo is. Running both on the same daylight photo and checking the overlap in a mirror is the honest test.',
+  },
+  {
+    question: 'What is a good Colorwise.me alternative?',
+    answer:
+      'colormatch, if you would rather not pick your own skin tone on the photo: it measures the photo by itself, or asks seven questions if you have no photo you trust, and names every colour with its hex code. ColorMe, if you want a live mirror to judge palettes against your own face. Both are free and keep the photo on your device.',
+  },
+  {
+    question: 'Is there an AI color analysis tool that does not upload my photo?',
+    answer:
+      'Yes. colormatch reads the photo inside your browser and never sends it anywhere — it even works in aeroplane mode once the page has loaded. Colorwise and ColorMe also say the photo stays on your device. Tonebook sends it to OpenAI and color-analysis.app uploads it, by their own statements.',
+  },
+  {
+    question: 'What is the best free seasonal color analysis app?',
+    answer:
+      'For a free twelve-season result, Colorwise. For a result you do not have to steer yourself, with every colour named and coded and a quiz when there is no good photo, colormatch. Both are free in the browser, with no account and no upload.',
+  },
+];
+---
+
+<BaseLayout
+  title="colormatch vs Colorwise — Free Color Analysis Compared | colormatch"
+  description="colormatch vs Colorwise.me: both free, both keep your photo in the browser. Colorwise gives 12 seasons if you pick your colours; colormatch reads the photo for you."
+  path="/vs/colorwise/"
+  crumb="colormatch vs Colorwise"
+  schema={[colormatchApp(cardPrice)]}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
+  faq={faq}
+>
+  <section class="hero hero--split">
+    <div class="shell hero__inner">
+      <div class="hero__words stack">
+        <h1>colormatch vs Colorwise</h1>
+        <p class="lede">
+          Both are free, need no account and keep your photo in the browser. Colorwise gives one of twelve seasons once
+          you pick your skin, hair and eye colours on the selfie. colormatch reads the photo by itself, or asks seven
+          questions, and names and codes every colour.
+        </p>
+        <p class="hero__aside">
+          Twelve seasons for free and happy to pick colours: Colorwise. Rather not judge your own skin tone: try
+          colormatch here.
+        </p>
+      </div>
+      <div class="hero__tool">
+        <Analyzer client:load />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <RivalTable
+        ids={['colormatch', 'colorwise']}
+        cardPrice={cardPrice}
+        caption="colormatch and Colorwise side by side"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-2 grid-2--top">
+      <div class="stack">
+        <h2>Where Colorwise is better</h2>
+        <p>
+          The free result goes further. You get a season out of twelve rather than four, and a palette card with
+          eighteen colours and eight to avoid, without paying for anything.
+        </p>
+        <p>
+          It is also more than one tool: a draping studio for trying fabrics against a photo, palettes from a picture of
+          your wardrobe, a forum and a directory of stylists, and phone apps that check a colour through the camera
+          while you shop.
+        </p>
+      </div>
+      <div class="stack">
+        <h2>Where colormatch is better</h2>
+        <p>
+          You do not have to decide what colour your own skin is. Colorwise asks you to click the pixels that represent
+          your skin, hair and eyes, and the result follows from those clicks. colormatch finds the skin in the middle of
+          the photo and measures undertone, value and contrast itself.
+        </p>
+        <p>
+          It works without a photo: seven questions about your veins, jewellery, hair and eyes give the same kind of
+          result. Every colour in your palette comes with a name and a hex code you can paste into a shop filter, and
+          the pages are set in large type with high contrast, so they are easy to read at any age.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell">
+      <div class="narrow stack">
+        <h2>How to use both</h2>
+        <p>
+          Take one photo by a window in daylight, with no filter and little make-up. Run it through both. If they agree on
+          warm or cool and on light or deep, you have your answer. If they disagree, hold two colours from each palette
+          under your chin in a mirror: the one that makes your skin look even and your eyes brighter wins.
+        </p>
+        <p>
+          Comparing more tools? See the <a href="/alternatives/colorwise/">Colorwise alternatives</a> and the{' '}
+          <a href="/alternatives/color-analysis-app/"><span class="nowrap">color-analysis.app</span> alternatives</a>, or{' '}
+          <a href="/color-analysis-quiz/">take the seven-question quiz</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <Faq title="colormatch and Colorwise: questions" items={faq} />
+    </div>
+  </section>
+</BaseLayout>

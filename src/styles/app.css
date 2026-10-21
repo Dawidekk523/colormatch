@@ -2253,6 +2253,73 @@
   }
 }
 
+/* The comparison on the alternatives and versus pages: one row per tool. Six
+   columns of prose only fit a wide screen, so below that each tool becomes a
+   block with its name on top and every cell labelled. */
+.rivals {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.rivals-table caption {
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--step-0);
+  padding-bottom: var(--space-1);
+}
+
+.rivals-table tbody th {
+  white-space: nowrap;
+}
+
+.rivals-table td,
+.rivals-table tbody th {
+  vertical-align: top;
+}
+
+.rivals-table td {
+  min-width: 8.5rem;
+}
+
+@media (max-width: 60rem) {
+  .rivals-table thead {
+    display: none;
+  }
+
+  .rivals-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2) var(--space-3);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .rivals-table tbody th,
+  .rivals-table td {
+    border: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .rivals-table tbody th {
+    grid-column: 1 / -1;
+    font-size: var(--step-0);
+  }
+
+  .rivals-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+}
+
+@media (max-width: 34rem) {
+  .rivals-table tbody tr {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .rules {
   display: grid;
   gap: var(--space-3);
