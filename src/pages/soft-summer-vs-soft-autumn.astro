@@ -1,0 +1,301 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import SwatchGrid from '../components/SwatchGrid.astro';
+import { SEASONS } from '../lib/seasons-data';
+import { getSubtype, subtypePalette, type Subtype } from '../lib/subtypes';
+
+/**
+ * The two muted palettes are built from the same source as their own pages, so
+ * the comparison cannot drift from what those pages publish: no shade here is
+ * written by hand, and the shared and differing lists are set arithmetic on the
+ * two wear palettes.
+ */
+const summer = getSubtype('soft-summer')!;
+const autumn = getSubtype('soft-autumn')!;
+const summerPalette = subtypePalette(summer);
+const autumnPalette = subtypePalette(autumn);
+
+const key = (hex: string) => hex.toLowerCase();
+const inList = (list: { hex: string }[], hex: string) => list.some((swatch) => key(swatch.hex) === key(hex));
+
+const shared = summerPalette.wear.filter((swatch) => inList(autumnPalette.wear, swatch.hex));
+const summerOnly = summerPalette.wear.filter((swatch) => !inList(autumnPalette.wear, swatch.hex));
+const autumnOnly = autumnPalette.wear.filter((swatch) => !inList(summerPalette.wear, swatch.hex));
+
+/** The shades a subtype lists that also sit in the palette it leans towards. */
+const borrowed = (subtype: Subtype) => {
+  const palette = subtypePalette(subtype);
+  if (!subtype.neighbour) return [];
+  return palette.wear.filter((swatch) => inList(SEASONS[subtype.neighbour!].wear, swatch.hex));
+};
+
+const summerBorrowed = borrowed(summer);
+const autumnBorrowed = borrowed(autumn);
+
+const names = (list: { name: string }[]) => list.map((swatch) => swatch.name.toLowerCase()).join(', ');
+/** The same list at the start of a table cell, where a lowercase first word looks like a typo. */
+const Names = (list: { name: string }[]) => names(list).replace(/^./, (first) => first.toUpperCase());
+
+/**
+ * Named lookups rather than positions: the checks below quote a shade by name,
+ * so a palette that no longer contains it should fail the build instead of
+ * quietly testing a different pair.
+ */
+const shade = (name: string, list = [...summerPalette.wear, ...autumnPalette.wear]) => {
+  const found = list.find((swatch) => swatch.name.toLowerCase() === name.toLowerCase());
+  if (!found) throw new Error(`No ${name} in the soft palettes`);
+  return found.hex.toUpperCase();
+};
+
+const rows = [
+  { label: 'Undertone', summer: 'Cool-neutral', autumn: 'Warm-neutral' },
+  { label: 'Depth', summer: 'Light to medium', autumn: 'Medium' },
+  { label: 'Saturation', summer: 'Low chroma, low contrast', autumn: 'Low chroma, low contrast' },
+  { label: 'Metals', summer: 'Silver, white gold', autumn: 'Gold, bronze, copper' },
+  { label: 'Neutrals', summer: Names(summerPalette.neutrals), autumn: Names(autumnPalette.neutrals) },
+  { label: 'Best colors', summer: 'Slate blue, dusty pink, mauve', autumn: 'Olive green, moss, brick red' },
+  { label: 'Borrowed', summer: `From autumn: ${names(summerBorrowed)}`, autumn: `From summer: ${names(autumnBorrowed)}` },
+  { label: 'To avoid', summer: Names(summerPalette.avoid), autumn: Names(autumnPalette.avoid) },
+];
+
+const tests = [
+  {
+    heading: 'Silver against gold',
+    body: 'Put a silver chain on bare skin in daylight, then a gold one. On soft summer the silver settles and the gold turns the skin yellow; on soft autumn the gold settles and the silver looks cold. Both palettes are muted, so white gold and brushed gold will both pass — compare the plain, polished versions to get a clear answer.',
+  },
+  {
+    heading: 'Sage green against olive green',
+    body: `This is the pair that separates the two borrowed greens. Sage green (${shade('sage green')}) sits in both palettes; olive green (${shade('olive green', autumnOnly)}) belongs to soft autumn alone. If olive warms your face and sage looks flat, you are a soft autumn. If olive lays a yellow cast over the skin and sage looks quiet and natural, you are a soft summer.`,
+  },
+  {
+    heading: 'Soft white against cream',
+    body: `Soft summer's pale neutral is soft white (${shade('soft white', summerPalette.neutrals)}) and soft autumn's is cream (${shade('cream', autumnPalette.neutrals)}). Hold one under the chin, then the other. Cream brightens a soft autumn and dulls a soft summer; soft white does the opposite. Avoid this test with optical white, which sits on soft autumn's avoid list and proves nothing.`,
+  },
+  {
+    heading: 'Dusty pink against rust',
+    body: `The quickest test of direction, because these two are close in depth and opposite in temperature: dusty pink (${shade('dusty pink', summerOnly)}) against rust (${shade('rust', autumnOnly)}). Whichever one makes the skin look even and the eyes clearer is your side of the border, even if you like the other one more.`,
+  },
+];
+
+const faq = [
+  {
+    question: 'Can you be between soft summer and soft autumn?',
+    answer: `Yes — the two palettes share ${shared.length} of their ${summerPalette.wear.length} wear shades, so a person can genuinely sit between them. If silver and gold are both tolerable and neither palette looks wrong, wear the shared shades — ${names(shared)} — and test the rest in daylight. The free report settles the part that matters most in a shop, which is whether you are a summer or an autumn.`,
+  },
+  {
+    question: 'Is soft autumn warm or neutral?',
+    answer:
+      'Warm-neutral. The warmth is real — gold, bronze and cream beat silver and pure white — but it is held back by low chroma, so mustard, pumpkin and tomato red at full strength look loud on soft autumn rather than flattering. That restraint is what separates it from warm autumn, which wears the same warmth at full strength.',
+  },
+  {
+    question: 'Is soft summer cool or neutral?',
+    answer:
+      'Cool-neutral, in the same way. Silver and white gold suit it and orange, camel and mustard turn the skin sallow, but the coolness is grayed rather than icy. Icy pastels belong to winter; soft summer wants the muted version of the same blue or pink, which is why powder blue reads as a summer color and icy blue does not.',
+  },
+  {
+    question: 'What do the two palettes have in common?',
+    answer: `Everything except temperature: both are low in chroma, both sit low on contrast, and both list pure black among the shades to avoid. ${shared.length} wear shades are identical in both lists, because soft summer borrows autumn's three quietest shades and soft autumn borrows summer's three quietest. The colors that tell them apart are the cool ones — ${names(summerOnly)} — and the warm ones — ${names(autumnOnly)}.`,
+  },
+  {
+    question: 'Do soft summer and soft autumn wear the same jewelry?',
+    answer:
+      'No. Silver and white gold belong to soft summer; gold, bronze and copper belong to soft autumn. Because both palettes are muted, the finish matters as much as the metal: brushed or antique gold reads quieter than polished gold, and a bright polished silver can overpower a soft summer. When in doubt, match the finish to the palette before the metal.',
+  },
+];
+---
+
+<BaseLayout
+  title="Soft Summer vs Soft Autumn: The Difference, With Hex Codes | colormatch"
+  description={`Soft summer and soft autumn are both muted seasons; undertone is what separates them. The two palettes side by side with hex codes, the ${shared.length} shared shades and four tests.`}
+  path="/soft-summer-vs-soft-autumn/"
+  crumb="Soft summer vs soft autumn"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'The four seasons', path: '/color-seasons/' },
+  ]}
+  faq={faq}
+>
+  <section class="hero">
+    <div class="shell hero__inner stack">
+      <h1>Soft Summer vs Soft Autumn</h1>
+      <p class="lede">
+        Both are soft seasons: every color is muted, with gray stirred through it, and neither wants a clear
+        or bright shade. The difference is undertone — soft summer is cool-neutral and soft autumn is
+        warm-neutral — which shows up fastest when you hold silver beside gold, or a gray-pink beside warm
+        beige or olive.
+      </p>
+      <p>
+        The comparison below draws on the same wear shades, neutrals and shades to avoid as each palette
+        page. If you already know you are one of the two, the four checks near the bottom will tell you
+        which.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="rivals" aria-labelledby="soft-comparison">
+        <h2 id="soft-comparison">Soft summer and soft autumn, side by side</h2>
+        <div class="rivals__scroll" tabindex="0" role="region" aria-labelledby="soft-comparison">
+          <table class="rivals-table rivals-table--fit" style="--tool-count: 2">
+            <thead>
+              <tr>
+                <th scope="col" class="rivals-table__corner"><span class="visually-hidden">Criterion</span></th>
+                <th scope="col">Soft summer</th>
+                <th scope="col">Soft autumn</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    <td>{row.summer}</td>
+                    <td>{row.autumn}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          Only saturation and contrast read the same in both columns: both palettes are muted and low in
+          contrast. Everything else — above all undertone — is where they part.
+        </p>
+      </div>
+      <div class="narrow stack">
+        <p>
+          The full entries, with every shade named and coded, are the{' '}
+          <a href="/soft-summer-color-palette/">soft summer color palette</a> and the{' '}
+          <a href="/soft-autumn-color-palette/">soft autumn color palette</a>. Their parent seasons are{' '}
+          <a href="/summer-color-palette/">summer</a> and <a href="/autumn-color-palette/">autumn</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>The two palettes, side by side</h2>
+        <p>
+          Ten wear shades each, and in both cases three of them are borrowed from the season next door.
+          Soft summer takes autumn's three quietest shades, which are also its darkest colors; soft
+          autumn takes summer's three quietest, which are the only cool colors it can wear near the face.
+        </p>
+      </div>
+      <div class="grid-2 grid-2--top">
+        <SwatchGrid
+          level={3}
+          title="Soft summer colors to wear"
+          description={`Summer's quietest shades, plus the three it borrows from autumn — ${names(summerBorrowed)} — the darkest colors in this palette.`}
+          swatches={summerPalette.wear}
+        />
+        <SwatchGrid
+          level={3}
+          title="Soft autumn colors to wear"
+          description={`Autumn's quietest shades, plus the three it borrows from summer — ${names(autumnBorrowed)} — which sit close to the earth colors without breaking the palette.`}
+          swatches={autumnPalette.wear}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <SwatchGrid
+        title="Colors they share"
+        description={`${shared.length} of the ${summerPalette.wear.length} wear shades appear in both palettes, because each one borrows the other's quietest three. If these already look right on you, you are one of the two muted seasons and the question is only which.`}
+        swatches={shared}
+      />
+
+      <div class="narrow stack">
+        <h2>Colors that tell them apart</h2>
+        <p>
+          Take the shared shades away and each palette keeps {summerOnly.length} colors the other does not
+          have. All of them sit at the same softness and depth, so temperature is the only thing left to
+          judge — which makes them the cleanest test on this page.
+        </p>
+      </div>
+
+      <div class="grid-2 grid-2--top">
+        <SwatchGrid
+          level={3}
+          title="Only in the soft summer palette"
+          description="Cool, grayed shades. On a soft autumn these turn the face sallow; on a soft summer they look like ordinary colors."
+          swatches={summerOnly}
+        />
+        <SwatchGrid
+          level={3}
+          title="Only in the soft autumn palette"
+          description="Warm, earthy shades. On a soft summer they cast yellow; on a soft autumn they look at home."
+          swatches={autumnOnly}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <h2>How to tell which you are</h2>
+        <p>
+          Four checks, all of them with things you already own. Do them by a window in daylight, without
+          makeup, and compare two colors at a time — five at once tells you nothing. The face is the only
+          judge that matters: the right shade evens the skin and settles the shadow under the eyes, and the
+          wrong one deepens it.
+        </p>
+      </div>
+      <ol class="steps">
+        {
+          tests.map((test) => (
+            <li>
+              <h3>{test.heading}</h3>
+              <p>{test.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="narrow stack">
+        <p>
+          <a class="btn btn--primary" href="/">Get your free color report</a>
+        </p>
+        <p class="note">
+          It reads one photo in your browser, or asks seven questions if you have no photo you trust, and
+          lands on summer or autumn with the colors named and coded. Prefer to start from a photo?{' '}
+          <a href="/color-palette-from-image/">Use the photo route</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="shell stack-lg">
+      <div class="narrow stack">
+        <Faq title="Soft summer and soft autumn: questions" items={faq} />
+      </div>
+      <div class="narrow stack">
+        <h2>Where this sits</h2>
+        <ul class="tips">
+          <li>
+            <a href="/soft-summer-color-palette/">The soft summer color palette</a> — every shade, its
+            neutrals and what to avoid, with hex codes.
+          </li>
+          <li>
+            <a href="/soft-autumn-color-palette/">The soft autumn color palette</a> — the same, on the warm
+            side of the border.
+          </li>
+          <li>
+            <a href="/seasonal-color-analysis/">Seasonal color analysis</a> — all twelve subtypes and the
+            other names they go by, including true summer, muted summer and muted autumn.
+          </li>
+          <li>
+            <a href="/color-seasons/">The four seasons</a> — the parent palettes side by side, for anyone who
+            is not yet sure they sit in summer or autumn at all.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

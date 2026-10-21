@@ -26,10 +26,10 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   spring: {
     season: 'spring',
     slug: 'spring-color-palette',
-    title: 'Spring Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Spring Color Palette — Every Shade, With Codes | colormatch',
     description:
       'The full spring color palette: warm, clear shades with hex codes, the neutrals that go with them, the colors to avoid, and how to tell if spring is your season.',
-    heading: 'The spring colour palette',
+    heading: 'The spring color palette',
     lede: 'Warm, clear and light — the palette of a garden in early morning sun, before the colours have had a chance to dust over.',
     intro: [
       'Spring is the warm, light end of colour analysis. Every shade in it has yellow somewhere inside, and every shade stays bright rather than muted: coral rather than brick, apple green rather than olive, golden yellow rather than mustard. Held against a spring colouring, these shades make the skin look rested; the same face under a heavy, greyed colour tends to look tired instead.',
@@ -96,10 +96,10 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   summer: {
     season: 'summer',
     slug: 'summer-color-palette',
-    title: 'Summer Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Summer Color Palette — Every Shade, With Codes | colormatch',
     description:
       'The full summer color palette: cool, soft shades with hex codes, the neutrals that anchor them, the colors to avoid, and how to tell if summer is your season.',
-    heading: 'The summer colour palette',
+    heading: 'The summer color palette',
     lede: 'Cool and gently muted — the palette of a garden after rain, where every colour has a little grey mixed into it.',
     intro: [
       'Summer is the cool, soft end of colour analysis. Every shade in it has a little grey mixed in, and every shade stays in the light to middle range rather than going very dark or very bright: powder blue rather than royal blue, dusty pink rather than fuchsia, sage green rather than emerald. Held against a summer colouring, these gentle shades let the face stay the strongest thing in the picture.',
@@ -166,10 +166,10 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   autumn: {
     season: 'autumn',
     slug: 'autumn-color-palette',
-    title: 'Autumn Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Autumn Color Palette — Every Shade, With Codes | colormatch',
     description:
       'The full autumn color palette: warm, earthy shades with hex codes, the neutrals to build on, the colors to avoid, and how to tell if autumn is your season.',
-    heading: 'The autumn colour palette',
+    heading: 'The autumn color palette',
     lede: 'Warm and earthy — the palette of turning leaves, spice and old gold, where richness matters more than brightness.',
     intro: [
       'Autumn is the warm, deep end of colour analysis. The shades are golden but muted, and they carry weight rather than sparkle: rust, terracotta, olive green, mustard, forest green, deep teal. Held against an autumn colouring, these earthy shades match the warmth already in the skin, and the face looks solid rather than washed out.',
@@ -236,10 +236,10 @@ export const SEASON_PAGES: Record<SeasonId, SeasonPage> = {
   winter: {
     season: 'winter',
     slug: 'winter-color-palette',
-    title: 'Winter Colour Palette — Every Shade, With Codes | colormatch',
+    title: 'Winter Color Palette — Every Shade, With Codes | colormatch',
     description:
       'The full winter color palette: cool, clear shades with hex codes, the neutrals that carry them, the colors to avoid, and how to tell if winter is your season.',
-    heading: 'The winter colour palette',
+    heading: 'The winter color palette',
     lede: 'Cool and clear — the palette of frost and ink, where colours stay true and contrast is the point.',
     intro: [
       'Winter is the cool, clear end of colour analysis. Its shades are pure rather than dusty, and they arrive at two extremes: full-strength colours such as true red, royal blue, emerald and fuchsia, and icy light ones such as icy pink and icy blue. Held against a winter colouring, a strong clear colour looks ordinary rather than daring, because the contrast in the clothing matches the contrast already in the face.',

@@ -7,16 +7,19 @@ interface Props {
   description: string;
   swatches: Swatch[];
   tone?: 'wear' | 'avoid';
+  /** Heading level, so a block inside a section can sit under its own h2. */
+  level?: 2 | 3;
 }
 
-const { title, description, swatches, tone = 'wear' } = Astro.props;
+const { title, description, swatches, tone = 'wear', level = 2 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
 
 /** Pale chips need an outline or they disappear against the page. */
 const isPale = (hex: string) => contrastRatio(hexToRgb(hex), hexToRgb('#ffffff')) < 1.6;
 ---
 
 <section class="swatch-block stack">
-  <h2>{title}</h2>
+  <Heading>{title}</Heading>
   <p>{description}</p>
   <ul class="swatch-grid">
     {

@@ -23,10 +23,10 @@ export interface UndertonePage {
 export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
   warm: {
     id: 'warm',
-    title: 'Colours for a Warm Skin Tone, With Codes | colormatch',
+    title: 'Colors for a Warm Skin Tone, With Codes | colormatch',
     description:
       'Colors that suit a warm skin tone, with hex codes: which shades to wear near your face, which to be careful with, and how to check your undertone at home.',
-    heading: 'Colours for a warm skin tone',
+    heading: 'Colors for a warm skin tone',
     lede: 'Gold suits you, cream beats optical white, and the shades that work have yellow somewhere inside them.',
     intro: [
       'A warm undertone means your skin has gold, peach or yellow underneath it, whatever its depth. It is not the same thing as being tanned or being dark: very fair skin is often warm, and deep skin is often cool. Undertone is the direction your colouring leans, and it does not change with the seasons.',
@@ -77,10 +77,10 @@ export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
   },
   cool: {
     id: 'cool',
-    title: 'Colours for a Cool Skin Tone, With Codes | colormatch',
+    title: 'Colors for a Cool Skin Tone, With Codes | colormatch',
     description:
       'The colors that suit a cool skin tone, with names and hex codes: silver over gold, optical white over cream, and how to check your undertone at home.',
-    heading: 'Colours for a cool skin tone',
+    heading: 'Colors for a cool skin tone',
     lede: 'Silver suits you, optical white beats cream, and the shades that work have blue or pink somewhere inside them.',
     intro: [
       'A cool undertone means your skin has pink, red or blue underneath it. Depth and undertone are counted separately, and every undertone occurs at every depth: cool colouring turns up in the palest skin and in the deepest, and being cool says nothing about how light or dark you are. It is the direction your colouring leans, and sun does not change it.',
@@ -131,10 +131,10 @@ export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
   },
   neutral: {
     id: 'neutral',
-    title: 'Colours for a Neutral Skin Tone, With Codes | colormatch',
+    title: 'Colors for a Neutral Skin Tone, With Codes | colormatch',
     description:
       'Colors that suit a neutral skin tone, with hex codes: why the usual tests come back split, what a split result means, and the softened shades that work.',
-    heading: 'Colours for a neutral skin tone',
+    heading: 'Colors for a neutral skin tone',
     lede: 'Gold and silver both look acceptable, your veins read neither green nor blue, and the shades that work lean least in either direction.',
     intro: [
       'A neutral undertone means your skin carries warmth and coolness in roughly equal measure, with neither taking the lead. How deep your skin is has no bearing on it: depth and undertone are two different measurements, and every undertone, neutral included, is found at every depth there is. What neutral changes is which shades sit comfortably near your face, not how much colour you have.',
@@ -185,10 +185,10 @@ export const UNDERTONE_PAGES: Record<UndertoneId, UndertonePage> = {
   },
   olive: {
     id: 'olive',
-    title: 'Colours for an Olive Skin Tone, With Codes | colormatch',
+    title: 'Colors for an Olive Skin Tone, With Codes | colormatch',
     description:
       'Colors that suit olive skin, with hex codes: why olive is a cast rather than an undertone, and the muted shades that sit with the green instead of fighting it.',
-    heading: 'Colours for an olive skin tone',
+    heading: 'Colors for an olive skin tone',
     lede: 'Olive is a green or grey cast across the skin, and the shades that suit it are muted rather than clear.',
     intro: [
       'Olive is not a fifth undertone. It is a cast — a faint green or grey laid over the skin — and it sits across the warm-and-cool question rather than inside it, so olive skin can be warm-leaning or cool-leaning and still be olive. The cast is equally independent of how light or deep the skin is, because depth is measured on its own and any undertone can arrive at any depth.',

@@ -2,6 +2,8 @@ export interface SubtypePage {
   /** Matches a `Subtype.id` in `subtypes.ts`. */
   id: string;
   title: string;
+  /** The H1, when the title carries an extra name the page should also say. */
+  heading?: string;
   description: string;
   lede: string;
   /** Two paragraphs: what it is, and what makes it different from its parent. */
@@ -22,7 +24,7 @@ export interface SubtypePage {
 export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   'light-spring': {
     id: 'light-spring',
-    title: 'The Light Spring Colour Palette, With Codes | colormatch',
+    title: 'The Light Spring Color Palette, With Codes | colormatch',
     description:
       'The light spring color palette: the lightest, freshest spring shades plus three from summer, with hex codes, and how light spring differs from warm spring.',
     lede: 'Spring at its lightest, with a little of summer’s coolness let in at the edges.',
@@ -68,7 +70,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'warm-spring': {
     id: 'warm-spring',
-    title: 'The Warm Spring Colour Palette, With Codes | colormatch',
+    title: 'The Warm Spring Color Palette, With Codes | colormatch',
     description:
       'The warm spring (true spring) color palette: all ten spring shades with hex codes, nothing borrowed, and how warm spring differs from light spring.',
     lede: 'Spring in the middle, where warmth is the whole of it and nothing has to be borrowed.',
@@ -114,7 +116,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'bright-spring': {
     id: 'bright-spring',
-    title: 'The Bright Spring Colour Palette, With Codes | colormatch',
+    title: 'The Bright Spring Color Palette, With Codes | colormatch',
     description:
       'The bright spring (clear spring) color palette: the clearest spring shades plus three from winter, with hex codes, and how it differs from warm spring.',
     lede: 'Spring at its clearest, with three of winter’s strong colours let in.',
@@ -160,7 +162,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'light-summer': {
     id: 'light-summer',
-    title: 'The Light Summer Colour Palette, With Codes | colormatch',
+    title: 'The Light Summer Color Palette, With Codes | colormatch',
     description:
       'The light summer color palette: the lightest, gentlest summer shades plus three from spring, with hex codes, and how light summer differs from cool summer.',
     lede: 'Summer at its lightest, with a little of spring’s warmth let in at the edges.',
@@ -206,42 +208,49 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'cool-summer': {
     id: 'cool-summer',
-    title: 'The Cool Summer Colour Palette, With Codes | colormatch',
+    title: 'Cool Summer (True Summer) Color Palette With Hex Codes | colormatch',
     description:
       'The cool summer (true summer) color palette: all ten summer shades with hex codes, nothing borrowed, and how cool summer differs from soft summer.',
+    /** The title carries the other name people search for; so does the H1. */
+    heading: 'Cool Summer (True Summer) Color Palette',
     lede: 'Summer in the middle, cool the whole way through, with nothing borrowed at either edge.',
     intro: [
-      'Cool summer — true summer elsewhere — sits at the centre of the season. Coolness is the quality that decides here, not lightness and not softness: slate blue, soft rose, lavender and soft plum all have a blue or grey cast, and a shade with any gold in it looks out of place beside them.',
-      'Nothing in this palette has been borrowed, which is unusual and worth saying plainly: all ten shades are summer’s own. A subtype only takes shades from the season it leans towards, and this one leans nowhere. Far from making it a thinner version of summer, that is what makes it the clearest example of one, and it means a cool summer never has to judge whether a borrowed colour is warm enough to risk.',
+      'Cool summer — true summer elsewhere — sits at the center of the season. Coolness is the quality that decides here, not lightness and not softness: slate blue, soft rose, lavender and soft plum all have a blue or gray cast, and a shade with any gold in it looks out of place beside them.',
+      'Nothing in this palette has been borrowed, which is unusual and worth saying plainly: all ten shades are summer’s own. A subtype only takes shades from the season it leans toward, and this one leans nowhere. Far from making it a thinner version of summer, that is what makes it the clearest example of one, and it means a cool summer never has to judge whether a borrowed color is warm enough to risk.',
     ],
     confusion:
-      'Soft summer is the neighbour, and both are cool, so the test is clarity rather than temperature. Hold slate blue at the neckline in daylight, then mauve. On a cool summer the clear grey-blue looks cleaner and mauve looks slightly muddy; on a soft summer it is the other way round, and the clear shade looks a little loud.',
+      'Soft summer is the neighbor, and both are cool, so the test is clarity rather than temperature. Hold slate blue at the neckline in daylight, then mauve. On a cool summer the clear gray-blue looks cleaner and mauve looks slightly muddy; on a soft summer it is the other way around, and the clear shade looks a little loud.',
     signs: [
-      'Cool colours suit you at every depth this palette offers, light and medium alike.',
+      'Cool colors suit you at every depth this palette offers, light and medium alike.',
       'Your skin has a pink, rose or blue cast rather than a golden one.',
-      'Silver jewellery is an obvious yes, and gold looks yellow against your skin.',
-      'Warm colours such as rust or mustard make your face look sallow immediately.',
+      'Silver jewelry is an obvious yes, and gold looks yellow against your skin.',
+      'Warm colors such as rust or mustard make your face look sallow immediately.',
     ],
     wearing: [
       {
         heading: 'Keep the contrast low',
-        body: 'This colouring is gentle even at its strongest, so two shades of similar depth work better than one very light and one very dark. Slate blue with cool grey, or soft plum with taupe, sits at the level your face can match.',
+        body: 'This coloring is gentle even at its strongest, so two shades of similar depth work better than one very light and one very dark. Slate blue with cool gray, or soft plum with taupe, sits at the level your face can match.',
       },
       {
         heading: 'Check the denim as well as the top',
-        body: 'A warm, orange-cast wash undoes an otherwise cool outfit, and it is easy to miss because jeans feel neutral. A blue-cast or grey-cast denim keeps the whole outfit on the cool side.',
+        body: 'A warm, orange-cast wash undoes an otherwise cool outfit, and it is easy to miss because jeans feel neutral. A blue-cast or gray-cast denim keeps the whole outfit on the cool side.',
       },
     ],
     faq: [
       {
+        question: 'Is true summer the same as cool summer?',
+        answer:
+          'Yes. True summer, cool summer and pure summer are three names for the same subtype, the middle of the season where coolness is the strongest quality and nothing is borrowed from autumn or spring. If an analysis has called you a true summer, the palette on this page is yours.',
+      },
+      {
         question: 'What is the difference between cool summer and soft summer?',
         answer:
-          'Cool summer is decided by temperature and soft summer by how much grey a colour carries. Cool summer wears summer’s clearer shades at their own strength, while soft summer wears the quietest of them and borrows three deep autumn shades. A cool summer looks slightly washed out in the softest colours; a soft summer looks overpowered by the clearer ones.',
+          'Cool summer is decided by temperature and soft summer by how much gray a color carries. Cool summer wears summer’s clearer shades at their own strength, while soft summer wears the quietest of them and borrows three deep autumn shades. A cool summer looks slightly washed out in the softest colors; a soft summer looks overpowered by the clearer ones.',
       },
       {
         question: 'Why are there no spring or autumn shades in this palette?',
         answer:
-          'Because cool summer does not lean towards either neighbour. Borrowing happens only in the direction a subtype leans, and this one leans nowhere, so all ten shades are summer’s own. That is what makes it the purest version of the season.',
+          'Because cool summer does not lean toward either neighbor. Borrowing happens only in the direction a subtype leans, and this one leans nowhere, so all ten shades are summer’s own. That is what makes it the purest version of the season.',
       },
       {
         question: 'Can cool summer wear black?',
@@ -252,7 +261,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'soft-summer': {
     id: 'soft-summer',
-    title: 'The Soft Summer Colour Palette, With Codes | colormatch',
+    title: 'The Soft Summer Color Palette, With Codes | colormatch',
     description:
       'The soft summer (muted summer) color palette: the quietest summer shades plus three from autumn, with hex codes, and how soft summer differs from soft autumn.',
     lede: 'Summer at its quietest, with three of autumn’s deep shades let in.',
@@ -298,7 +307,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'soft-autumn': {
     id: 'soft-autumn',
-    title: 'The Soft Autumn Colour Palette, With Codes | colormatch',
+    title: 'The Soft Autumn Color Palette, With Codes | colormatch',
     description:
       'The soft autumn (muted autumn) color palette: the quietest autumn shades plus three from summer, with hex codes, and how soft autumn differs from warm autumn.',
     lede: 'Autumn at its quietest, with three of summer’s cool, greyed shades let in.',
@@ -344,7 +353,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'warm-autumn': {
     id: 'warm-autumn',
-    title: 'The Warm Autumn Colour Palette, With Codes | colormatch',
+    title: 'The Warm Autumn Color Palette, With Codes | colormatch',
     description:
       'The warm autumn (true autumn) color palette: all ten autumn shades with hex codes, nothing borrowed, and how warm autumn differs from deep autumn.',
     lede: 'Autumn in the middle, golden all the way through, with nothing borrowed at either edge.',
@@ -390,7 +399,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'deep-autumn': {
     id: 'deep-autumn',
-    title: 'The Deep Autumn Colour Palette, With Codes | colormatch',
+    title: 'The Deep Autumn Color Palette, With Codes | colormatch',
     description:
       'The deep autumn (dark autumn) color palette: the darkest autumn shades plus three from winter, with hex codes, and how deep autumn differs from deep winter.',
     lede: 'Autumn at its deepest, with three cold winter shades let in.',
@@ -436,7 +445,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'deep-winter': {
     id: 'deep-winter',
-    title: 'The Deep Winter Colour Palette, With Codes | colormatch',
+    title: 'The Deep Winter Color Palette, With Codes | colormatch',
     description:
       'The deep winter (dark winter) color palette: the darkest winter shades plus three from autumn, with hex codes, and how deep winter differs from cool winter.',
     lede: 'Winter at its deepest, with three of autumn’s darkest shades let in.',
@@ -482,7 +491,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'cool-winter': {
     id: 'cool-winter',
-    title: 'The Cool Winter Colour Palette, With Codes | colormatch',
+    title: 'The Cool Winter Color Palette, With Codes | colormatch',
     description:
       'The cool winter (true winter) color palette: all ten winter shades with hex codes, nothing borrowed, and how cool winter differs from bright winter.',
     lede: 'Winter in the middle, cold and clear, with nothing borrowed at either edge.',
@@ -528,7 +537,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
   },
   'bright-winter': {
     id: 'bright-winter',
-    title: 'The Bright Winter Colour Palette, With Codes | colormatch',
+    title: 'The Bright Winter Color Palette, With Codes | colormatch',
     description:
       'The bright winter (clear winter) color palette: the most vivid winter shades plus three from spring, with hex codes, and how it differs from bright spring.',
     lede: 'Winter at its clearest, with three of spring’s warm brights let in.',

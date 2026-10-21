@@ -8,6 +8,24 @@ import { SUBTYPES, SUBTYPES_BY_PARENT, subtypePalette } from '../lib/subtypes';
 import { SUBTYPE_PAGES } from '../lib/subtype-pages';
 
 /**
+ * The two muted subtypes share most of their palette, so they get one page that
+ * sets them against each other; each side links to it from the list of
+ * neighbouring palettes.
+ */
+const SUBTYPE_COMPARISONS: Record<string, { path: string; label: string; lead: string }> = {
+  'soft-summer': {
+    path: '/soft-summer-vs-soft-autumn/',
+    label: 'Soft summer vs soft autumn',
+    lead: 'the two muted palettes side by side, with the shades they share',
+  },
+  'soft-autumn': {
+    path: '/soft-summer-vs-soft-autumn/',
+    label: 'Soft summer vs soft autumn',
+    lead: 'the two muted palettes side by side, with the shades they share',
+  },
+};
+
+/**
  * Every palette page lives at the top level, because that is where the search
  * that brings people here points: "spring color palette", not "seasons/spring".
  * Two kinds share the route — the four parent seasons and the twelve subtypes —
@@ -69,7 +87,7 @@ const props = Astro.props;
               </div>
 
               <SwatchGrid
-                title={`${season.name} colours to wear`}
+                title={`${season.name} colors to wear`}
                 description="The shades that earn their place next to your face — tops, scarves, collars and frames. Every code is the exact colour, so it can be pasted into a shop filter."
                 swatches={season.wear}
               />
@@ -203,7 +221,7 @@ const props = Astro.props;
         >
           <section class="hero">
             <div class="shell hero__inner stack">
-              <h1>The {subtype.name.toLowerCase()} colour palette</h1>
+              <h1>{page.heading ?? `The ${subtype.name.toLowerCase()} color palette`}</h1>
               <p class="lede">{page.lede}</p>
             </div>
           </section>
@@ -220,7 +238,7 @@ const props = Astro.props;
               </div>
 
               <SwatchGrid
-                title={`${subtype.name} colours to wear`}
+                title={`${subtype.name} colors to wear`}
                 description={
                   subtype.neighbour
                     ? `Seven shades from the ${parent.name.toLowerCase()} palette, chosen for the quality this subtype is named for, and three borrowed from ${SEASONS[subtype.neighbour].name.toLowerCase()} — the season it leans towards.`
@@ -300,6 +318,12 @@ const props = Astro.props;
                       edge of {parent.name.toLowerCase()}.
                     </li>
                   ))}
+                  {SUBTYPE_COMPARISONS[subtype.id] ? (
+                    <li>
+                      <a href={SUBTYPE_COMPARISONS[subtype.id]!.path}>{SUBTYPE_COMPARISONS[subtype.id]!.label}</a>{' '}
+                      — {SUBTYPE_COMPARISONS[subtype.id]!.lead}.
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             </div>

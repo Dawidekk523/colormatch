@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-10-22 — Soft summer vs soft autumn, and "true summer" in the title
+
+New page `/soft-summer-vs-soft-autumn/` answers the question in its first two
+sentences and then sets the two muted palettes side by side: an eight-row table
+(undertone, depth, saturation, metals, neutrals, best colours, borrowed shades,
+colours to avoid), the ten wear shades of each palette, the six shades they share
+and the four that tell them apart. Every shade is computed from `subtypePalette`,
+so the comparison cannot drift from the palette pages, and the four daylight
+checks quote the shades by name rather than by position. Both palette pages link
+to it from "Where this sits"; the URL is in the sitemap and in both llms files.
+
+`/cool-summer-color-palette/` now leads with "Cool Summer (True Summer) Color
+Palette" in the title, the H1 and the og:title, and opens its questions with "is
+true summer the same as cool summer". Page titles and headings across the site
+use the US "color" spelling.
+
 ## 2026-10-21 — Comparison pages, and the site described for answer engines
 
 Three new pages set colormatch against the tools that ChatGPT, Perplexity and

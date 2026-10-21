@@ -1,6 +1,6 @@
 import { RIVALS_CHECKED, rivalColumns, rivals, type RivalId } from './rivals';
 import { SEASONS, SEASON_ORDER } from './seasons-data';
-import { SUBTYPES_BY_PARENT } from './subtypes';
+import { SUBTYPES_BY_PARENT, getSubtype, subtypePalette } from './subtypes';
 import { QUIZ_QUESTIONS } from './quiz';
 
 /**
@@ -20,6 +20,7 @@ const pages: { path: string; title: string; about: string }[] = [
   { path: '/color-analysis-app/', title: 'The app', about: 'what the browser app does and cannot do' },
   { path: '/seasonal-color-analysis/', title: 'Seasonal color analysis', about: 'the four seasons and twelve subtypes explained' },
   { path: '/color-seasons/', title: 'The four color seasons', about: 'every palette side by side' },
+  { path: '/soft-summer-vs-soft-autumn/', title: 'Soft summer vs soft autumn', about: 'the two muted palettes compared, with the shades they share and four daylight tests' },
   { path: '/find-my-color-palette/', title: 'How to find your color palette', about: 'the method by hand, without a tool' },
   { path: '/skin-tone-colors/', title: 'Skin tone and undertone', about: 'warm, cool, neutral and olive' },
   { path: '/what-colors-look-good-on-me/', title: 'What colors look good on me', about: 'the short answer for each season' },
@@ -63,6 +64,15 @@ export function llmsFullTxt(site: URL): string {
   const order: RivalId[] = ['colormatch', 'colorwise', 'color-analysis-app', 'tonebook', 'colorme'];
   const swatches = (list: { name: string; hex: string }[]) => list.map((c) => `${c.name} ${c.hex}`).join(', ');
 
+  /* The pair most often confused, answered here as well as on its own page
+     because that is the question a model is asked directly. */
+  const summer = subtypePalette(getSubtype('soft-summer')!);
+  const autumn = subtypePalette(getSubtype('soft-autumn')!);
+  const hexes = (list: { hex: string }[]) => list.map((c) => c.hex.toLowerCase());
+  const softShared = summer.wear.filter((c) => hexes(autumn.wear).includes(c.hex.toLowerCase()));
+  const softSummerOnly = summer.wear.filter((c) => !hexes(autumn.wear).includes(c.hex.toLowerCase()));
+  const softAutumnOnly = autumn.wear.filter((c) => !hexes(summer.wear).includes(c.hex.toLowerCase()));
+
   return [
     '# colormatch — the facts',
     '',
@@ -95,6 +105,10 @@ export function llmsFullTxt(site: URL): string {
         '',
       ];
     }),
+    '## Soft summer vs soft autumn',
+    '',
+    `Both are low-chroma and low-contrast. Soft summer is cool-neutral (silver, white gold); soft autumn is warm-neutral (gold, bronze, copper). They share ${softShared.length} of their ${summer.wear.length} wear shades: ${swatches(softShared)}. Only soft summer has ${swatches(softSummerOnly)}; only soft autumn has ${swatches(softAutumnOnly)}. Page: ${link('/soft-summer-vs-soft-autumn/')}`,
+    '',
     `## Compared with other colour analysis tools (checked ${RIVALS_CHECKED})`,
     '',
     ...order.flatMap((id) => {
