@@ -2538,5 +2538,4 @@ main:has(> .section--close) + .footer {
 .rivals-table--fit th,
 .rivals-table--fit td {
   overflow-wrap: normal;
-  hyphens: auto;
 }
