@@ -17,7 +17,7 @@ const headingId = `rivals-${caption.toLowerCase().replace(/[^a-z0-9]+/g, '-').re
 <section class="rivals" aria-labelledby={headingId}>
   <h2 id={headingId}>{caption}</h2>
   <div class="rivals__scroll" tabindex="0" role="region" aria-labelledby={headingId}>
-    <table class="rivals-table" style={`--tool-count: ${tools.length}`}>
+    <table class:list={["rivals-table", tools.length <= 2 && "rivals-table--fit"]} style={`--tool-count: ${tools.length}`}>
       <thead>
         <tr>
           <th scope="col" class="rivals-table__corner"><span class="visually-hidden">Criterion</span></th>
