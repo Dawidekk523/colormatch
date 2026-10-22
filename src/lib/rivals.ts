@@ -1,5 +1,5 @@
 /**
- * The other colour-analysis tools people ask about, as they were on the day
+ * The other color-analysis tools people ask about, as they were on the day
  * they were checked. Every value here comes from the tool's own pages or from
  * running it once end to end; when a claim is theirs and could not be tested
  * (what happens to a photo on their servers), the cell says so. Re-check and
@@ -39,7 +39,7 @@ export function rivals(cardPrice: string): Record<RivalId, Rival> {
       name: 'colormatch',
       url: 'https://getcolormatch.com/',
       price: `Free; optional full report ${cardPrice} once, no subscription`,
-      free: 'Season (one of four), undertone, 10 colours, 4 neutrals and 5 to avoid, each with a name and hex code',
+      free: 'Season (one of four), undertone, 10 colors, 4 neutrals and 5 to avoid, each with a name and hex code',
       signup: 'None',
       photo: 'Read inside your browser and never uploaded',
       method: 'Measures undertone, value and contrast in the photo automatically, or seven questions instead',
@@ -50,10 +50,10 @@ export function rivals(cardPrice: string): Record<RivalId, Rival> {
       name: 'Colorwise.me',
       url: 'https://colorwise.me/self-analysis',
       price: 'Free on the web; the My Best Colors phone app sells a one-time premium unlock',
-      free: 'Season (one of twelve), 18 colours and 8 to avoid as a picture, without colour codes',
+      free: 'Season (one of twelve), 18 colors and 8 to avoid as a picture, without color codes',
       signup: 'None',
       photo: 'Stays in your browser, by their statement',
-      method: 'You pick skin, hair and eye colours on your selfie, then their model scores them',
+      method: 'You pick skin, hair and eye colors on your selfie, then their model scores them',
       where: 'Browser, plus iPhone and Android apps',
     },
     'color-analysis-app': {
@@ -72,7 +72,7 @@ export function rivals(cardPrice: string): Record<RivalId, Rival> {
       name: 'Tonebook',
       url: 'https://tonebook.app/',
       price: 'Free preview; Pro is weekly, yearly or lifetime, priced in the iPhone app',
-      free: 'Season and up to 10 colours',
+      free: 'Season and up to 10 colors',
       signup: 'None for the preview',
       photo: 'Sent to OpenAI for the analysis, by their statement',
       method: 'An AI model reads a selfie; a quiz without a photo in the browser',
@@ -101,12 +101,12 @@ export function colormatchApp(cardPrice: string): Record<string, unknown> {
     operatingSystem: 'Any browser',
     url: 'https://getcolormatch.com/',
     description:
-      'Free colour analysis in the browser: a photo or seven questions give a colour season, an undertone, ten colours, four neutrals and five colours to avoid, each with a hex code. The photo is never uploaded.',
+      'Free color analysis in the browser: a photo or seven questions give a color season, an undertone, ten colors, four neutrals and five colors to avoid, each with a hex code. The photo is never uploaded.',
     offers: [
-      { '@type': 'Offer', name: 'Colour season and palette', price: '0', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Color season and palette', price: '0', priceCurrency: 'USD' },
       {
         '@type': 'Offer',
-        name: 'Full colour report',
+        name: 'Full color report',
         price: cardPrice.replace(/[^0-9.]/g, ''),
         priceCurrency: 'USD',
         url: 'https://getcolormatch.com/pricing/',

@@ -73,7 +73,7 @@ export function ShareExport({ report }: Props) {
     <section className="stack share">
       <h3>Save your palette as a picture</h3>
       <p>
-        A single image with your season, your three measurements and every colour in the palette. Tall for a
+        A single image with your season, your three measurements and every color in the palette. Tall for a
         phone, wide for a screen.
       </p>
 

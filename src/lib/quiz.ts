@@ -26,7 +26,7 @@ export interface QuizQuestion {
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'veins',
-    question: 'Look at the veins on the inside of your wrist in daylight. What colour are they?',
+    question: 'Look at the veins on the inside of your wrist in daylight. What color are they?',
     help: 'Daylight near a window works better than a lamp.',
     options: [
       { id: 'green', label: 'Mostly green or olive', score: { warm: 2 } },
@@ -63,19 +63,19 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 'hair',
-    question: 'What is your natural hair colour? If it has gone grey, think of the colour you had before.',
+    question: 'What is your natural hair color? If it has gone gray, think of the color you had before.',
     options: [
       { id: 'light', label: 'Light blonde or light brown', score: { light: 2 } },
       { id: 'medium', label: 'Medium brown, red or auburn', score: { warm: 1 } },
       { id: 'dark', label: 'Dark brown or black', score: { light: -2, clear: 1 } },
-      { id: 'grey', label: 'Grey or white now, and I want to use that', score: { light: 2, warm: -1, clear: -1 } },
+      { id: 'grey', label: 'Gray or white now, and I want to use that', score: { light: 2, warm: -1, clear: -1 } },
     ],
   },
   {
     id: 'eyes',
-    question: 'What colour are your eyes?',
+    question: 'What color are your eyes?',
     options: [
-      { id: 'light-cool', label: 'Light blue, grey or soft green', score: { light: 1, warm: -1, clear: -1 } },
+      { id: 'light-cool', label: 'Light blue, gray or soft green', score: { light: 1, warm: -1, clear: -1 } },
       { id: 'warm', label: 'Hazel, amber or light brown', score: { warm: 2 } },
       { id: 'bright', label: 'Bright blue or strong green', score: { clear: 2, warm: -1 } },
       { id: 'dark', label: 'Dark brown or almost black', score: { light: -2, clear: 1 } },

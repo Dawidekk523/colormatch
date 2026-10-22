@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 /**
  * Everyone may crawl everything. The AI crawlers are also named one by one:
  * some of them only act on a group that names them, and answer engines are
- * where people increasingly ask which colour-analysis tool to use.
+ * where people increasingly ask which color-analysis tool to use.
  */
 const AI_CRAWLERS = [
   'GPTBot',

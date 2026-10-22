@@ -3,9 +3,9 @@ interface Props {
   photo: string;
   /** Where the clothing starts in the photo, 0–1 from the top. */
   clothTop: number;
-  /** The colour draped over the clothing. */
+  /** The color draped over the clothing. */
   shirt: string;
-  /** Describes the person and the colour they are draped in. */
+  /** Describes the person and the color they are draped in. */
   label: string;
   className?: string;
   eager?: boolean;
@@ -14,9 +14,9 @@ interface Props {
 }
 
 /**
- * A photograph with a colour laid over the clothing, the way a stylist holds a
+ * A photograph with a color laid over the clothing, the way a stylist holds a
  * length of fabric under someone's chin. The scooped top edge keeps the neck
- * and jaw visible, because that is where a colour either lifts the skin or
+ * and jaw visible, because that is where a color either lifts the skin or
  * drains it — covering the face would hide the only thing worth looking at.
  */
 export function Drape({
@@ -55,7 +55,7 @@ export function Drape({
 export interface Archetype {
   photo: string;
   clothTop: number;
-  /** Describes the colouring, never the person. */
+  /** Describes the coloring, never the person. */
   description: string;
 }
 

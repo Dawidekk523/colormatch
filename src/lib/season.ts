@@ -13,12 +13,12 @@ export interface ColourTraits {
 /**
  * CIELAB hue-angle bands for skin. Golden skin lands high on the hue angle,
  * pink and blue-toned skin lands low; the narrow middle band is read as neutral
- * because an average colour cannot separate it reliably.
+ * because an average color cannot separate it reliably.
  */
 export const UNDERTONE_COOL_MAX = 52;
 export const UNDERTONE_WARM_MIN = 58;
 
-/** Individual Typology Angle boundary between light and deep colouring. */
+/** Individual Typology Angle boundary between light and deep coloring. */
 export const DEPTH_ITA_LIGHT_MIN = 28;
 
 /** Lightness distance between skin and the darkest parts of the face crop. */
@@ -41,7 +41,7 @@ export function clarityFromContrast(contrast: number): Clarity {
 /**
  * The four-season grid. Warm/cool sets the half, light/deep sets the season
  * inside it. A neutral undertone has no half of its own, so clarity decides:
- * clear colouring goes to the bright season, soft colouring to the muted one.
+ * clear coloring goes to the bright season, soft coloring to the muted one.
  */
 export function seasonFromTraits({ undertone, depth, clarity }: ColourTraits): SeasonId {
   if (undertone === 'warm') return depth === 'light' ? 'spring' : 'autumn';
@@ -51,7 +51,7 @@ export function seasonFromTraits({ undertone, depth, clarity }: ColourTraits): S
 }
 
 export interface SkinReading {
-  /** Average colour of the skin pixels found in the photo. */
+  /** Average color of the skin pixels found in the photo. */
   skin: Rgb;
   /** Share of sampled pixels that looked like skin, 0–1. */
   coverage: number;

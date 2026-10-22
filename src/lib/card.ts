@@ -19,7 +19,7 @@ export interface CardPayload {
 
 /**
  * The card is a snapshot, not a live view of `SEASONS`. Someone who bought a
- * card in March should still be holding the same colours in December, even if
+ * card in March should still be holding the same colors in December, even if
  * the palettes here are revised in between — so the whole payload is frozen at
  * the moment of purchase and stored with the result.
  */

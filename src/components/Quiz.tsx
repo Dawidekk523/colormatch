@@ -113,7 +113,7 @@ export function Quiz() {
 
   if (shown) {
     return (
-      <div className="quiz quiz--result" ref={resultRef} tabIndex={-1} aria-label="Your colour result">
+      <div className="quiz quiz--result" ref={resultRef} tabIndex={-1} aria-label="Your color result">
         <ResultView
           season={shown.season}
           undertone={shown.undertone}
@@ -193,7 +193,7 @@ export function Quiz() {
 
       <div className="cluster">
         <button type="button" className="btn btn--primary" onClick={next}>
-          {isLast ? 'Show my colours' : 'Next question'}
+          {isLast ? 'Show my colors' : 'Next question'}
         </button>
         {step > 0 ? (
           <button

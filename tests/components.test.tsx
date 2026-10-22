@@ -65,7 +65,7 @@ describe('Quiz', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Next question' }));
       }
       answerCurrent();
-      fireEvent.click(screen.getByRole('button', { name: 'Show my colours' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Show my colors' }));
 
       // The answer is held while the stages run, so the wait is not blank.
       expect(screen.getByRole('status').textContent).toMatch(/Adding up your answers/);
@@ -283,7 +283,7 @@ describe('UpgradeButton', () => {
       new Response(JSON.stringify({ available: true }), { status: 200 }),
     );
     render(<UpgradeButton />);
-    expect(await screen.findByRole('link', { name: 'Get your colours first' })).toBeTruthy();
+    expect(await screen.findByRole('link', { name: 'Get your colors first' })).toBeTruthy();
     vi.restoreAllMocks();
   });
 

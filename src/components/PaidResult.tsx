@@ -138,11 +138,11 @@ export function PaidResult() {
       <div className="stack">
         <p className="lede">There is nothing to show here yet.</p>
         <p className="note">
-          This page opens a colour report that has already been paid for. If you came from an email, use the link in
-          it again; otherwise start with the free colour report.
+          This page opens a color report that has already been paid for. If you came from an email, use the link in
+          it again; otherwise start with the free color report.
         </p>
         <a className="btn btn--primary" href="/">
-          Get your colours
+          Get your colors
         </a>
       </div>
     );
@@ -167,7 +167,7 @@ export function PaidResult() {
       ) : (
         <p className="note">
           {remote.kind === 'found'
-            ? 'Payment is still being confirmed. Your colours are below in the meantime, and the card appears here as soon as it clears.'
+            ? 'Payment is still being confirmed. Your colors are below in the meantime, and the card appears here as soon as it clears.'
             : 'This is the free report held in this browser.'}
         </p>
       )}

@@ -130,7 +130,7 @@ function roundRectPath(
 }
 
 /**
- * Pale creams sit almost invisibly on the surface colour, so every tile carries
+ * Pale creams sit almost invisibly on the surface color, so every tile carries
  * a hairline drawn just inside its own edge — it reads as part of the swatch
  * rather than as a border stacked next to a border.
  */
@@ -147,7 +147,7 @@ function drawTile(
 }
 
 /**
- * Colour names are user-facing data of unknown length, so a label first shrinks
+ * Color names are user-facing data of unknown length, so a label first shrinks
  * a little and then loses its tail rather than running into its neighbour.
  * Sets `ctx.font` as a side effect; the caller draws immediately after.
  */
@@ -350,7 +350,7 @@ function drawLandscape(ctx: CanvasRenderingContext2D, data: ShareData, l: Layout
   drawAvoid(ctx, l, rightX, rightW, right, data.avoid);
 
   // Under the axes rather than under the palette: the right column grows with
-  // the number of colours and would run into a line pinned to that corner.
+  // the number of colors and would run into a line pinned to that corner.
   drawSite(ctx, l, l.margin, height - l.margin - l.nameSize - 3, data.site, 'left');
 }
 

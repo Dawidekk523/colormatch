@@ -31,7 +31,7 @@ const others = UNDERTONE_LIST.filter((other) => other.id !== id && UNDERTONE_PAG
     </div>
 
     <SwatchGrid
-      title={`Colours for a ${group.name.toLowerCase()} undertone`}
+      title={`Colors for a ${group.name.toLowerCase()} undertone`}
       description={group.rule}
       swatches={palette.wear}
     />
@@ -71,7 +71,7 @@ const others = UNDERTONE_LIST.filter((other) => other.id !== id && UNDERTONE_PAG
         {page.wearing.map((item) => <li>{item}</li>)}
       </ul>
       <p>
-        <a class="btn btn--primary" href="/">Get your free colour report</a>
+        <a class="btn btn--primary" href="/">Get your free color report</a>
       </p>
     </div>
   </div>
@@ -97,12 +97,12 @@ const others = UNDERTONE_LIST.filter((other) => other.id !== id && UNDERTONE_PAG
         {
           others.map((other) => (
             <li>
-              <a href={`/${other.slug}/`}>Colours for a {other.name.toLowerCase()} skin tone</a>
+              <a href={`/${other.slug}/`}>Colors for a {other.name.toLowerCase()} skin tone</a>
             </li>
           ))
         }
         <li>
-          <a href="/skin-tone-colors/">Skin tone and colour, explained</a> — what undertone is, and what it
+          <a href="/skin-tone-colors/">Skin tone and color, explained</a> — what undertone is, and what it
           is not.
         </li>
       </ul>

@@ -8,7 +8,7 @@ interface Props {
 }
 
 /**
- * Tabbed gallery: pick a season, see a person drawn in that season's colours
+ * Tabbed gallery: pick a season, see a person drawn in that season's colors
  * next to the palette itself. Arrow keys move between tabs, as tabs should.
  */
 export function SeasonExplorer({ initial = 'spring', heading }: Props) {
@@ -36,7 +36,7 @@ export function SeasonExplorer({ initial = 'spring', heading }: Props) {
       <div
         className="tabs"
         role="tablist"
-        aria-label="Colour seasons"
+        aria-label="Color seasons"
         onKeyDown={(e) => {
           if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
             e.preventDefault();
@@ -96,7 +96,7 @@ export function SeasonExplorer({ initial = 'spring', heading }: Props) {
           <p className="badge">{UNDERTONE_LABEL[season.undertone]}</p>
 
           <p className="explorer__prompt" id={`${baseId}-pick`}>
-            Tap a colour to drape it:
+            Tap a color to drape it:
           </p>
           <ul className="picker" aria-labelledby={`${baseId}-pick`}>
             {season.wear.map((swatch) => (

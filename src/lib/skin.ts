@@ -62,7 +62,7 @@ export function readSkin(data: Uint8ClampedArray, width: number, height: number)
   }
 
   // Trim the darkest and lightest fifth of the skin pixels so that shadow and
-  // flare do not drag the average colour away from the real skin tone.
+  // flare do not drag the average color away from the real skin tone.
   const sorted = [...skinLightness].sort((a, b) => a - b);
   const low = sorted[Math.floor(sorted.length * 0.2)]!;
   const high = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.8))]!;
@@ -88,7 +88,7 @@ export function readSkin(data: Uint8ClampedArray, width: number, height: number)
   }
 
   // Hair, brows and eyes are the dark end of the crop; the gap to the skin
-  // tells us whether the person's overall colouring is high or low contrast.
+  // tells us whether the person's overall coloring is high or low contrast.
   const cropSorted = [...cropLightness].sort((a, b) => a - b);
   const darkest = cropSorted[Math.floor(cropSorted.length * 0.05)]!;
   const skinMedian = sorted[Math.floor(sorted.length * 0.5)]!;

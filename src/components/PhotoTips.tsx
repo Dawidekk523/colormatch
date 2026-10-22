@@ -15,14 +15,14 @@ const TIPS: Tip[] = [
   {
     title: 'Daylight, not a lamp',
     detail:
-      'Stand near a window in the middle of the day. A bulb adds its own colour to your skin, and that is exactly what the reading measures.',
+      'Stand near a window in the middle of the day. A bulb adds its own color to your skin, and that is exactly what the reading measures.',
     photo: '/samples/light-warm.jpg',
     position: '50% 30%',
   },
   {
     title: 'What a warm bulb does',
     detail:
-      'The same face under an indoor bulb. Everything shifts golden, so a cool colouring reads as warm. If the photo looks like this, take another by a window.',
+      'The same face under an indoor bulb. Everything shifts golden, so a cool coloring reads as warm. If the photo looks like this, take another by a window.',
     photo: '/samples/light-warm.jpg',
     position: '50% 30%',
     filter: 'sepia(0.5) saturate(1.35) brightness(0.94)',
@@ -30,7 +30,7 @@ const TIPS: Tip[] = [
   },
   {
     title: 'A plain wall behind you',
-    detail: 'A bare wall in white, grey or any single colour. A busy room bounces colour back onto your skin.',
+    detail: 'A bare wall in white, gray or any single color. A busy room bounces color back onto your skin.',
     photo: '/samples/light-cool.jpg',
     position: '50% 40%',
   },

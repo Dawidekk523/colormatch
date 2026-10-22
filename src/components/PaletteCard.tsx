@@ -6,7 +6,7 @@ interface Props {
 
 /**
  * The thing that was actually bought: one sheet, sized to be printed and folded
- * into a handbag. It repeats the colours rather than linking to them, because
+ * into a handbag. It repeats the colors rather than linking to them, because
  * the whole point is that it works with no phone, no signal and no account —
  * standing in a shop, holding a jumper up to the light.
  */

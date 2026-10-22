@@ -123,7 +123,7 @@ function Map() {
 const CARDS = [
   { title: 'Three measurements, scored', note: 'Where the reading landed on each axis.', body: <Meters /> },
   { title: 'All four seasons scored', note: 'How near the runners-up came.', body: <Scores /> },
-  { title: 'Every colour measured', note: 'Name, code, lightness and intensity.', body: <Measured /> },
+  { title: 'Every color measured', note: 'Name, code, lightness and intensity.', body: <Measured /> },
   { title: 'Your palette, charted', note: 'Your shades against the ones to avoid.', body: <Map /> },
 ];
 

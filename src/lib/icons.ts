@@ -25,7 +25,7 @@ export const ICONS = {
   subtype: ColorsIcon as IconNode,
   seasonFit: ChartHistogramIcon as IconNode,
   reading: SearchVisualIcon as IconNode,
-  colours: ColorPickerIcon as IconNode,
+  colors: ColorPickerIcon as IconNode,
   wardrobe: TShirtIcon as IconNode,
   picture: Image02Icon as IconNode,
   download: Download04Icon as IconNode,

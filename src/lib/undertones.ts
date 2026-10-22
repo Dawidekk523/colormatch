@@ -34,14 +34,14 @@ export const UNDERTONE_GROUPS: Record<UndertoneId, UndertoneGroup> = {
     slug: 'neutral-skin-tone-colors',
     name: 'Neutral',
     seasons: ['spring', 'summer'],
-    rule: 'The quietest shades from a warm season and a cool one. A neutral undertone is not served by either extreme, so these are the colours that lean least in either direction.',
+    rule: 'The quietest shades from a warm season and a cool one. A neutral undertone is not served by either extreme, so these are the colors that lean least in either direction.',
   },
   olive: {
     id: 'olive',
     slug: 'olive-skin-tone-colors',
     name: 'Olive',
     seasons: ['autumn', 'summer'],
-    rule: 'Muted shades from autumn and summer. Olive skin carries a green cast that clear, bright colours fight and softened ones sit alongside.',
+    rule: 'Muted shades from autumn and summer. Olive skin carries a green cast that clear, bright colors fight and softened ones sit alongside.',
   },
 };
 
@@ -57,7 +57,7 @@ const chromaOf = (swatch: Swatch) => labChroma(rgbToLab(hexToRgb(swatch.hex)));
  *
  * Warm and cool take the most saturated shades, because those are the ones that
  * make the undertone obvious. Neutral and olive take the least saturated, since
- * both are undone by a colour at full strength.
+ * both are undone by a color at full strength.
  */
 export function undertonePalette(group: UndertoneGroup): { wear: Swatch[]; avoid: Swatch[] } {
   const quiet = group.id === 'neutral' || group.id === 'olive';

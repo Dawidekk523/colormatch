@@ -1,7 +1,7 @@
 {
   "name": "colormatch",
   "short_name": "colormatch",
-  "description": "Find your colour season and the palette that suits you.",
+  "description": "Find your color season and the palette that suits you.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

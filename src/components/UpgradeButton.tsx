@@ -80,7 +80,7 @@ export function UpgradeButton() {
     return (
       <div className="stack">
         <a className="btn btn--primary btn--block" href="/">
-          Get your colours first
+          Get your colors first
         </a>
         <p className="note">
           The report is made from your own result, so the free one comes first. It takes about a minute.
@@ -114,7 +114,7 @@ export function UpgradeButton() {
       </button>
       <p className="note" aria-live="polite">
         {plan.kind === 'error'
-          ? 'We could not check the plan just now. The free colour report works as usual.'
+          ? 'We could not check the plan just now. The free color report works as usual.'
           : plan.kind === 'checking'
             ? 'Checking whether the paid plan is open.'
             : 'The paid plan is not open yet. Everything on the free plan stays free.'}

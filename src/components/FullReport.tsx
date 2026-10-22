@@ -45,7 +45,7 @@ function AxisMeter({
   );
 }
 
-/** Colour names and their measurements, because the card is meant to be used. */
+/** Color names and their measurements, because the card is meant to be used. */
 function SwatchTable({ title, note, swatches }: { title: string; note: string; swatches: MeasuredSwatch[] }) {
   return (
     <section className="stack">
@@ -54,7 +54,7 @@ function SwatchTable({ title, note, swatches }: { title: string; note: string; s
       <table className="data-table">
         <thead>
           <tr>
-            <th scope="col">Colour</th>
+            <th scope="col">Color</th>
             <th scope="col">Hex</th>
             <th scope="col">RGB</th>
             <th scope="col">Lightness</th>
@@ -85,8 +85,8 @@ function SwatchTable({ title, note, swatches }: { title: string; note: string; s
 }
 
 /**
- * Every colour in the palette placed by how light it is and how intense, with
- * the colours to avoid drawn as hollow rings on the same field. Seeing the two
+ * Every color in the palette placed by how light it is and how intense, with
+ * the colors to avoid drawn as hollow rings on the same field. Seeing the two
  * groups sit in different parts of the chart is the clearest evidence that a
  * palette is a shape rather than a list of favourites.
  */
@@ -148,7 +148,7 @@ function PaletteMap({ report }: { report: FullReportData }) {
         ))}
       </svg>
       <figcaption className="chart__caption">
-        Filled dots are your colours, dashed rings the ones to be careful with. Left to right is intensity,
+        Filled dots are your colors, dashed rings the ones to be careful with. Left to right is intensity,
         0 to 110; bottom to top is lightness, 0 to 100. Yours average {report.stats.lightness} lightness and{' '}
         {report.stats.chroma} intensity; the ones to avoid average {report.avoidStats.lightness} and{' '}
         {report.avoidStats.chroma}.
@@ -296,7 +296,7 @@ export function FullReport({ report, token }: Props) {
       </section>
 
       <SwatchTable
-        title="Colours to wear near your face"
+        title="Colors to wear near your face"
         note="Tops, scarves, glasses, lipstick. Lightness runs 0–100 and intensity 0–110, so you can match a shade in a shop app without carrying a card."
         swatches={report.wear}
       />
@@ -306,7 +306,7 @@ export function FullReport({ report, token }: Props) {
           {report.subtype.name}: the {report.subtypeWear.length} shades closest to you
         </h3>
         <p>
-          The twelve-season palettes are not twelve unrelated sets of colours. Yours is {report.seasonName} at
+          The twelve-season palettes are not twelve unrelated sets of colors. Yours is {report.seasonName} at
           its {report.subtype.lean === 'true' ? 'most typical' : `${report.subtype.lean}est`}
           {report.neighbour ? `, with three shades borrowed from ${report.neighbour.name}` : ''} — the shades
           below are the ones your reading leans hardest towards, and the place to start if you only buy one
@@ -328,11 +328,11 @@ export function FullReport({ report, token }: Props) {
 
       <SwatchTable
         title="Your neutrals"
-        note="Coats, trousers, bags. These carry the colours above without fighting them."
+        note="Coats, trousers, bags. These carry the colors above without fighting them."
         swatches={report.neutrals}
       />
 
-      <SwatchTable title="Colours to be careful with" note={report.avoidReason} swatches={report.avoid} />
+      <SwatchTable title="Colors to be careful with" note={report.avoidReason} swatches={report.avoid} />
 
       <section className="stack">
         <h3>How to shop your palette</h3>
@@ -350,7 +350,7 @@ export function FullReport({ report, token }: Props) {
             <dd>{report.wardrobe.denim}</dd>
           </div>
           <div>
-            <dt>Lip colour</dt>
+            <dt>Lip color</dt>
             <dd>{report.wardrobe.lipstick}</dd>
           </div>
           <div>
@@ -358,7 +358,7 @@ export function FullReport({ report, token }: Props) {
             <dd>{report.wardrobe.prints}</dd>
           </div>
           <div>
-            <dt>Hair colour</dt>
+            <dt>Hair color</dt>
             <dd>{report.wardrobe.hair}</dd>
           </div>
         </dl>
@@ -386,9 +386,9 @@ export function FullReport({ report, token }: Props) {
         <section className="stack">
           <h3>If something still looks off</h3>
           <p>
-            {report.subtype.name} leans towards {report.neighbour.name}. If a colour from the list above feels
-            too much, take the same colour one step towards {report.neighbour.name.toLowerCase()} — that is the
-            edge your colouring sits on, and it is the first place to look before doubting the season.
+            {report.subtype.name} leans towards {report.neighbour.name}. If a color from the list above feels
+            too much, take the same color one step towards {report.neighbour.name.toLowerCase()} — that is the
+            edge your coloring sits on, and it is the first place to look before doubting the season.
           </p>
         </section>
       ) : null}
@@ -399,7 +399,7 @@ export function FullReport({ report, token }: Props) {
 
       <p className="note">
         This is a guide for choosing clothes, not a measurement of you. Screens, lighting and make-up all
-        change how a colour looks, and none of this is a health or medical assessment.
+        change how a color looks, and none of this is a health or medical assessment.
       </p>
     </article>
   );

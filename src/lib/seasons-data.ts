@@ -15,7 +15,7 @@ export interface Season {
   undertone: Undertone;
   depth: 'light' | 'deep';
   contrast: 'clear' | 'soft';
-  /** The colour most associated with the season, used as an accent on cards. */
+  /** The color most associated with the season, used as an accent on cards. */
   accent: string;
   wear: Swatch[];
   neutrals: Swatch[];
@@ -32,7 +32,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     name: 'Spring',
     tagline: 'Warm and light',
     description:
-      'Spring colours are warm, fresh and full of light, like a garden in early morning sun. They have yellow or golden warmth in them and stay bright rather than dusty. Next to these colours your skin usually looks rested and even.',
+      'Spring colors are warm, fresh and full of light, like a garden in early morning sun. They have yellow or golden warmth in them and stay bright rather than dusty. Next to these colors your skin usually looks rested and even.',
     undertone: 'warm',
     depth: 'light',
     contrast: 'clear',
@@ -59,14 +59,14 @@ export const SEASONS: Record<SeasonId, Season> = {
       { name: 'Black', hex: '#111111' },
       { name: 'Burgundy', hex: '#5d1a2b' },
       { name: 'Dusty Mauve', hex: '#9b8290' },
-      { name: 'Charcoal Grey', hex: '#3a3d42' },
-      { name: 'Icy Grey Blue', hex: '#b9c6d2' },
+      { name: 'Charcoal Gray', hex: '#3a3d42' },
+      { name: 'Icy Gray Blue', hex: '#b9c6d2' },
     ],
     avoidReason:
-      'Very dark and dusty colours can look heavy next to a light, warm colouring and can make the face look tired.',
+      'Very dark and dusty colors can look heavy next to a light, warm coloring and can make the face look tired.',
     tips: [
       'Choose warm white or ivory instead of pure white.',
-      'If you like dark colours, use soft navy or warm brown instead of black.',
+      'If you like dark colors, use soft navy or warm brown instead of black.',
       'Gold jewellery usually suits this palette better than silver.',
     ],
     checklist: [
@@ -84,7 +84,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     name: 'Summer',
     tagline: 'Cool and soft',
     description:
-      'Summer colours are cool and gentle, as if a little grey has been mixed into them. Think of a garden after rain. They stay light to medium and never look harsh or neon.',
+      'Summer colors are cool and gentle, as if a little gray has been mixed into them. Think of a garden after rain. They stay light to medium and never look harsh or neon.',
     undertone: 'cool',
     depth: 'light',
     contrast: 'soft',
@@ -103,7 +103,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     ],
     neutrals: [
       { name: 'Soft White', hex: '#f1f1ee' },
-      { name: 'Cool Grey', hex: '#9aa0a6' },
+      { name: 'Cool Gray', hex: '#9aa0a6' },
       { name: 'Taupe', hex: '#9b8f87' },
       { name: 'Navy', hex: '#2f4260' },
     ],
@@ -115,7 +115,7 @@ export const SEASONS: Record<SeasonId, Season> = {
       { name: 'Pure Black', hex: '#000000' },
     ],
     avoidReason:
-      'Strong warm and very bright colours tend to overpower a soft, cool colouring and can pull attention away from the face.',
+      'Strong warm and very bright colors tend to overpower a soft, cool coloring and can pull attention away from the face.',
     tips: [
       'Choose soft white instead of bright white.',
       'Navy and charcoal work better than pure black near the face.',
@@ -124,10 +124,10 @@ export const SEASONS: Record<SeasonId, Season> = {
     checklist: [
       'A soft white or oyster shirt rather than a stark white one.',
       'A powder blue or dusty pink top for the face-framing layer.',
-      'A grey-blue or slate coat instead of black.',
+      'A gray-blue or slate coat instead of black.',
       'One gentle accent — lavender, sage or mauve — in a scarf or knit.',
       'Silver jewellery, kept fine rather than chunky.',
-      'Two colours of similar lightness together, not one dark and one bright.',
+      'Two colors of similar lightness together, not one dark and one bright.',
       'A cool-toned denim rather than a warm, orange-cast wash.',
     ],
   },
@@ -136,7 +136,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     name: 'Autumn',
     tagline: 'Warm and deep',
     description:
-      'Autumn colours are warm, rich and a little earthy, like leaves and spices in October. They have golden warmth but more depth and less brightness than Spring colours.',
+      'Autumn colors are warm, rich and a little earthy, like leaves and spices in October. They have golden warmth but more depth and less brightness than Spring colors.',
     undertone: 'warm',
     depth: 'deep',
     contrast: 'soft',
@@ -163,11 +163,11 @@ export const SEASONS: Record<SeasonId, Season> = {
       { name: 'Icy Pink', hex: '#f0cdd8' },
       { name: 'Fuchsia', hex: '#c2247d' },
       { name: 'Pure White', hex: '#ffffff' },
-      { name: 'Cool Grey', hex: '#9aa0a6' },
+      { name: 'Cool Gray', hex: '#9aa0a6' },
       { name: 'Black', hex: '#000000' },
     ],
     avoidReason:
-      'Cold, icy colours can clash with golden warmth in the skin and often make the face look washed out.',
+      'Cold, icy colors can clash with golden warmth in the skin and often make the face look washed out.',
     tips: [
       'Cream and off-white are kinder to your face than pure white.',
       'Chocolate brown or deep olive can replace black in an outfit.',
@@ -179,7 +179,7 @@ export const SEASONS: Record<SeasonId, Season> = {
       'A camel, chocolate or bronze coat rather than a black one.',
       'One deep accent — teal or forest green — for contrast.',
       'Gold, copper or antique brass jewellery.',
-      'Textured fabrics — wool, suede, linen — which hold these colours well.',
+      'Textured fabrics — wool, suede, linen — which hold these colors well.',
       'Warm denim, and brown shoes and belts instead of black.',
     ],
   },
@@ -188,7 +188,7 @@ export const SEASONS: Record<SeasonId, Season> = {
     name: 'Winter',
     tagline: 'Cool and clear',
     description:
-      'Winter colours are cool and clear, with strong contrast, like a bright day with snow on the ground. They are either very deep or very icy, and they stay pure rather than dusty.',
+      'Winter colors are cool and clear, with strong contrast, like a bright day with snow on the ground. They are either very deep or very icy, and they stay pure rather than dusty.',
     undertone: 'cool',
     depth: 'deep',
     contrast: 'clear',
@@ -219,19 +219,19 @@ export const SEASONS: Record<SeasonId, Season> = {
       { name: 'Salmon', hex: '#e58b7b' },
     ],
     avoidReason:
-      'Muted, golden and earthy colours tend to flatten a cool, high-contrast colouring and can make the skin look sallow.',
+      'Muted, golden and earthy colors tend to flatten a cool, high-contrast coloring and can make the skin look sallow.',
     tips: [
       'Pure white and true black both work well right next to your face.',
-      'One strong colour with a neutral is usually enough — you do not need many colours at once.',
+      'One strong color with a neutral is usually enough — you do not need many colors at once.',
       'Silver and platinum jewellery suit this palette well.',
     ],
     checklist: [
       'A true white shirt — this is the palette that can wear it.',
-      'One strong colour near the face: true red, fuchsia or royal blue.',
+      'One strong color near the face: true red, fuchsia or royal blue.',
       'A black or charcoal coat, which genuinely suits you.',
       'An icy pastel as the light note, rather than a beige one.',
       'Silver or platinum jewellery, and it can be bold.',
-      'One clear colour with one neutral — resist wearing three at once.',
+      'One clear color with one neutral — resist wearing three at once.',
       'Crisp fabrics over heathered, muted ones.',
     ],
   },

@@ -29,14 +29,14 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The light spring color palette: the lightest, freshest spring shades plus three from summer, with hex codes, and how light spring differs from warm spring.',
     lede: 'Spring at its lightest, with a little of summer’s coolness let in at the edges.',
     intro: [
-      'Light spring is the corner of spring that sits closest to summer. It keeps the warmth — gold still beats silver, cream still beats optical white — but the shades are the delicate ones: peach rather than poppy, aqua rather than turquoise at full strength. Depth is what this colouring cannot carry: a heavy shade next to the face outweighs it.',
+      'Light spring is the corner of spring that sits closest to summer. It keeps the warmth — gold still beats silver, cream still beats optical white — but the shades are the delicate ones: peach rather than poppy, aqua rather than turquoise at full strength. Depth is what this coloring cannot carry: a heavy shade next to the face outweighs it.',
       'Because it borders summer, a few genuinely cool shades work here that no other part of spring can wear. Periwinkle and soft rose are the usual examples, and they are why a light spring can shop from summer rails without everything looking wrong.',
     ],
     confusion:
       'The subtype next door is light summer, and the two share almost the same lightness. The difference is warmth, not depth: hold cream against optical white under daylight. If cream wins, you are on the spring side of the border; if the cold white looks cleaner, you are a light summer.',
     signs: [
-      'Bright, saturated colours seem to wear you rather than the other way round.',
-      'Your colouring is light overall — hair, skin and eyes sit close together in depth.',
+      'Bright, saturated colors seem to wear you rather than the other way round.',
+      'Your coloring is light overall — hair, skin and eyes sit close together in depth.',
       'Cream, ivory and soft peach suit you better than any strong shade.',
       'Gold jewellery suits you, but fine and delicate rather than heavy.',
     ],
@@ -47,7 +47,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       },
       {
         heading: 'Borrow from summer, not from autumn',
-        body: 'When a spring shade feels too strong, the useful substitute is the cool, soft one next door: periwinkle, soft rose, lavender. Reaching the other way, into rust or olive, adds the weight this colouring is least able to carry.',
+        body: 'When a spring shade feels too strong, the useful substitute is the cool, soft one next door: periwinkle, soft rose, lavender. Reaching the other way, into rust or olive, adds the weight this coloring is least able to carry.',
       },
     ],
     faq: [
@@ -57,14 +57,14 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
           'No. Warm spring is the middle of the season, where warmth is the strongest quality and the shades are at full strength. Light spring trades some of that warmth for lightness, which is why a few cool summer shades appear in this palette and none appear in warm spring.',
       },
       {
-        question: 'Why does this palette contain summer colours?',
+        question: 'Why does this palette contain summer colors?',
         answer:
           'Because that is what a twelve-season subtype is: a parent season leaning towards a neighbour. Light spring borders summer, so the three lightest summer shades belong here. They are shown with their names and codes like everything else, so nothing about the borrowing is hidden.',
       },
       {
         question: 'Do I need to know my subtype to use the free report?',
         answer:
-          'No. The free colour report gives you one of the four parent seasons, which is enough to shop with. The subtypes are a finer reading for people who already know their season and want to know which edge of it they sit on.',
+          'No. The free color report gives you one of the four parent seasons, which is enough to shop with. The subtypes are a finer reading for people who already know their season and want to know which edge of it they sit on.',
       },
     ],
   },
@@ -75,25 +75,25 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The warm spring (true spring) color palette: all ten spring shades with hex codes, nothing borrowed, and how warm spring differs from light spring.',
     lede: 'Spring in the middle, where warmth is the whole of it and nothing has to be borrowed.',
     intro: [
-      'Warm spring — true spring in some books — sits at the centre of the season rather than at either edge. Golden warmth is the quality that decides everything here: peach, coral, golden yellow and apple green all read as if the sun is on them. Nothing in this colouring asks for coolness, and nothing asks to be quietened.',
+      'Warm spring — true spring in some books — sits at the centre of the season rather than at either edge. Golden warmth is the quality that decides everything here: peach, coral, golden yellow and apple green all read as if the sun is on them. Nothing in this coloring asks for coolness, and nothing asks to be quietened.',
       'That centre position is why this palette is spring’s own ten shades and nothing else. Light spring gives up some warmth in exchange for lightness and bright spring gives up some in exchange for clarity, so both end up holding shades from a neighbouring season. Warm spring keeps the lot, which makes it the clearest example of spring rather than a thinned-out version of one.',
     ],
     confusion:
       'Light spring is the subtype next door, and both are warm, so warmth will not separate them. Depth will: hold coral at full strength under the chin in daylight, then peach. If coral holds the face and looks like the stronger choice, you are a warm spring; if it takes over and peach is the one that flatters, you are a light spring.',
     signs: [
-      'Warm colours flatter you across the whole range, light ones and strong ones alike.',
+      'Warm colors flatter you across the whole range, light ones and strong ones alike.',
       'Your skin has a golden or peachy cast rather than a pink one.',
       'Gold jewellery is an obvious yes, and silver looks cold against your skin.',
-      'Grey and dusty colours make you look tired, whatever their depth.',
+      'Gray and dusty colors make you look tired, whatever their depth.',
     ],
     wearing: [
       {
         heading: 'Use the full range, not one corner of it',
-        body: 'This is the one spring palette with no shade held back, so peach and bright poppy are both yours. Pairing a light warm shade with a strong warm one — ivory with coral, warm beige with golden yellow — uses the range this colouring was given.',
+        body: 'This is the one spring palette with no shade held back, so peach and bright poppy are both yours. Pairing a light warm shade with a strong warm one — ivory with coral, warm beige with golden yellow — uses the range this coloring was given.',
       },
       {
         heading: 'Keep warmth in the neutrals as well',
-        body: 'The colour near your face matters less if the coat is wrong. Camel, warm beige and soft navy do the work that grey and black do for other people, and they let a warm accent stay warm rather than fighting a cold background.',
+        body: 'The color near your face matters less if the coat is wrong. Camel, warm beige and soft navy do the work that gray and black do for other people, and they let a warm accent stay warm rather than fighting a cold background.',
       },
     ],
     faq: [
@@ -119,34 +119,34 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     title: 'The Bright Spring Color Palette, With Codes | colormatch',
     description:
       'The bright spring (clear spring) color palette: the clearest spring shades plus three from winter, with hex codes, and how it differs from warm spring.',
-    lede: 'Spring at its clearest, with three of winter’s strong colours let in.',
+    lede: 'Spring at its clearest, with three of winter’s strong colors let in.',
     intro: [
-      'Bright spring, or clear spring, is the corner of spring that sits closest to winter. Warmth is still there, but clarity is the quality that decides: bright poppy, golden yellow, apple green and coral all keep their full strength, and a dusty or heathered version of the same colour goes flat on this colouring.',
-      'Because it borders winter, three cold, saturated shades belong here that no other part of spring can carry — true red, fuchsia and magenta. They are the reason a bright spring can wear a strong shop-window colour and still look warm underneath it.',
+      'Bright spring, or clear spring, is the corner of spring that sits closest to winter. Warmth is still there, but clarity is the quality that decides: bright poppy, golden yellow, apple green and coral all keep their full strength, and a dusty or heathered version of the same color goes flat on this coloring.',
+      'Because it borders winter, three cold, saturated shades belong here that no other part of spring can carry — true red, fuchsia and magenta. They are the reason a bright spring can wear a strong shop-window color and still look warm underneath it.',
     ],
     confusion:
-      'Warm spring is the neighbour, and both wear the same corals and yellows. The borrowed cold red separates them. Hold true red at the jaw in daylight, then bright poppy, which is spring’s own warm red. If true red looks like a colour you could own, you are a bright spring; a warm spring finds it too cold and reaches for the poppy every time.',
+      'Warm spring is the neighbour, and both wear the same corals and yellows. The borrowed cold red separates them. Hold true red at the jaw in daylight, then bright poppy, which is spring’s own warm red. If true red looks like a color you could own, you are a bright spring; a warm spring finds it too cold and reaches for the poppy every time.',
     signs: [
-      'Strong, saturated colours look normal on you rather than daring.',
+      'Strong, saturated colors look normal on you rather than daring.',
       'Muted, dusty or heathered knits leave your face looking flat.',
       'There is a clear step between your hair, your eyes and your skin rather than a gentle blend.',
       'Your hair, skin and eyes each read separately rather than blending into one another.',
     ],
     wearing: [
       {
-        heading: 'One clear colour is usually enough',
-        body: 'These shades are strong on their own, so a single clear colour with a warm neutral reads better than three brights at once. A true red top with warm beige, or apple green with ivory, gives the colour room to work.',
+        heading: 'One clear color is usually enough',
+        body: 'These shades are strong on their own, so a single clear color with a warm neutral reads better than three brights at once. A true red top with warm beige, or apple green with ivory, gives the color room to work.',
       },
       {
-        heading: 'Avoid the softened version of a good colour',
-        body: 'Shops sell the same colour in a clear version and a dusty one, season after season. The dusty one is the trap here. When a shade feels too much, the answer is a lighter clear colour rather than a greyed one.',
+        heading: 'Avoid the softened version of a good color',
+        body: 'Shops sell the same color in a clear version and a dusty one, season after season. The dusty one is the trap here. When a shade feels too much, the answer is a lighter clear color rather than a grayed one.',
       },
     ],
     faq: [
       {
-        question: 'Why does this palette contain winter colours?',
+        question: 'Why does this palette contain winter colors?',
         answer:
-          'Because bright spring leans towards winter, and true red, fuchsia and magenta are the three winter shades that share its clarity. They are the coldest colours in the palette and the strongest, which is exactly what this subtype can carry, and they are the reason a bright spring is not limited to warm reds and pinks.',
+          'Because bright spring leans towards winter, and true red, fuchsia and magenta are the three winter shades that share its clarity. They are the coldest colors in the palette and the strongest, which is exactly what this subtype can carry, and they are the reason a bright spring is not limited to warm reds and pinks.',
       },
       {
         question: 'What is the difference between bright spring and bright winter?',
@@ -156,7 +156,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       {
         question: 'Can I still wear denim?',
         answer:
-          'Yes, and the wash is what to watch. A clear mid-blue denim behaves like one of your colours, while a faded, dusty or grey-cast wash pulls in the direction this palette avoids. Treat jeans as a colour choice rather than an automatic neutral.',
+          'Yes, and the wash is what to watch. A clear mid-blue denim behaves like one of your colors, while a faded, dusty or gray-cast wash pulls in the direction this palette avoids. Treat jeans as a color choice rather than an automatic neutral.',
       },
     ],
   },
@@ -167,21 +167,21 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The light summer color palette: the lightest, gentlest summer shades plus three from spring, with hex codes, and how light summer differs from cool summer.',
     lede: 'Summer at its lightest, with a little of spring’s warmth let in at the edges.',
     intro: [
-      'Light summer is the corner of summer that sits closest to spring. It stays cool — soft white rather than cream, silver rather than gold — but it takes the gentlest shades of the season: powder blue, seafoam, soft rose and dusty pink rather than anything deep. Weight is what this colouring cannot carry, and a black jumper at the neckline shows that plainly.',
+      'Light summer is the corner of summer that sits closest to spring. It stays cool — soft white rather than cream, silver rather than gold — but it takes the gentlest shades of the season: powder blue, seafoam, soft rose and dusty pink rather than anything deep. Weight is what this coloring cannot carry, and a black jumper at the neckline shows that plainly.',
       'Because it borders spring, three warm shades work here that no other summer can wear: golden yellow, peach and light moss. They belong in small amounts, as a scarf or a knit, and they are why a light summer does not have to shop from cold rails alone.',
     ],
     confusion:
-      'Cool summer is the neighbour, and both are cool and gentle, so coolness will not tell you apart. The borrowed warmth will: hold peach at the jaw in daylight. On a light summer it lifts the face and looks like a reasonable colour to own; on a cool summer the skin turns slightly yellow and tired around the mouth.',
+      'Cool summer is the neighbour, and both are cool and gentle, so coolness will not tell you apart. The borrowed warmth will: hold peach at the jaw in daylight. On a light summer it lifts the face and looks like a reasonable color to own; on a cool summer the skin turns slightly yellow and tired around the mouth.',
     signs: [
       'Your hair, skin and eyes are all light, with little contrast between them.',
-      'Dark colours near the face look like they are wearing you.',
+      'Dark colors near the face look like they are wearing you.',
       'Soft white suits you better than either cream or bright white.',
       'Silver jewellery suits you, and gold looks heavy rather than wrong.',
     ],
     wearing: [
       {
         heading: 'Two light shades beat one dark one',
-        body: 'Powder blue with soft white, or dusty pink with cool grey, holds together better than a light top over a black trouser. When you do need a dark piece, keep it below the waist and let the light colour sit by your face.',
+        body: 'Powder blue with soft white, or dusty pink with cool gray, holds together better than a light top over a black trouser. When you do need a dark piece, keep it below the waist and let the light color sit by your face.',
       },
       {
         heading: 'Treat the borrowed warm shades as accents',
@@ -192,12 +192,12 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       {
         question: 'Is light summer only for fair skin?',
         answer:
-          'No. Skin depth and undertone are separate things, and every season occurs across all skin tones. Light here describes how your colouring sits together — hair, skin and eyes close to one another with no great depth between them — which happens on deep skin as readily as on fair skin.',
+          'No. Skin depth and undertone are separate things, and every season occurs across all skin tones. Light here describes how your coloring sits together — hair, skin and eyes close to one another with no great depth between them — which happens on deep skin as readily as on fair skin.',
       },
       {
-        question: 'Does going grey change which colours suit me?',
+        question: 'Does going gray change which colors suit me?',
         answer:
-          'It changes the depth of your colouring, not its undertone. Hair that lightens takes the contrast out of a face, which is why people who wore stronger colours at forty often find light summer shades kinder at seventy. The cool or warm reading stays as it was.',
+          'It changes the depth of your coloring, not its undertone. Hair that lightens takes the contrast out of a face, which is why people who wore stronger colors at forty often find light summer shades kinder at seventy. The cool or warm reading stays as it was.',
       },
       {
         question: 'These shades look weak on the rail. Am I reading them wrong?',
@@ -266,32 +266,32 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The soft summer (muted summer) color palette: the quietest summer shades plus three from autumn, with hex codes, and how soft summer differs from soft autumn.',
     lede: 'Summer at its quietest, with three of autumn’s deep shades let in.',
     intro: [
-      'Soft summer, or muted summer, is the corner of summer that sits closest to autumn. It stays cool, but muting is what decides here: sage green, mauve, soft plum and seafoam all read as if a little grey has been stirred through them, and a clear, saturated colour looks loud on this colouring rather than cheerful.',
+      'Soft summer, or muted summer, is the corner of summer that sits closest to autumn. It stays cool, but muting is what decides here: sage green, mauve, soft plum and seafoam all read as if a little gray has been stirred through them, and a clear, saturated color looks loud on this coloring rather than cheerful.',
       'Because it borders autumn, three deep shades belong here that the rest of summer does not have — warm aubergine, deep teal and forest green. They give this palette an anchor for a coat or a trouser, which is something no other summer subtype is offered.',
     ],
     confusion:
       'Soft autumn is the neighbour, and the two are muted to almost the same degree, so softness will not separate them. Temperature will: hold sage green beside olive green in daylight. If sage settles on your face and olive lays a yellow cast over it, you are a soft summer; a soft autumn gets the opposite result.',
     signs: [
-      'Muted colours look right on you, and clear ones look like they are shouting.',
-      'Your colouring is medium overall, with no strong break between hair and skin.',
-      'Grey suits you, which is unusual, and it does not drain your face.',
+      'Muted colors look right on you, and clear ones look like they are shouting.',
+      'Your coloring is medium overall, with no strong break between hair and skin.',
+      'Gray suits you, which is unusual, and it does not drain your face.',
       'Very bright and very dark shades both feel like too much next to you.',
     ],
     wearing: [
       {
         heading: 'Let the deep shades carry the weight',
-        body: 'Warm aubergine, deep teal and forest green are the darkest colours you have, and they work as the coat, the trouser or the jacket. Putting the quiet summer shades above them gives an outfit shape without any hard contrast.',
+        body: 'Warm aubergine, deep teal and forest green are the darkest colors you have, and they work as the coat, the trouser or the jacket. Putting the quiet summer shades above them gives an outfit shape without any hard contrast.',
       },
       {
-        heading: 'Choose fabric that softens the colour',
-        body: 'Wool, heathered knits and washed cotton hold muted shades better than anything with a sheen. The same colour in a shiny fabric reads clearer than it is, which is the one direction this palette does not want to go.',
+        heading: 'Choose fabric that softens the color',
+        body: 'Wool, heathered knits and washed cotton hold muted shades better than anything with a sheen. The same color in a shiny fabric reads clearer than it is, which is the one direction this palette does not want to go.',
       },
     ],
     faq: [
       {
         question: 'Do I need to know my subtype to use the free report?',
         answer:
-          'No. The free report tells you that you are a summer, and that alone rules out most of what goes wrong in a shop. Soft only adds how much grey your colouring wants in a colour, which matters once you are already choosing between two cool blues rather than between blue and rust.',
+          'No. The free report tells you that you are a summer, and that alone rules out most of what goes wrong in a shop. Soft only adds how much gray your coloring wants in a color, which matters once you are already choosing between two cool blues rather than between blue and rust.',
       },
       {
         question: 'Is soft summer the same as muted summer?',
@@ -301,7 +301,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       {
         question: 'Is muted the same as boring?',
         answer:
-          'No, though it can look that way on a rail. Muted shades are quiet next to each other but do their work next to a face, which is where you will be wearing them. A soft plum or a deep teal reads as rich on this colouring in a way that a clear purple or turquoise does not.',
+          'No, though it can look that way on a rail. Muted shades are quiet next to each other but do their work next to a face, which is where you will be wearing them. A soft plum or a deep teal reads as rich on this coloring in a way that a clear purple or turquoise does not.',
       },
     ],
   },
@@ -310,44 +310,44 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     title: 'The Soft Autumn Color Palette, With Codes | colormatch',
     description:
       'The soft autumn (muted autumn) color palette: the quietest autumn shades plus three from summer, with hex codes, and how soft autumn differs from warm autumn.',
-    lede: 'Autumn at its quietest, with three of summer’s cool, greyed shades let in.',
+    lede: 'Autumn at its quietest, with three of summer’s cool, grayed shades let in.',
     intro: [
-      'Soft autumn, or muted autumn, is the corner of autumn that sits closest to summer. The warmth is still there, but it is held back: olive, moss, warm aubergine and forest green suit this colouring far better than pumpkin or mustard at full strength, which look loud against it.',
-      'Because it borders summer, three cool shades belong here that no other part of autumn can wear — sage green, mauve and seafoam. They sit close to the greyed autumn shades without breaking the palette, and they are the reason a soft autumn can wear a grey-green or a dusty mauve and still look warm.',
+      'Soft autumn, or muted autumn, is the corner of autumn that sits closest to summer. The warmth is still there, but it is held back: olive, moss, warm aubergine and forest green suit this coloring far better than pumpkin or mustard at full strength, which look loud against it.',
+      'Because it borders summer, three cool shades belong here that no other part of autumn can wear — sage green, mauve and seafoam. They sit close to the grayed autumn shades without breaking the palette, and they are the reason a soft autumn can wear a gray-green or a dusty mauve and still look warm.',
     ],
     confusion:
-      'Warm autumn is the neighbour, and both are warm and earthy. The difference is strength. Hold pumpkin near your face in daylight, then sage green. If pumpkin seems to shout and sage settles quietly, you are a soft autumn; a warm autumn wears pumpkin as an ordinary colour.',
+      'Warm autumn is the neighbour, and both are warm and earthy. The difference is strength. Hold pumpkin near your face in daylight, then sage green. If pumpkin seems to shout and sage settles quietly, you are a soft autumn; a warm autumn wears pumpkin as an ordinary color.',
     signs: [
-      'Rich, saturated warm colours look heavier on you than you expect.',
+      'Rich, saturated warm colors look heavier on you than you expect.',
       'Your hair, eyes and skin are close in depth, with a blended rather than striking look.',
-      'Khaki, olive and bronze are the colours you already own most of.',
+      'Khaki, olive and bronze are the colors you already own most of.',
       'Gold jewellery suits you, but brushed or antique rather than polished.',
     ],
     wearing: [
       {
-        heading: 'Build the outfit from two quiet colours',
-        body: 'Olive with khaki, or warm aubergine with mauve, gives the low contrast this colouring wants. A strong colour against a pale one puts the attention on the join rather than on your face.',
+        heading: 'Build the outfit from two quiet colors',
+        body: 'Olive with khaki, or warm aubergine with mauve, gives the low contrast this coloring wants. A strong color against a pale one puts the attention on the join rather than on your face.',
       },
       {
         heading: 'Use the cool borrowed shades near the face',
-        body: 'Sage, mauve and seafoam are the gentlest things in the palette, which makes them useful for shirts and scarves. Keep the deeper earth colours for the layers further out.',
+        body: 'Sage, mauve and seafoam are the gentlest things in the palette, which makes them useful for shirts and scarves. Keep the deeper earth colors for the layers further out.',
       },
     ],
     faq: [
       {
-        question: 'Why does this palette contain summer colours?',
+        question: 'Why does this palette contain summer colors?',
         answer:
-          'Because soft autumn leans towards summer, and the three borrowed shades are the most muted that summer has: sage green, mauve and seafoam. They are cooler than anything else here, which is what the lean means in practice, and they are the shades to reach for when the earth colours feel heavy.',
+          'Because soft autumn leans towards summer, and the three borrowed shades are the most muted that summer has: sage green, mauve and seafoam. They are cooler than anything else here, which is what the lean means in practice, and they are the shades to reach for when the earth colors feel heavy.',
       },
       {
         question: 'What is the difference between soft autumn and deep autumn?',
         answer:
-          'Softness against depth. Soft autumn takes autumn’s quietest shades and borrows from summer, so the whole palette stays medium. Deep autumn takes autumn’s darkest shades and borrows from winter, so it goes the other way. Both are warm; they part company on how much weight the colouring can carry.',
+          'Softness against depth. Soft autumn takes autumn’s quietest shades and borrows from summer, so the whole palette stays medium. Deep autumn takes autumn’s darkest shades and borrows from winter, so it goes the other way. Both are warm; they part company on how much weight the coloring can carry.',
       },
       {
-        question: 'Why do so many colours look almost right on me?',
+        question: 'Why do so many colors look almost right on me?',
         answer:
-          'Because a muted colouring sits near the middle of the range, where few shades clash outright and few lift the face either. That is what makes soft autumn hard to pin down without a palette. The reliable check is the shadow under the eyes: the right shade settles it, and the wrong one deepens it.',
+          'Because a muted coloring sits near the middle of the range, where few shades clash outright and few lift the face either. That is what makes soft autumn hard to pin down without a palette. The reliable check is the shadow under the eyes: the right shade settles it, and the wrong one deepens it.',
       },
     ],
   },
@@ -358,13 +358,13 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The warm autumn (true autumn) color palette: all ten autumn shades with hex codes, nothing borrowed, and how warm autumn differs from deep autumn.',
     lede: 'Autumn in the middle, golden all the way through, with nothing borrowed at either edge.',
     intro: [
-      'Warm autumn — true autumn in most books — sits at the centre of the season. Golden warmth decides everything here, and it shows in the shades that suit best: terracotta, rust, mustard, moss and pumpkin, colours that look as though they have been left in the sun.',
-      'Ten shades, all of them autumn’s, and not one taken from summer or winter. Borrowing is what a subtype does when it leans towards a neighbour, and this one does not lean, so there is nothing to borrow. That makes warm autumn the clearest example of the season rather than a weakened one — in practice it means anything sold as an autumn colour is worth trying on, which is not true of its two siblings.',
+      'Warm autumn — true autumn in most books — sits at the centre of the season. Golden warmth decides everything here, and it shows in the shades that suit best: terracotta, rust, mustard, moss and pumpkin, colors that look as though they have been left in the sun.',
+      'Ten shades, all of them autumn’s, and not one taken from summer or winter. Borrowing is what a subtype does when it leans towards a neighbour, and this one does not lean, so there is nothing to borrow. That makes warm autumn the clearest example of the season rather than a weakened one — in practice it means anything sold as an autumn color is worth trying on, which is not true of its two siblings.',
     ],
     confusion:
       'Deep autumn is the neighbour, and both are warm and rich, so the question is how much depth your face can take. Hold terracotta at the neckline in daylight, then warm aubergine. If terracotta lifts your face and the darker shade weighs it down, you are a warm autumn; a deep autumn gains from the darker one.',
     signs: [
-      'Warm, earthy colours suit you across the range, mid-depth and dark alike.',
+      'Warm, earthy colors suit you across the range, mid-depth and dark alike.',
       'Your skin has a golden or olive cast rather than a pink one.',
       'Gold, copper and bronze all suit you, and silver looks cold.',
       'Cool pastels such as icy pink leave your face looking washed out.',
@@ -372,7 +372,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     wearing: [
       {
         heading: 'Use the whole spice range',
-        body: 'Nothing has been held back from this palette, so mustard, rust and terracotta are all yours at full strength. Two warm shades together — rust with khaki, mustard with chocolate brown — is the arrangement this colouring was built for.',
+        body: 'Nothing has been held back from this palette, so mustard, rust and terracotta are all yours at full strength. Two warm shades together — rust with khaki, mustard with chocolate brown — is the arrangement this coloring was built for.',
       },
       {
         heading: 'Replace black with brown at every level',
@@ -391,7 +391,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
           'Because warm autumn leans in neither direction. A subtype only borrows from the season it leans towards, and this one stands in the middle, so all ten shades are autumn’s own. The palette is more autumn than its siblings, not less.',
       },
       {
-        question: 'Can I wear a cool colour if I like it?',
+        question: 'Can I wear a cool color if I like it?',
         answer:
           'Yes, with one condition: keep it away from your face. A cool blue skirt or bag causes no problem at all. It is the shirt, scarf or jumper at your neckline that gets compared with your skin in the mirror.',
       },
@@ -404,13 +404,13 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The deep autumn (dark autumn) color palette: the darkest autumn shades plus three from winter, with hex codes, and how deep autumn differs from deep winter.',
     lede: 'Autumn at its deepest, with three cold winter shades let in.',
     intro: [
-      'Deep autumn, or dark autumn, is the corner of autumn that sits closest to winter. The warmth remains — brown still beats black, cream still beats pure white — but depth is what decides: warm aubergine, brick red, forest green and rust suit this colouring far better than the lighter, softer end of the season.',
-      'Because it borders winter, three genuinely cold shades work here that no other part of autumn can carry: deep violet, pine green and sapphire. They are dark enough to match the rest of the palette, and they are why a deep autumn can wear a cold colour without looking drained.',
+      'Deep autumn, or dark autumn, is the corner of autumn that sits closest to winter. The warmth remains — brown still beats black, cream still beats pure white — but depth is what decides: warm aubergine, brick red, forest green and rust suit this coloring far better than the lighter, softer end of the season.',
+      'Because it borders winter, three genuinely cold shades work here that no other part of autumn can carry: deep violet, pine green and sapphire. They are dark enough to match the rest of the palette, and they are why a deep autumn can wear a cold color without looking drained.',
     ],
     confusion:
-      'Deep winter is the neighbour, and both wear very dark colours, so depth will not separate them. Warmth will: hold mustard at the neckline in daylight. On a deep autumn it warms the face rather than draining it; on a deep winter the skin goes sallow and slightly grey around the eyes.',
+      'Deep winter is the neighbour, and both wear very dark colors, so depth will not separate them. Warmth will: hold mustard at the neckline in daylight. On a deep autumn it warms the face rather than draining it; on a deep winter the skin goes sallow and slightly gray around the eyes.',
     signs: [
-      'Dark, rich colours suit you, and pale ones look insubstantial next to you.',
+      'Dark, rich colors suit you, and pale ones look insubstantial next to you.',
       'Your hair is noticeably darker than your skin, giving clear contrast.',
       'Cream and off-white sit better on you than any cool white.',
       'Light, dusty shades leave your face looking unfinished.',
@@ -418,28 +418,28 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     wearing: [
       {
         heading: 'Dark with dark, rather than dark with pale',
-        body: 'Forest green with chocolate brown, or warm aubergine with deep teal, gives the richness this colouring holds well. A very pale shade next to a very dark one splits the outfit and takes attention off your face.',
+        body: 'Forest green with chocolate brown, or warm aubergine with deep teal, gives the richness this coloring holds well. A very pale shade next to a very dark one splits the outfit and takes attention off your face.',
       },
       {
         heading: 'Use the cold shades as the strong note',
-        body: 'Deep violet, pine green and sapphire are the only cold colours you have, so they stand out even at the same depth as everything else. One of them near the face, with warm neutrals around it, is a useful change from another brown.',
+        body: 'Deep violet, pine green and sapphire are the only cold colors you have, so they stand out even at the same depth as everything else. One of them near the face, with warm neutrals around it, is a useful change from another brown.',
       },
     ],
     faq: [
       {
         question: 'Is deep autumn only for people with dark skin?',
         answer:
-          'No. Skin depth and undertone are separate questions, and every season occurs across all skin tones. Deep describes the contrast and weight in your colouring as a whole — usually dark hair and eyes against your own skin — which appears on fair skin as often as on deep skin.',
+          'No. Skin depth and undertone are separate questions, and every season occurs across all skin tones. Deep describes the contrast and weight in your coloring as a whole — usually dark hair and eyes against your own skin — which appears on fair skin as often as on deep skin.',
       },
       {
-        question: 'Do these dark colours work in summer clothing?',
+        question: 'Do these dark colors work in summer clothing?',
         answer:
-          'Yes, and the fabric does most of the work. Forest green linen, brick red cotton and a rust shirt read as light for the season while keeping the depth your face wants. Depth is a property of the colour, not of the weight of the cloth.',
+          'Yes, and the fabric does most of the work. Forest green linen, brick red cotton and a rust shirt read as light for the season while keeping the depth your face wants. Depth is a property of the color, not of the weight of the cloth.',
       },
       {
         question: 'Should I wear black or not?',
         answer:
-          'Chocolate brown, deep olive and forest green all do the job better. Black is not a disaster on a deep autumn the way it is on a light colouring, but it stays a little harder than your own contrast. If you wear it, break it at the neckline with cream or a warm shade.',
+          'Chocolate brown, deep olive and forest green all do the job better. Black is not a disaster on a deep autumn the way it is on a light coloring, but it stays a little harder than your own contrast. If you wear it, break it at the neckline with cream or a warm shade.',
       },
     ],
   },
@@ -450,42 +450,42 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The deep winter (dark winter) color palette: the darkest winter shades plus three from autumn, with hex codes, and how deep winter differs from cool winter.',
     lede: 'Winter at its deepest, with three of autumn’s darkest shades let in.',
     intro: [
-      'Deep winter, or dark winter, is the corner of winter that sits closest to autumn. It stays cool and clear — black and pure white both work here — but depth decides: deep violet, pine green, sapphire and royal blue do more for this colouring than winter’s icy pastels.',
-      'Because it borders autumn, three warm shades work here that no other winter can wear: warm aubergine, brick red and forest green. They are dark enough to keep the palette’s weight, and they are why a deep winter is not restricted to cold colours alone.',
+      'Deep winter, or dark winter, is the corner of winter that sits closest to autumn. It stays cool and clear — black and pure white both work here — but depth decides: deep violet, pine green, sapphire and royal blue do more for this coloring than winter’s icy pastels.',
+      'Because it borders autumn, three warm shades work here that no other winter can wear: warm aubergine, brick red and forest green. They are dark enough to keep the palette’s weight, and they are why a deep winter is not restricted to cold colors alone.',
     ],
     confusion:
-      'Cool winter is the neighbour, and both are cold and strong. The pale end tells them apart: hold icy pink under the chin in daylight. On a cool winter it lifts the face and reads as a proper colour; on a deep winter it looks thin and leaves the face drained, and a charcoal or pine green next to it puts everything back.',
+      'Cool winter is the neighbour, and both are cold and strong. The pale end tells them apart: hold icy pink under the chin in daylight. On a cool winter it lifts the face and reads as a proper color; on a deep winter it looks thin and leaves the face drained, and a charcoal or pine green next to it puts everything back.',
     signs: [
-      'Very dark colours suit you, and pale ones make you look unwell.',
+      'Very dark colors suit you, and pale ones make you look unwell.',
       'People tend to call your look striking rather than gentle.',
       'Black near your face looks deliberate rather than harsh.',
-      'Golden and muted colours such as mustard or khaki turn your skin sallow.',
+      'Golden and muted colors such as mustard or khaki turn your skin sallow.',
     ],
     wearing: [
       {
-        heading: 'One dark shade and one strong colour',
-        body: 'Charcoal or cool navy with sapphire, or black with true red, gives this colouring the weight and clarity it wants at the same time. Three colours at once is more than the palette needs.',
+        heading: 'One dark shade and one strong color',
+        body: 'Charcoal or cool navy with sapphire, or black with true red, gives this coloring the weight and clarity it wants at the same time. Three colors at once is more than the palette needs.',
       },
       {
         heading: 'Keep the borrowed warm shades deep',
-        body: 'Warm aubergine, brick red and forest green work because they are dark. A lighter version of the same warmth — rust or terracotta — sits outside what this colouring can carry, even though it looks like a near relation on the rail.',
+        body: 'Warm aubergine, brick red and forest green work because they are dark. A lighter version of the same warmth — rust or terracotta — sits outside what this coloring can carry, even though it looks like a near relation on the rail.',
       },
     ],
     faq: [
       {
         question: 'What is the difference between deep winter and bright winter?',
         answer:
-          'Deep winter is decided by darkness and bright winter by clarity. Deep winter takes winter’s darkest shades and borrows three dark ones from autumn; bright winter takes the most saturated shades and borrows three warm brights from spring. A deep winter looks overtaken by the clearest colours, and a bright winter looks slightly dulled by the darkest.',
+          'Deep winter is decided by darkness and bright winter by clarity. Deep winter takes winter’s darkest shades and borrows three dark ones from autumn; bright winter takes the most saturated shades and borrows three warm brights from spring. A deep winter looks overtaken by the clearest colors, and a bright winter looks slightly dulled by the darkest.',
       },
       {
         question: 'Why is there no brown in this palette?',
         answer:
-          'Because the neutrals here are pure white, black, charcoal and cool navy, and brown carries the golden warmth that flattens a cold colouring. What brown normally offers — weight without the starkness of black — comes instead from warm aubergine and forest green. Those give you the warmth at a depth your face can take.',
+          'Because the neutrals here are pure white, black, charcoal and cool navy, and brown carries the golden warmth that flattens a cold coloring. What brown normally offers — weight without the starkness of black — comes instead from warm aubergine and forest green. Those give you the warmth at a depth your face can take.',
       },
       {
         question: 'Does deep winter mean I should wear black all the time?',
         answer:
-          'No, though black is genuinely yours. A wardrobe of nothing but black wastes the strongest part of this palette, which is the colour: sapphire, true red, pine green and deep violet all hold their own at the same depth. Use black as the neutral it is, not as the whole outfit.',
+          'No, though black is genuinely yours. A wardrobe of nothing but black wastes the strongest part of this palette, which is the color: sapphire, true red, pine green and deep violet all hold their own at the same depth. Use black as the neutral it is, not as the whole outfit.',
       },
     ],
   },
@@ -500,21 +500,21 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'That middle position is why this palette is winter’s own ten shades and nothing else. Deep winter gives up some coldness in exchange for depth and bright winter gives some up in exchange for brightness, so both hold shades from a neighbour. Cool winter gives up none, which makes it the clearest example of winter rather than a softened one.',
     ],
     confusion:
-      'Bright winter is the neighbour, and both are cold and strong. The borrowed warmth separates them: hold apple green at the jaw in daylight, a bright with yellow in it. A bright winter carries it as one more strong colour; on a cool winter the same shade turns the skin sallow, however bright it is.',
+      'Bright winter is the neighbour, and both are cold and strong. The borrowed warmth separates them: hold apple green at the jaw in daylight, a bright with yellow in it. A bright winter carries it as one more strong color; on a cool winter the same shade turns the skin sallow, however bright it is.',
     signs: [
-      'Cool colours suit you at both extremes, the icy pastels and the deep shades.',
+      'Cool colors suit you at both extremes, the icy pastels and the deep shades.',
       'Pure white and true black both look right next to your face.',
       'Silver and platinum suit you, and gold looks yellow against your skin.',
       'Warm neutrals such as camel and warm beige make you look tired.',
     ],
     wearing: [
       {
-        heading: 'Use the icy shades as your pale colour',
-        body: 'Icy pink and icy blue take the place beige holds in other wardrobes: the light shade that goes under everything. They are the part of this palette most people never think to buy, and they suit you better than any warm pale colour.',
+        heading: 'Use the icy shades as your pale color',
+        body: 'Icy pink and icy blue take the place beige holds in other wardrobes: the light shade that goes under everything. They are the part of this palette most people never think to buy, and they suit you better than any warm pale color.',
       },
       {
-        heading: 'One clear colour with one neutral',
-        body: 'True red with charcoal, emerald with pure white, magenta with cool navy. This colouring reads as considered when the colour stands alone, and as busy when three strong shades compete.',
+        heading: 'One clear color with one neutral',
+        body: 'True red with charcoal, emerald with pure white, magenta with cool navy. This coloring reads as considered when the color stands alone, and as busy when three strong shades compete.',
       },
     ],
     faq: [
@@ -529,9 +529,9 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
           'Because cool winter leans neither way. Borrowing only happens in the direction of the lean, and this subtype stands in the middle, so all ten shades belong to winter itself. That makes the palette the purest winter of the three, not a smaller one.',
       },
       {
-        question: 'Is grey a good neutral for me?',
+        question: 'Is gray a good neutral for me?',
         answer:
-          'Charcoal is, and it is one of this palette’s four neutrals. A mid grey with any warmth in it is less useful, because it neither matches the clarity of your colours nor gives your face the contrast that black and pure white do. When in doubt, go darker with grey rather than lighter.',
+          'Charcoal is, and it is one of this palette’s four neutrals. A mid gray with any warmth in it is less useful, because it neither matches the clarity of your colors nor gives your face the contrast that black and pure white do. When in doubt, go darker with gray rather than lighter.',
       },
     ],
   },
@@ -542,21 +542,21 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
       'The bright winter (clear winter) color palette: the most vivid winter shades plus three from spring, with hex codes, and how it differs from bright spring.',
     lede: 'Winter at its clearest, with three of spring’s warm brights let in.',
     intro: [
-      'Bright winter — clear winter, or vivid winter — is the corner of winter that sits closest to spring. It stays cold, but saturation is what decides: true red, fuchsia, magenta and royal blue at full strength suit this colouring, and the same colours in a greyed version go flat against it.',
+      'Bright winter — clear winter, or vivid winter — is the corner of winter that sits closest to spring. It stays cold, but saturation is what decides: true red, fuchsia, magenta and royal blue at full strength suit this coloring, and the same colors in a grayed version go flat against it.',
       'Because it borders spring, three warm brights belong here that no other winter can wear: bright poppy, golden yellow and apple green. They keep the clarity the palette runs on while bringing a warmth the rest of winter does not have.',
     ],
     confusion:
       'Bright spring is the neighbour, and their brights look nearly identical on a screen. The neutrals decide it: hold a black scarf at the jaw in daylight, then camel. If black looks clean and camel looks muddy, you are a bright winter; a bright spring gets the reverse, with camel flattering and black hardening the face.',
     signs: [
-      'Clear, saturated colours suit you, and dusty ones fall flat.',
+      'Clear, saturated colors suit you, and dusty ones fall flat.',
       'Your eyes are bright and clearly marked against the white of the eye.',
       'There is a strong break between the depth of your hair and your skin.',
       'Muted, heathered fabrics look duller on you than on the hanger.',
     ],
     wearing: [
       {
-        heading: 'Put the strong colour at the neckline',
-        body: 'The brights are what this palette is for, so they belong where your face can benefit: a fuchsia or true red shirt, a royal blue jumper. A dark neutral above the waist wastes the one thing this colouring does better than any other.',
+        heading: 'Put the strong color at the neckline',
+        body: 'The brights are what this palette is for, so they belong where your face can benefit: a fuchsia or true red shirt, a royal blue jumper. A dark neutral above the waist wastes the one thing this coloring does better than any other.',
       },
       {
         heading: 'Warm brights, not warm neutrals',
@@ -565,7 +565,7 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
     ],
     faq: [
       {
-        question: 'Why does this palette contain spring colours?',
+        question: 'Why does this palette contain spring colors?',
         answer:
           'Because bright winter leans towards spring, and bright poppy, golden yellow and apple green are the three clearest shades spring has. Clarity is what they share with the rest of this palette; their warmth is what makes them borrowed rather than native. Used one at a time they are the quickest way to lift an outfit built from black and charcoal.',
       },
@@ -575,9 +575,9 @@ export const SUBTYPE_PAGES: Record<string, SubtypePage> = {
           'Yes. Bright winter, clear winter and vivid winter are three names for the same subtype, and you will meet all three depending on whose system you are reading. Each one means winter pulled towards spring, where saturation rather than depth is the deciding quality.',
       },
       {
-        question: 'These colours feel too loud for me. What then?',
+        question: 'These colors feel too loud for me. What then?',
         answer:
-          'Wear one of them and keep everything else neutral. A single clear colour against black, charcoal or pure white is far quieter than an outfit built from muted shades that leave your face looking grey. Loudness is usually a matter of quantity rather than of the colour itself.',
+          'Wear one of them and keep everything else neutral. A single clear color against black, charcoal or pure white is far quieter than an outfit built from muted shades that leave your face looking gray. Loudness is usually a matter of quantity rather than of the color itself.',
       },
     ],
   },

@@ -183,12 +183,20 @@
 
 .footer__grid {
   display: grid;
+  /* Two columns on a phone. Five link lists stacked in one column made the
+     footer about 5,000px tall with the right half of the screen empty. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4);
+}
+
+/* The description is a paragraph rather than a link list, so it takes the full
+   width above the two columns of lists. */
+.footer__grid > :first-child {
+  grid-column: 1 / -1;
 }
 
 @media (min-width: 48rem) {
   .footer__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-5);
   }
 }
@@ -198,6 +206,10 @@
     /* The first column is the description rather than a link list, so it gets
        the room a paragraph needs and the lists share the rest evenly. */
     grid-template-columns: 1.6fr repeat(5, minmax(0, 1fr));
+  }
+
+  .footer__grid > :first-child {
+    grid-column: auto;
   }
 }
 
@@ -231,6 +243,9 @@
 .footer a {
   color: var(--ink);
   text-decoration: none;
+  /* Long list items ("color-analysis.app alternatives") wrap inside their
+     column instead of pushing the grid wider than the screen. */
+  overflow-wrap: anywhere;
 }
 
 .footer a:hover {
@@ -283,7 +298,7 @@
   background: #fff;
 }
 
-/* One line of colour, read left to right through the four seasons: it shows
+/* One line of color, read left to right through the four seasons: it shows
    the whole product in the space a stock photograph would have wasted. */
 .strips {
   display: flex;
@@ -377,7 +392,7 @@
   }
 }
 
-/* The home and seasonal-colour-analysis heroes. On a phone the finder has to
+/* The home and seasonal-color-analysis heroes. On a phone the finder has to
    reach the first screen, so the intro drops to its opening sentence and the
    palette strips — which only earn their place beside the two-column copy —
    step out until the hero is side by side again. */
@@ -579,7 +594,7 @@
 /* Result ----------------------------------------------------------------- */
 .result__head {
   padding-left: var(--space-3);
-  /* A real border, because each result recolours it inline to its season. */
+  /* A real border, because each result recolors it inline to its season. */
   border-left: 4px solid var(--brand);
 }
 
@@ -633,7 +648,7 @@
   gap: 0.35rem;
 }
 
-/* A two-line colour name used to push its code out of line with the rest of
+/* A two-line color name used to push its code out of line with the rest of
    the row. Subgrid lines the chips, the names and the codes up across the whole
    row; browsers without it keep the flex layout above, which is only untidy,
    not broken. */
@@ -873,7 +888,7 @@
   color: var(--ink-soft);
 }
 
-/* Pills sized to their own label rather than to a grid cell: a colour name
+/* Pills sized to their own label rather than to a grid cell: a color name
    broken over two lines makes a row of them look uneven and accidental. */
 .picker {
   display: flex;
@@ -1237,7 +1252,7 @@
   gap: var(--space-2) var(--space-4);
   /* Without this a single wrapping name stretched every entry beside it to the
      same height, and each of those centred its own content inside that height —
-     so one long name left a whole row of colours sitting at ragged heights. */
+     so one long name left a whole row of colors sitting at ragged heights. */
   align-items: start;
 }
 

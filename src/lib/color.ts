@@ -16,7 +16,7 @@ export function hexToRgb(hex: string): Rgb {
   const clean = hex.trim().replace(/^#/, '');
   const full = clean.length === 3 ? clean.replace(/./g, (c) => c + c) : clean;
   if (!/^[0-9a-fA-F]{6}$/.test(full)) {
-    throw new Error(`Not a valid hex colour: ${hex}`);
+    throw new Error(`Not a valid hex color: ${hex}`);
   }
   const value = Number.parseInt(full, 16);
   return { r: (value >> 16) & 255, g: (value >> 8) & 255, b: value & 255 };
@@ -46,7 +46,7 @@ export function relativeLuminance({ r, g, b }: Rgb): number {
   return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
 }
 
-/** WCAG contrast ratio between two colours, 1–21. */
+/** WCAG contrast ratio between two colors, 1–21. */
 export function contrastRatio(a: Rgb, b: Rgb): number {
   const la = relativeLuminance(a);
   const lb = relativeLuminance(b);
@@ -85,7 +85,7 @@ export function labHueAngle({ a, b }: Lab): number {
   return degrees < 0 ? degrees + 360 : degrees;
 }
 
-/** CIELAB chroma — how saturated a colour is, regardless of lightness. */
+/** CIELAB chroma — how saturated a color is, regardless of lightness. */
 export function labChroma({ a, b }: Lab): number {
   return Math.sqrt(a * a + b * b);
 }

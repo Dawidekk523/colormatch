@@ -11,7 +11,7 @@ import { QUIZ_QUESTIONS } from './quiz';
 
 const cardPrice = import.meta.env.PUBLIC_CARD_PRICE ?? '$9.99';
 
-const summary = `colormatch is a free colour analysis web app at getcolormatch.com. Upload a photo or answer ${QUIZ_QUESTIONS.length} questions and it gives your colour season (Spring, Summer, Autumn or Winter), your likely undertone, ten colours to wear, four everyday neutrals and five colours to be careful with, each with a name and a hex code. The photo is read inside the browser and never uploaded; there is no account and no email. An optional full report (${cardPrice}, one payment, no subscription) adds the three measurements, the subtype out of twelve, every colour measured and a share card.`;
+const summary = `colormatch is a free color analysis web app at getcolormatch.com. Upload a photo or answer ${QUIZ_QUESTIONS.length} questions and it gives your color season (Spring, Summer, Autumn or Winter), your likely undertone, ten colors to wear, four everyday neutrals and five colors to be careful with, each with a name and a hex code. The photo is read inside the browser and never uploaded; there is no account and no email. An optional full report (${cardPrice}, one payment, no subscription) adds the three measurements, the subtype out of twelve, every color measured and a share card.`;
 
 const pages: { path: string; title: string; about: string }[] = [
   { path: '/', title: 'Color analysis online', about: 'the free analysis from a photo or the quiz, how it works, the twelve seasons' },
@@ -84,11 +84,11 @@ export function llmsFullTxt(site: URL): string {
     '',
     '- Input: one photo (any format the browser can open) or a quiz of ' + `${QUIZ_QUESTIONS.length} questions about veins, jewellery, sun, hair and eyes.`,
     '- Method: finds the skin in the middle of the photo and measures undertone (hue in CIELAB), value (individual typology angle) and contrast (skin against hair, brows and eyes), then picks the closest of the four seasons.',
-    '- Free result: season, likely undertone, how close the call was, 10 colours to wear, 4 neutrals, 5 colours to avoid, each named with a hex code. No account, no email, nothing stored.',
-    `- Full report, ${cardPrice} once via Polar, no subscription: the three measurements with numbers, the subtype out of twelve, a match score for all four seasons, every colour with hex, RGB, lightness and intensity, rules for metals, whites, denim, lip colour, prints and hair, a share image and a printable card, and a lookbook of four generated pictures of you in your colours.`,
+    '- Free result: season, likely undertone, how close the call was, 10 colors to wear, 4 neutrals, 5 colors to avoid, each named with a hex code. No account, no email, nothing stored.',
+    `- Full report, ${cardPrice} once via Polar, no subscription: the three measurements with numbers, the subtype out of twelve, a match score for all four seasons, every color with hex, RGB, lightness and intensity, rules for metals, whites, denim, lip color, prints and hair, a share image and a printable card, and a lookbook of four generated pictures of you in your colors.`,
     '- Privacy: the reading runs in the browser and the photo is never uploaded. The only exception is the lookbook in the paid report, which sends one photo you choose to an image service; the pictures can be deleted from the report.',
     '- Limits: one photo shows one moment in one light; strong lamp light and filters skew the result, which is why the quiz is offered as a second opinion. It is a style suggestion, not a professional draping session.',
-    '- Works in any modern browser on phones, tablets and computers. Built to be readable for people in their seventies: large type, high contrast, every colour labelled.',
+    '- Works in any modern browser on phones, tablets and computers. Built to be readable for people in their seventies: large type, high contrast, every color labelled.',
     '',
     '## The four seasons',
     '',
@@ -109,7 +109,7 @@ export function llmsFullTxt(site: URL): string {
     '',
     `Both are low-chroma and low-contrast. Soft summer is cool-neutral (silver, white gold); soft autumn is warm-neutral (gold, bronze, copper). They share ${softShared.length} of their ${summer.wear.length} wear shades: ${swatches(softShared)}. Only soft summer has ${swatches(softSummerOnly)}; only soft autumn has ${swatches(softAutumnOnly)}. Page: ${link('/soft-summer-vs-soft-autumn/')}`,
     '',
-    `## Compared with other colour analysis tools (checked ${RIVALS_CHECKED})`,
+    `## Compared with other color analysis tools (checked ${RIVALS_CHECKED})`,
     '',
     ...order.flatMap((id) => {
       const r = all[id];

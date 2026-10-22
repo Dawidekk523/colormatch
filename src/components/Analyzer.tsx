@@ -58,7 +58,7 @@ interface AnalyzerProps {
    * The comparison pages read as a document, so the sample faces there are
    * photographs with a caption underneath rather than framed cards. They also
    * load at once: on those pages the strip sits in the opening screen, and a
-   * lazy image that has not been scrolled to leaves an empty grey square.
+   * lazy image that has not been scrolled to leaves an empty gray square.
    */
   bareSamples?: boolean;
 }
@@ -219,7 +219,7 @@ export function Analyzer({ bareSamples = false }: AnalyzerProps) {
 
   if (shown) {
     return (
-      <div className="analyzer analyzer--result" ref={resultRef} tabIndex={-1} aria-label="Your colour result">
+      <div className="analyzer analyzer--result" ref={resultRef} tabIndex={-1} aria-label="Your color result">
         {preview ? (
           <p className="analyzer__preview-line">
             <img className="analyzer__preview" src={preview} alt="" width={96} height={96} />

@@ -8,8 +8,8 @@ interface Props {
 
 /**
  * Side-by-side comparison on one photograph: drag the handle, or use the arrow
- * keys, to swap between a colour that suits the season and one that fights it.
- * The two colours are also named in words underneath, so the slider is never
+ * keys, to swap between a color that suits the season and one that fights it.
+ * The two colors are also named in words underneath, so the slider is never
  * the only way to understand the point.
  */
 export function ColourCompare({ season = 'summer' }: Props) {
@@ -69,11 +69,11 @@ export function ColourCompare({ season = 'summer' }: Props) {
       <figcaption className="compare__caption">
         <span className="compare__side">
           <span className="compare__chip" style={{ background: poor.hex }} aria-hidden="true" />
-          Left: {poor.name} — fights a {data.name} colouring
+          Left: {poor.name} — fights a {data.name} coloring
         </span>
         <span className="compare__side">
           <span className="compare__chip" style={{ background: good.hex }} aria-hidden="true" />
-          Right: {good.name} — a {data.name} colour
+          Right: {good.name} — a {data.name} color
         </span>
       </figcaption>
     </figure>

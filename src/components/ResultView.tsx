@@ -76,19 +76,19 @@ export function ResultView({
       </div>
 
       <Swatches
-        title={`Colours to wear: ${data.name}`}
-        description="These are the colours that usually work best near your face — tops, scarves, glasses and lipstick."
+        title={`Colors to wear: ${data.name}`}
+        description="These are the colors that usually work best near your face — tops, scarves, glasses and lipstick."
         swatches={data.wear}
       />
 
       <Swatches
         title="Your best neutrals"
-        description="Everyday colours for coats, trousers and bags that go with everything above."
+        description="Everyday colors for coats, trousers and bags that go with everything above."
         swatches={data.neutrals}
       />
 
       <Swatches
-        title="Colours to be careful with"
+        title="Colors to be careful with"
         description={data.avoidReason}
         swatches={data.avoid}
         tone="avoid"
@@ -117,7 +117,7 @@ export function ResultView({
 
       <p className="note">
         This is a guide for choosing clothes, not a measurement. Screens, lighting and make-up all change
-        how colour looks, and it is not any kind of health or medical assessment. If a colour makes you
+        how color looks, and it is not any kind of health or medical assessment. If a color makes you
         feel good, wear it.
       </p>
 

@@ -124,7 +124,7 @@ export function axisReadings(metrics: ResultMetrics): AxisReading[] {
       verdict:
         Math.abs(metrics.warm) < 15
           ? 'Your skin sits between the two, which is what a neutral undertone looks like.'
-          : `Your skin reads ${strength(metrics.warm)} ${side(metrics.warm, 'cool', 'warm')}, so ${side(metrics.warm, 'blue-based', 'golden')} versions of a colour suit you better than ${side(metrics.warm, 'golden', 'blue-based')} ones.`,
+          : `Your skin reads ${strength(metrics.warm)} ${side(metrics.warm, 'cool', 'warm')}, so ${side(metrics.warm, 'blue-based', 'golden')} versions of a color suit you better than ${side(metrics.warm, 'golden', 'blue-based')} ones.`,
     },
     {
       id: 'depth',
@@ -134,8 +134,8 @@ export function axisReadings(metrics: ResultMetrics): AxisReading[] {
       value: metrics.light,
       verdict:
         metrics.light >= 0
-          ? `Your colouring is ${strength(metrics.light)} light, so colours that stay lifted suit you better than heavy ones.`
-          : `Your colouring is ${strength(metrics.light)} deep, so a colour has to carry some weight to hold its own next to you.`,
+          ? `Your coloring is ${strength(metrics.light)} light, so colors that stay lifted suit you better than heavy ones.`
+          : `Your coloring is ${strength(metrics.light)} deep, so a color has to carry some weight to hold its own next to you.`,
     },
     {
       id: 'clarity',
@@ -145,8 +145,8 @@ export function axisReadings(metrics: ResultMetrics): AxisReading[] {
       value: metrics.clear,
       verdict:
         metrics.clear >= 0
-          ? `The difference between your hair, skin and eyes is ${strength(metrics.clear)} marked, so clean, saturated colour suits you.`
-          : `Your features blend into one another, so dusty and muted colours suit you better than bright ones.`,
+          ? `The difference between your hair, skin and eyes is ${strength(metrics.clear)} marked, so clean, saturated color suits you.`
+          : `Your features blend into one another, so dusty and muted colors suit you better than bright ones.`,
     },
   ];
 }
@@ -274,14 +274,14 @@ export function wardrobeRules(season: SeasonId, metrics: ResultMetrics): Wardrob
 
   return {
     metals: warm
-      ? 'Gold, brass and bronze. Silver goes grey and flat against warm skin.'
+      ? 'Gold, brass and bronze. Silver goes gray and flat against warm skin.'
       : cool
         ? 'Silver, platinum and white gold. Yellow gold pulls sallow.'
         : 'Both work. Rose gold and mixed-metal pieces are the safest buy.',
     whites: warm
       ? 'Ivory, cream and off-white. Optic white drains you.'
       : cool
-        ? 'Optic white and cool grey-white. Cream turns your skin yellow.'
+        ? 'Optic white and cool gray-white. Cream turns your skin yellow.'
         : 'Soft white — one step off optic, one step off cream.',
     denim: cool
       ? light
@@ -292,7 +292,7 @@ export function wardrobeRules(season: SeasonId, metrics: ResultMetrics): Wardrob
         : 'Deep blue and brown-cast washes; avoid stark blue-black.',
     lipstick: LIPSTICK[season],
     prints: clear
-      ? 'High-contrast prints — the pattern should be as decisive as your colouring.'
+      ? 'High-contrast prints — the pattern should be as decisive as your coloring.'
       : 'Tonal prints, two or three shades of the same family. Sharp contrast overwhelms you.',
     hair: warm
       ? 'Warm brown, honey and copper tones. Ash toners fight your skin.'
@@ -415,8 +415,8 @@ export const REPORT_EXTRAS: { title: string; detail: string; icon: IconName }[] 
     detail: 'The angles your photo gave, or the points your answers scored.',
   },
   {
-    icon: 'colours',
-    title: 'Every colour measured',
+    icon: 'colors',
+    title: 'Every color measured',
     detail: 'Hex, RGB, lightness and intensity for all nineteen.',
   },
   {
@@ -432,6 +432,6 @@ export const REPORT_EXTRAS: { title: string; detail: string; icon: IconName }[] 
   {
     icon: 'subtype',
     title: 'A lookbook of you',
-    detail: 'Four pictures of you wearing your own colours, if you ask for them.',
+    detail: 'Four pictures of you wearing your own colors, if you ask for them.',
   },
 ];

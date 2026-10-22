@@ -138,7 +138,7 @@ export function Lookbook({ token }: Props) {
     <section className="stack lookbook">
       <h3>Your lookbook</h3>
       <p>
-        Four pictures of you wearing your own colours, made from a photo you choose here. Unlike the reading,
+        Four pictures of you wearing your own colors, made from a photo you choose here. Unlike the reading,
         this one does leave your device: the photo is sent to an image service, used once, and not stored by
         us. The pictures that come back are kept with this report and you can delete them at any time.
       </p>
