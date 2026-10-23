@@ -29,3 +29,6 @@ RESULT_DAILY_LIMIT = "20"
 # generate in total, including retries.
 LOOKBOOK_MODEL = "gemini-3.1-flash-image"
 LOOKBOOK_MAX_IMAGES = "8"
+
+[observability.issues]
+enabled = true
