@@ -30,5 +30,3 @@ RESULT_DAILY_LIMIT = "20"
 LOOKBOOK_MODEL = "gemini-3.1-flash-image"
 LOOKBOOK_MAX_IMAGES = "8"
 
-[observability.issues]
-enabled = true
