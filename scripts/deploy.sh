@@ -17,6 +17,8 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1
 fi
 
+# Same dependency tree as package-lock.json, as the old CI had.
+npm ci
 npm run lint
 npm run typecheck
 npm test
