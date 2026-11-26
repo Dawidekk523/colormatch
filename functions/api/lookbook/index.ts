@@ -228,7 +228,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const result = await generate(
     env.GEMINI_API_KEY,
-    env.LOOKBOOK_MODEL ?? 'gemini-3.1-flash-image',
+    env.LOOKBOOK_MODEL ?? 'gemini-nano-banana-2.1',
     photo,
     promptFor(look, swatch),
   );

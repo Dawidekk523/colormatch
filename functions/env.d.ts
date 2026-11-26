@@ -34,7 +34,7 @@ declare global {
     LOOKBOOK?: R2Bucket;
     /** Gemini key for the image model. Absent means the feature is off. */
     GEMINI_API_KEY?: string;
-    /** Gemini image model id, e.g. `gemini-3.1-flash-image`. */
+    /** Gemini image model id, e.g. `gemini-nano-banana-2.1`. */
     LOOKBOOK_MODEL?: string;
     /** How many images one purchase may generate in total. */
     LOOKBOOK_MAX_IMAGES?: string;

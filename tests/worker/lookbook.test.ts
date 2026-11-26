@@ -138,7 +138,9 @@ describe('the lookbook endpoint', () => {
     const db = fakeDb({ paid_at: '2026-09-16', palette_json: PALETTE });
     const bucket = fakeBucket();
     let sent = '';
-    vi.stubGlobal('fetch', async (_url: string, init: RequestInit) => {
+    let calledUrl = '';
+    vi.stubGlobal('fetch', async (url: string, init: RequestInit) => {
+      calledUrl = url;
       sent = String(init.body);
       return new Response(
         JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ inlineData: { mimeType: 'image/png', data: btoa('png-bytes') } }] } }] }),
@@ -152,6 +154,7 @@ describe('the lookbook endpoint', () => {
     );
 
     expect(response.status).toBe(200);
+    expect(calledUrl).toContain('/models/gemini-nano-banana-2.1:generateContent');
     const prompt = sent;
     expect(prompt).toContain('#8FB3D1');
     expect(prompt).toContain('the same face');
